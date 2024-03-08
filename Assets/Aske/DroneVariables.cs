@@ -30,5 +30,7 @@ public class DroneVariables : MonoBehaviour
         float droneClearance=terrainHeight-droneHeight;
         float posDroneClearance = Mathf.Abs(droneClearance);
         clearanceText.text = "Clearance:\n" + posDroneClearance.ToString("F2") + " m";
+
+        Debug.Log("Drone height: " + droneHeight + " " + "Terrain height: " + terrainHeight);
     }
 }
