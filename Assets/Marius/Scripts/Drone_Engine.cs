@@ -17,7 +17,7 @@ namespace MariusNameSpace
 
         [Header("Propeller Properties")]
         [SerializeField] private Transform propeller;
-        [SerializeField] private float propRotSpeed = 300f;
+        [SerializeField] private float propRotSpeed = 100f;
         #endregion
 
 
