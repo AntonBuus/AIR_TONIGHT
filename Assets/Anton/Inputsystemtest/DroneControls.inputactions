@@ -24,31 +24,31 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "RotateLeft",
-                    "type": "Button",
+                    "name": "Rotate",
+                    "type": "Value",
                     "id": "ae89e56c-aef3-4af6-95c4-7010972dd8bf",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Stick",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "RotateRight",
-                    "type": "Button",
-                    "id": "3e80d51e-964a-4e11-a7f3-d24d40384f2b",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Move1",
                     "type": "Value",
                     "id": "c14ce421-b094-44f1-88ca-ca4e600af9bf",
-                    "expectedControlType": "",
+                    "expectedControlType": "Stick",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Grow",
+                    "type": "Button",
+                    "id": "ef3a1be8-453e-480c-8685-42fe7e6fb492",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -77,22 +77,11 @@
                 {
                     "name": "",
                     "id": "738c7e31-537c-43ec-9eee-f9db3be9dd0b",
-                    "path": "<Gamepad>/leftStick/left",
+                    "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "RotateLeft",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2d8e43aa-6b33-4957-a7d2-f1d82110ae65",
-                    "path": "<Gamepad>/leftStick/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RotateRight",
+                    "action": "Rotate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -109,14 +98,64 @@
                 },
                 {
                     "name": "",
-                    "id": "82c67fdf-46c1-4a79-a6ac-0921c1245d6d",
-                    "path": "<DualShockGamepad>/leftStick",
+                    "id": "63a1c4cd-7552-48d5-b2ac-0fa874485d46",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move1",
+                    "action": "Grow",
                     "isComposite": false,
                     "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Drone2",
+            "id": "fa21216b-4439-4160-89ae-24dc1fb23ec4",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "307fb7cd-4406-4c32-a7cf-dead583424a6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "Right_X",
+                    "id": "c86160f0-7cd7-4f40-9357-e1a367645557",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "adce9eae-fec6-417c-a2e5-32df3f771cb8",
+                    "path": "<Gamepad>/rightStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "1614784d-478b-4951-83af-4979d942cc1d",
+                    "path": "<Gamepad>/rightStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

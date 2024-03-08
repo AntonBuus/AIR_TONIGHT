@@ -46,31 +46,31 @@ public partial class @DroneControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""RotateLeft"",
-                    ""type"": ""Button"",
+                    ""name"": ""Rotate"",
+                    ""type"": ""Value"",
                     ""id"": ""ae89e56c-aef3-4af6-95c4-7010972dd8bf"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Stick"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""RotateRight"",
-                    ""type"": ""Button"",
-                    ""id"": ""3e80d51e-964a-4e11-a7f3-d24d40384f2b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Move1"",
                     ""type"": ""Value"",
                     ""id"": ""c14ce421-b094-44f1-88ca-ca4e600af9bf"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Stick"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Grow"",
+                    ""type"": ""Button"",
+                    ""id"": ""ef3a1be8-453e-480c-8685-42fe7e6fb492"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -99,22 +99,11 @@ public partial class @DroneControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""738c7e31-537c-43ec-9eee-f9db3be9dd0b"",
-                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""RotateLeft"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2d8e43aa-6b33-4957-a7d2-f1d82110ae65"",
-                    ""path"": ""<Gamepad>/leftStick/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RotateRight"",
+                    ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -131,14 +120,64 @@ public partial class @DroneControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""82c67fdf-46c1-4a79-a6ac-0921c1245d6d"",
-                    ""path"": ""<DualShockGamepad>/leftStick"",
+                    ""id"": ""63a1c4cd-7552-48d5-b2ac-0fa874485d46"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Move1"",
+                    ""action"": ""Grow"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Drone2"",
+            ""id"": ""fa21216b-4439-4160-89ae-24dc1fb23ec4"",
+            ""actions"": [
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""307fb7cd-4406-4c32-a7cf-dead583424a6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""Right_X"",
+                    ""id"": ""c86160f0-7cd7-4f40-9357-e1a367645557"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""adce9eae-fec6-417c-a2e5-32df3f771cb8"",
+                    ""path"": ""<Gamepad>/rightStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""1614784d-478b-4951-83af-4979d942cc1d"",
+                    ""path"": ""<Gamepad>/rightStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -149,9 +188,12 @@ public partial class @DroneControls: IInputActionCollection2, IDisposable
         m_Drone1 = asset.FindActionMap("Drone1", throwIfNotFound: true);
         m_Drone1_Acend = m_Drone1.FindAction("Acend", throwIfNotFound: true);
         m_Drone1_Decend = m_Drone1.FindAction("Decend", throwIfNotFound: true);
-        m_Drone1_RotateLeft = m_Drone1.FindAction("RotateLeft", throwIfNotFound: true);
-        m_Drone1_RotateRight = m_Drone1.FindAction("RotateRight", throwIfNotFound: true);
+        m_Drone1_Rotate = m_Drone1.FindAction("Rotate", throwIfNotFound: true);
         m_Drone1_Move1 = m_Drone1.FindAction("Move1", throwIfNotFound: true);
+        m_Drone1_Grow = m_Drone1.FindAction("Grow", throwIfNotFound: true);
+        // Drone2
+        m_Drone2 = asset.FindActionMap("Drone2", throwIfNotFound: true);
+        m_Drone2_Move = m_Drone2.FindAction("Move", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -215,18 +257,18 @@ public partial class @DroneControls: IInputActionCollection2, IDisposable
     private List<IDrone1Actions> m_Drone1ActionsCallbackInterfaces = new List<IDrone1Actions>();
     private readonly InputAction m_Drone1_Acend;
     private readonly InputAction m_Drone1_Decend;
-    private readonly InputAction m_Drone1_RotateLeft;
-    private readonly InputAction m_Drone1_RotateRight;
+    private readonly InputAction m_Drone1_Rotate;
     private readonly InputAction m_Drone1_Move1;
+    private readonly InputAction m_Drone1_Grow;
     public struct Drone1Actions
     {
         private @DroneControls m_Wrapper;
         public Drone1Actions(@DroneControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Acend => m_Wrapper.m_Drone1_Acend;
         public InputAction @Decend => m_Wrapper.m_Drone1_Decend;
-        public InputAction @RotateLeft => m_Wrapper.m_Drone1_RotateLeft;
-        public InputAction @RotateRight => m_Wrapper.m_Drone1_RotateRight;
+        public InputAction @Rotate => m_Wrapper.m_Drone1_Rotate;
         public InputAction @Move1 => m_Wrapper.m_Drone1_Move1;
+        public InputAction @Grow => m_Wrapper.m_Drone1_Grow;
         public InputActionMap Get() { return m_Wrapper.m_Drone1; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -242,15 +284,15 @@ public partial class @DroneControls: IInputActionCollection2, IDisposable
             @Decend.started += instance.OnDecend;
             @Decend.performed += instance.OnDecend;
             @Decend.canceled += instance.OnDecend;
-            @RotateLeft.started += instance.OnRotateLeft;
-            @RotateLeft.performed += instance.OnRotateLeft;
-            @RotateLeft.canceled += instance.OnRotateLeft;
-            @RotateRight.started += instance.OnRotateRight;
-            @RotateRight.performed += instance.OnRotateRight;
-            @RotateRight.canceled += instance.OnRotateRight;
+            @Rotate.started += instance.OnRotate;
+            @Rotate.performed += instance.OnRotate;
+            @Rotate.canceled += instance.OnRotate;
             @Move1.started += instance.OnMove1;
             @Move1.performed += instance.OnMove1;
             @Move1.canceled += instance.OnMove1;
+            @Grow.started += instance.OnGrow;
+            @Grow.performed += instance.OnGrow;
+            @Grow.canceled += instance.OnGrow;
         }
 
         private void UnregisterCallbacks(IDrone1Actions instance)
@@ -261,15 +303,15 @@ public partial class @DroneControls: IInputActionCollection2, IDisposable
             @Decend.started -= instance.OnDecend;
             @Decend.performed -= instance.OnDecend;
             @Decend.canceled -= instance.OnDecend;
-            @RotateLeft.started -= instance.OnRotateLeft;
-            @RotateLeft.performed -= instance.OnRotateLeft;
-            @RotateLeft.canceled -= instance.OnRotateLeft;
-            @RotateRight.started -= instance.OnRotateRight;
-            @RotateRight.performed -= instance.OnRotateRight;
-            @RotateRight.canceled -= instance.OnRotateRight;
+            @Rotate.started -= instance.OnRotate;
+            @Rotate.performed -= instance.OnRotate;
+            @Rotate.canceled -= instance.OnRotate;
             @Move1.started -= instance.OnMove1;
             @Move1.performed -= instance.OnMove1;
             @Move1.canceled -= instance.OnMove1;
+            @Grow.started -= instance.OnGrow;
+            @Grow.performed -= instance.OnGrow;
+            @Grow.canceled -= instance.OnGrow;
         }
 
         public void RemoveCallbacks(IDrone1Actions instance)
@@ -287,12 +329,62 @@ public partial class @DroneControls: IInputActionCollection2, IDisposable
         }
     }
     public Drone1Actions @Drone1 => new Drone1Actions(this);
+
+    // Drone2
+    private readonly InputActionMap m_Drone2;
+    private List<IDrone2Actions> m_Drone2ActionsCallbackInterfaces = new List<IDrone2Actions>();
+    private readonly InputAction m_Drone2_Move;
+    public struct Drone2Actions
+    {
+        private @DroneControls m_Wrapper;
+        public Drone2Actions(@DroneControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Move => m_Wrapper.m_Drone2_Move;
+        public InputActionMap Get() { return m_Wrapper.m_Drone2; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(Drone2Actions set) { return set.Get(); }
+        public void AddCallbacks(IDrone2Actions instance)
+        {
+            if (instance == null || m_Wrapper.m_Drone2ActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_Drone2ActionsCallbackInterfaces.Add(instance);
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
+        }
+
+        private void UnregisterCallbacks(IDrone2Actions instance)
+        {
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
+        }
+
+        public void RemoveCallbacks(IDrone2Actions instance)
+        {
+            if (m_Wrapper.m_Drone2ActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IDrone2Actions instance)
+        {
+            foreach (var item in m_Wrapper.m_Drone2ActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_Drone2ActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public Drone2Actions @Drone2 => new Drone2Actions(this);
     public interface IDrone1Actions
     {
         void OnAcend(InputAction.CallbackContext context);
         void OnDecend(InputAction.CallbackContext context);
-        void OnRotateLeft(InputAction.CallbackContext context);
-        void OnRotateRight(InputAction.CallbackContext context);
+        void OnRotate(InputAction.CallbackContext context);
         void OnMove1(InputAction.CallbackContext context);
+        void OnGrow(InputAction.CallbackContext context);
+    }
+    public interface IDrone2Actions
+    {
+        void OnMove(InputAction.CallbackContext context);
     }
 }
