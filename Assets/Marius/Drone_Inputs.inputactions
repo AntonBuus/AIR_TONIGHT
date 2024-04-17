@@ -103,7 +103,7 @@
                 {
                     "name": "up",
                     "id": "02bc3a1b-2ef6-4549-9981-adeb9a6d20b5",
-                    "path": "<XInputController>/leftStick/up",
+                    "path": "<Gamepad>/rightStick/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -114,7 +114,7 @@
                 {
                     "name": "down",
                     "id": "5492ce9a-ed45-4417-afdc-9bd4c569e27d",
-                    "path": "<XInputController>/leftStick/down",
+                    "path": "<Gamepad>/rightStick/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -125,7 +125,7 @@
                 {
                     "name": "left",
                     "id": "0f9df74b-b6a8-4327-a22f-1013ee2ee027",
-                    "path": "<XInputController>/leftStick/left",
+                    "path": "<Gamepad>/rightStick/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -136,7 +136,7 @@
                 {
                     "name": "right",
                     "id": "9b1df9e1-bf2e-4846-a3ce-09fc95278e0c",
-                    "path": "<XInputController>/leftStick/right",
+                    "path": "<Gamepad>/rightStick/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -246,7 +246,7 @@
                 {
                     "name": "negative",
                     "id": "8ab7f3bc-d040-40e6-b92c-1fc03240cdef",
-                    "path": "<XInputController>/rightStick/left",
+                    "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -257,7 +257,7 @@
                 {
                     "name": "positive",
                     "id": "0dd5139b-5ed0-4c5a-8d26-d1fed0073241",
-                    "path": "<XInputController>/rightStick/right",
+                    "path": "<Gamepad>/leftStick/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
