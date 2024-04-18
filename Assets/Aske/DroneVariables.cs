@@ -22,11 +22,15 @@ public class DroneVariables : MonoBehaviour
     {
         Vector3 v3Vel = rb.velocity;
         float vel=v3Vel.magnitude;
-        speedText.text = "Speed: "+vel*3.6+" km/h";
+        float velKMH = vel * 3.6f;
+        speedText.text = "Speed:\n" + velKMH.ToString("F2")+ " km/h";
         float droneHeight = transform.position.y;
-        heightText.text = "Height: " + droneHeight+ " m";
+        heightText.text = "Height:\n" + droneHeight.ToString("F2") + " m";
         float terrainHeight = Terrain.activeTerrain.SampleHeight(transform.position);
         float droneClearance=terrainHeight-droneHeight;
-        clearanceText.text = "Clearance: " + Mathf.Abs(droneClearance) + " m";
+        float posDroneClearance = Mathf.Abs(droneClearance);
+        clearanceText.text = "Clearance:\n" + posDroneClearance.ToString("F2") + " m";
+
+        Debug.Log("Drone height: " + droneHeight + " " + "Terrain height: " + terrainHeight);
     }
 }
