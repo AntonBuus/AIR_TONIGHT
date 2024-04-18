@@ -9,16 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31ad2ae223750974380ba545a828f9a1, type: 3}
-  m_Name: Wing1
+  m_Script: {fileID: 11500000, guid: b2259abb5766d4142be1b125146b51ad, type: 3}
+  m_Name: AirResistanceDefaults
   m_EditorClassIdentifier: 
-  liftSlope: 6.28
-  skinFriction: 0.02
-  zeroLiftAoA: -3
-  stallAngleHigh: 15
-  stallAngleLow: -15
-  chord: 1.47
-  flapFraction: 0.2
-  span: 5.26
-  autoAspectRatio: 0
-  aspectRatio: 7
+  defaultAirDensity: 1.225
+  defaultDensityVariation: 0.5

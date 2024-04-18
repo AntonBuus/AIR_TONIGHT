@@ -1,15 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class AirplaneController : MonoBehaviour
 {
-    public InputActionProperty InputThrust;
-    public InputActionProperty InputFlap;
-    public InputActionProperty InputBrakes;
-
-
     [SerializeField]
     List<AeroSurface> controlSurfaces = null;
     [SerializeField]
@@ -46,21 +40,23 @@ public class AirplaneController : MonoBehaviour
 
     private void Update()
     {
-        //Pitch = Input.GetAxis("Vertical");
-        //Roll = Input.GetAxis("Horizontal");
+        Pitch = Input.GetAxis("Vertical");
+        Roll = Input.GetAxis("Horizontal");
         //Yaw = Input.GetAxis("Yaw");
 
-        if (InputThrust.action.WasPressedThisFrame())
+        
+        if (Input.GetKeyDown(KeyCode.Space))
         {
+            print("Thrust");
             thrustPercent = thrustPercent > 0 ? 0 : 1f;
         }
 
-        if (InputFlap.action.WasPressedThisFrame())
+        if (Input.GetKeyDown(KeyCode.F))
         {
             Flap = Flap > 0 ? 0 : 0.3f;
         }
 
-        if (InputBrakes.action.WasPressedThisFrame())
+        if (Input.GetKeyDown(KeyCode.B))
         {
             brakesTorque = brakesTorque > 0 ? 0 : 100f;
         }
