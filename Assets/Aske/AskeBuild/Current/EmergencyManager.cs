@@ -15,20 +15,15 @@ namespace AskeNameSpace
         // Array containing emergency events defined in the class "EmergencyEvents"
         [SerializeField] public EmergencyEvents[] _emergencyEvents;
 
-        // Placeholder method
-
+        /*
         private void Start()
         {
-            Emergency();
+            RandomEmergency()
         }
-
-        private void Emergency()
-        {
-            CauseEmergency();
-        }
+        */
 
         // Method where the emergency is caused
-        private void CauseEmergency()
+        private void RandomEmergency()
         {
             float _totalChance = 0f;
             foreach (EmergencyEvents _events in _emergencyEvents)
@@ -51,30 +46,39 @@ namespace AskeNameSpace
                     return;
                 }
             }
-
         }
-        #region Event Logic
-        #endregion
 
-        #region GPS jam
+        #region Emergency event methods
         public void GPSjam()
         {
             Debug.Log("GPS jam");
+            _emergencyEvents[0]._emergencyChance = 0f;
+            BrokenOnTakeoffEmergency();
         }
-        #endregion
-        #region Tablet connection loss
+
         public void TabletConnLoss()
         {
             Debug.Log("Tablet connection loss");
+            _emergencyEvents[1]._emergencyChance = 0f;
+            BrokenOnTakeoffEmergency();
         }
-        #endregion
-        #region Low battery
-        public void LowBattery()
-        {
-            Debug.Log("Low battery");
+
+        public void BrokenOnTakeoffEmergency()
+        { 
+            int placeholder = 0;
+            if (/*no checklist*/ placeholder == 0)
+            {
+                Debug.Log("Broken on takeoff due to no checklist");
+                _emergencyEvents[2]._emergencyChance = 0f;
+            }
+            else if (_emergencyEvents[1]._emergencyChance == 0f && _emergencyEvents[0]._emergencyChance == 0f)
+            {
+                Debug.Log("Broken on takeoff");
+                _emergencyEvents[2]._emergencyChance = 0f;
+            }
         }
-        #endregion
     }
+    #endregion
 
     // Class defining the array "_emergencyEvents"
     [System.Serializable]
