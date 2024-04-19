@@ -16,14 +16,12 @@ using UnityEngine.InputSystem;
         [SerializeField] float pitchControlSensitivity = 0.2f;
         [SerializeField] float yawControlSensitivity = 0.2f;
 
-        [Range(-1, 1)] public float Pitch;
-        [Range(-1, 1)] public float Yaw;
-        [Range(-1, 1)] public float Roll;
         [Range(0, 1)] public float Flap;
 
         [SerializeField] Text displayText = null;
 
-        float thrustPercent;
+        [Range(0, 100)] float thrustPercent;
+
         float brakesTorque;
 
         private AircraftPhysics aircraftPhysics;
@@ -39,16 +37,11 @@ using UnityEngine.InputSystem;
 
         private void Update()
         {
-            //Pitch = Input.GetAxis("Vertical");
-            //Roll = Input.GetAxis("Horizontal");
-            //Yaw = Input.GetAxis("Yaw");
-
-
-            if (Input.GetKeyDown(KeyCode.Space))
+            /*if (Input.GetKeyDown(KeyCode.Space))
             {
-                print("Thrust");
-                thrustPercent = thrustPercent > 0 ? 0 : 1f;
-            }
+                thrustPercent = FWInputs.Throttle;
+                //thrustPercent = thrustPercent > 0 ? 0 : 1f;
+            }*/
 
             if (Input.GetKeyDown(KeyCode.F))
             {
@@ -68,7 +61,10 @@ using UnityEngine.InputSystem;
 
         private void FixedUpdate()
         {
-            SetControlSurfecesAngles(FWInputs.Cyclic.y, FWInputs.Cyclic.x, -FWInputs.Pedals, Flap);
+         thrustPercent = Mathf.Clamp(thrustPercent + FWInputs.Throttle, -1, 1); //This line sets thrustPercent according to the value of the Throttle input, limited to a value between 0 and 1.
+        
+
+        SetControlSurfecesAngles(FWInputs.Pitch, FWInputs.Roll, -FWInputs.Yaw, Flap);
             aircraftPhysics.SetThrustPercent(thrustPercent);
             foreach (var wheel in wheels)
             {
