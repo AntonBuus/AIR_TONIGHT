@@ -61,7 +61,7 @@ using UnityEngine.InputSystem;
 
         private void FixedUpdate()
         {
-         thrustPercent = Mathf.Clamp(thrustPercent + FWInputs.Throttle, -1, 1); //This line sets thrustPercent according to the value of the Throttle input, limited to a value between 0 and 1.
+         thrustPercent = Mathf.Clamp(thrustPercent + FWInputs.Throttle, 0, 1); //This line sets thrustPercent according to the value of the Throttle input, limited to a value between 0 and 1.
         
 
         SetControlSurfecesAngles(FWInputs.Pitch, FWInputs.Roll, -FWInputs.Yaw, Flap);
@@ -100,7 +100,7 @@ using UnityEngine.InputSystem;
         /*private void OnDrawGizmos()
         {
             if (!Application.isPlaying)
-                SetControlSurfecesAngles(FWInputs.Cyclic.y, FWInputs.Cyclic.x, FWInputs.Pedals, Flap);
+                SetControlSurfecesAngles(FWInputs.Pitch, FWInputs.Roll, FWInputs.Yaw, Flap);
         }*/
     }
 
