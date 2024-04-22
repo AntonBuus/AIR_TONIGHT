@@ -926,6 +926,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 236261015}
   m_Mesh: {fileID: -8803937527578110353, guid: 8ec99e3f99762784982ad7f4e50109ef, type: 3}
+--- !u!4 &241192574 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4729390279304836288, guid: a4bf8d7eaae44c640a941e8f60cb73f3, type: 3}
+  m_PrefabInstance: {fileID: 640973279}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &251535524
 GameObject:
   m_ObjectHideFlags: 0
@@ -2426,6 +2431,79 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 625136544}
   m_Mesh: {fileID: -5053925668127403250, guid: 8ec99e3f99762784982ad7f4e50109ef, type: 3}
+--- !u!1001 &640973279
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 785858314}
+    m_Modifications:
+    - target: {fileID: 4039232362256886299, guid: a4bf8d7eaae44c640a941e8f60cb73f3, type: 3}
+      propertyPath: m_Name
+      value: latitude-12-7230-rugged-laptop-AR
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729390279304836288, guid: a4bf8d7eaae44c640a941e8f60cb73f3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729390279304836288, guid: a4bf8d7eaae44c640a941e8f60cb73f3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729390279304836288, guid: a4bf8d7eaae44c640a941e8f60cb73f3, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729390279304836288, guid: a4bf8d7eaae44c640a941e8f60cb73f3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0028457642
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729390279304836288, guid: a4bf8d7eaae44c640a941e8f60cb73f3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.4436345
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729390279304836288, guid: a4bf8d7eaae44c640a941e8f60cb73f3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.4655914
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729390279304836288, guid: a4bf8d7eaae44c640a941e8f60cb73f3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.0000002511525
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729390279304836288, guid: a4bf8d7eaae44c640a941e8f60cb73f3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.000000033065007
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729390279304836288, guid: a4bf8d7eaae44c640a941e8f60cb73f3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.9914448
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729390279304836288, guid: a4bf8d7eaae44c640a941e8f60cb73f3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.1305268
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729390279304836288, guid: a4bf8d7eaae44c640a941e8f60cb73f3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729390279304836288, guid: a4bf8d7eaae44c640a941e8f60cb73f3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729390279304836288, guid: a4bf8d7eaae44c640a941e8f60cb73f3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4729390279304836288, guid: a4bf8d7eaae44c640a941e8f60cb73f3, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 3750355381795658778, guid: a4bf8d7eaae44c640a941e8f60cb73f3, type: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -3065,6 +3143,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 490229705}
+  - {fileID: 241192574}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &785858315
@@ -4913,6 +4992,8 @@ MonoBehaviour:
   yawControlSensitivity: 0.2
   Flap: 0
   displayText: {fileID: 1480701378}
+  propeller: {fileID: 1340413228}
+  propellerSpeed: 500
 --- !u!114 &1240315293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5236,7 +5317,7 @@ GameObject:
   - component: {fileID: 1340413231}
   - component: {fileID: 1340413230}
   m_Layer: 0
-  m_Name: Cylinder.001
+  m_Name: Propeller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
