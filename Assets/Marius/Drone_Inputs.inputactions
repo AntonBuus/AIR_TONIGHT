@@ -257,7 +257,7 @@
                 {
                     "name": "negative",
                     "id": "0be52831-3401-4062-b38b-1544ce2891da",
-                    "path": "<Gamepad>/leftStick/down",
+                    "path": "<Gamepad>/leftStick/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -268,7 +268,7 @@
                 {
                     "name": "positive",
                     "id": "fd08f382-564d-461a-a4c7-fc5cbf5450d4",
-                    "path": "<Gamepad>/leftStick/up",
+                    "path": "<Gamepad>/leftStick/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
