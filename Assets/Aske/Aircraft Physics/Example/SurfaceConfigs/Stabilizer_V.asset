@@ -19,6 +19,6 @@ MonoBehaviour:
   stallAngleLow: -15
   chord: 0.92
   flapFraction: 0.4
-  span: 1.47
+  span: 2.42
   autoAspectRatio: 1
-  aspectRatio: 1.5978261
+  aspectRatio: 2.6304348
