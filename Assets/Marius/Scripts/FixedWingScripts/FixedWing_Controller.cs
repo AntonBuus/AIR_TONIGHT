@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(AircraftPhysics))]
 [RequireComponent(typeof(FixedWing_Inputs))]
+[RequireComponent (typeof(AudioSource))]
 
 public class FixedWing_Controller : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class FixedWing_Controller : MonoBehaviour
     [SerializeField] private GameObject propeller;
     [SerializeField] private float propellerSpeed = 500f;
 
+    private AudioSource propellerSound;
+
     private float thrustPercent;
 
     private float brakesTorque;
@@ -36,6 +39,9 @@ public class FixedWing_Controller : MonoBehaviour
         aircraftPhysics = GetComponent<AircraftPhysics>();
         rb = GetComponent<Rigidbody>();
         FWInputs = GetComponent<FixedWing_Inputs>();
+        propellerSound = GetComponent<AudioSource>();
+
+        propellerSound.pitch = 0;
     }
 
     private void Update()
@@ -62,6 +68,8 @@ public class FixedWing_Controller : MonoBehaviour
         displayText.text += brakesTorque > 0 ? "B: ON" : "B: OFF";
 
         propeller.transform.Rotate(0f, 0f, thrustPercent*propellerSpeed* Time.fixedDeltaTime);
+
+        propellerSound.pitch = Mathf.Clamp(propellerSound.pitch + FWInputs.Throttle*2f, 0f, 5f);
     }
 
     private void FixedUpdate()
