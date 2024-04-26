@@ -11,9 +11,9 @@ namespace AskeNameSpace
     [System.Serializable]
     public class EmergencyManager : MonoBehaviour
     {
-        [SerializeField] private GameObject GPSjamScript;
-        [SerializeField] private GameObject TabletConnLossScript;
-        [SerializeField] private GameObject BrokenOnTakeoffScript;
+        private GameObject GPSJamScript;
+        private GameObject TabletConnLossScript;
+        private GameObject BrokenOnTakeoffScript;
 
         public bool takeOffPlayedBefore;
         [Header("Emergency events")]
@@ -69,7 +69,7 @@ namespace AskeNameSpace
             _emergencyEvents[0]._emergencyChance = 0f;
             PlayerPrefs.SetInt("GPSjam done", 1);
             PlayerPrefs.Save();
-            GPSjamScript.SetActive(true);
+            GPSJamScript.SetActive(true);
         }
 
         public void TabletConnLoss()

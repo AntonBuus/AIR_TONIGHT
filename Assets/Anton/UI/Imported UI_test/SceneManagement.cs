@@ -4,13 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class SceneManagement : MonoBehaviour
 {
+    private void Start()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
+
     public void LoadScene(int index)
     {
         SceneManager.LoadScene(index);
     }
 
-    public void LoadScene(string name)
-    {
-        SceneManager.LoadScene(name);
-    }
 }
