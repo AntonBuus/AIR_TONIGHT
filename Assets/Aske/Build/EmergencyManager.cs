@@ -11,10 +11,7 @@ namespace AskeNameSpace
     [System.Serializable]
     public class EmergencyManager : MonoBehaviour
     {
-        private GameObject GPSJamScript;
-        private GameObject TabletConnLossScript;
-        private GameObject BrokenOnTakeoffScript;
-
+        public int currentEmergency = 0;
         public bool takeOffPlayedBefore;
         [Header("Emergency events")]
         // Array containing emergency events defined in the class "EmergencyEvents".
@@ -69,7 +66,7 @@ namespace AskeNameSpace
             _emergencyEvents[0]._emergencyChance = 0f;
             PlayerPrefs.SetInt("GPSjam done", 1);
             PlayerPrefs.Save();
-            GPSJamScript.SetActive(true);
+            currentEmergency = 1;
         }
 
         public void TabletConnLoss()
@@ -78,7 +75,7 @@ namespace AskeNameSpace
             _emergencyEvents[1]._emergencyChance = 0f;
             PlayerPrefs.SetInt("TabletConnLoss done", 1);
             PlayerPrefs.Save();
-            TabletConnLossScript.SetActive(true);
+            currentEmergency = 2;
         }
 
         public void BrokenOnTakeoffEmergency()
@@ -87,13 +84,19 @@ namespace AskeNameSpace
             PlayerPrefs.SetInt("BrokenOnTakeoffEmergency done", 1);
             PlayerPrefs.Save();
             ResetEmergenciesSession();
-            BrokenOnTakeoffScript.SetActive(true);
+            currentEmergency = 3;
             // Audio of broken drone, crash when hit waypoint.
         }
         #endregion
 
+        public void NoEmergency()
+        {
+            currentEmergency = 0;
+        }
+
         public void ResetEmergenciesSession()
         {
+            currentEmergency = 0;
             Debug.Log("Reset");
             takeOffPlayedBefore = false;
             foreach (EmergencyEvents _events in _emergencyEvents)

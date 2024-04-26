@@ -19,7 +19,7 @@ public class FixedWing_Controller : MonoBehaviour
 
     [Range(0, 1)] public float Flap;
 
-    [SerializeField] Text displayText = null;
+    //[SerializeField] Text displayText = null;
 
     [SerializeField] private GameObject propellerR;
     [SerializeField] private GameObject propellerL;
@@ -62,12 +62,12 @@ public class FixedWing_Controller : MonoBehaviour
         {
             brakesTorque = brakesTorque > 0 ? 0 : 100f;
         }
-
+        /*
         displayText.text = "V: " + ((int)rb.velocity.magnitude).ToString("D3") + " m/s\n";
         displayText.text += "A: " + ((int)transform.position.y).ToString("D4") + " m\n";
         displayText.text += "T: " + (int)(thrustPercent * 100) + "%\n";
         displayText.text += brakesTorque > 0 ? "B: ON" : "B: OFF";
-
+        */
         propellerR.transform.Rotate(0f, thrustPercent * propellerSpeed * Time.fixedDeltaTime, 0f);
         propellerL.transform.Rotate(0f, -1 * thrustPercent * propellerSpeed * Time.fixedDeltaTime, 0f);
 
