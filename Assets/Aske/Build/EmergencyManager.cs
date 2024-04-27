@@ -6,8 +6,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace AskeNameSpace
-{
+
     [System.Serializable]
     public class EmergencyManager : MonoBehaviour
     {
@@ -117,4 +116,3 @@ namespace AskeNameSpace
         [SerializeField] [Range(0f, 1f)] public float _emergencyChance;
         [SerializeField] public UnityEvent _emergencyEvent;
     }
-}

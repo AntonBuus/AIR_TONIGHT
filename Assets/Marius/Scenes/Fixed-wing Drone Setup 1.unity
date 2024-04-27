@@ -5144,7 +5144,8 @@ MonoBehaviour:
   yawControlSensitivity: 0.2
   Flap: 0
   displayText: {fileID: 1480701378}
-  propeller: {fileID: 1340413228}
+  propellerR: {fileID: 1340413228}
+  propellerL: {fileID: 0}
   propellerSpeed: 1000
 --- !u!114 &1240315293
 MonoBehaviour:
@@ -6217,7 +6218,7 @@ GameObject:
   - component: {fileID: 1480701379}
   - component: {fileID: 1480701378}
   m_Layer: 5
-  m_Name: Text
+  m_Name: DisplayText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
