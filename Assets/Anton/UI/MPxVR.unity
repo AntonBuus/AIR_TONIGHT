@@ -569,7 +569,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!154 &413863083
 TerrainCollider:
   m_ObjectHideFlags: 0
@@ -599,7 +599,7 @@ Terrain:
   m_GameObject: {fileID: 413863082}
   m_Enabled: 1
   serializedVersion: 6
-  m_TerrainData: {fileID: 15600000, guid: 2949624799a5df349a646a56c9c05fa3, type: 2}
+  m_TerrainData: {fileID: 0}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
@@ -1193,7 +1193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1830826d47c729488765848b25f6848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerPositionGraphic: {fileID: 0}
+  _playerPositionGraphic: {fileID: 1050894445}
 --- !u!1 &801205816
 GameObject:
   m_ObjectHideFlags: 0
@@ -1418,7 +1418,7 @@ MonoBehaviour:
   m_DefaultControlScheme: 
   m_DefaultActionMap: Drone
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 1347987150}
 --- !u!114 &1050894450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1431,9 +1431,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6eed9b71db76134593737a6f511f5e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedText: {fileID: 0}
-  heightText: {fileID: 0}
-  clearanceText: {fileID: 0}
+  speedText: {fileID: 7804502566398969324}
+  heightText: {fileID: 7420417602538401208}
+  clearanceText: {fileID: 2777687753873034919}
 --- !u!1 &1053636757
 GameObject:
   m_ObjectHideFlags: 0
@@ -1719,7 +1719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d650dc54c4a85f4da621b60ee07632c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerPosition: {fileID: 0}
+  _playerPosition: {fileID: 1050894445}
 --- !u!1 &1272530001
 GameObject:
   m_ObjectHideFlags: 0
@@ -5796,7 +5796,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 584174987788878861}
-  - {fileID: 8479651538309250924}
   m_Father: {fileID: 7246895008340857753}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &422702227411662825
@@ -18718,6 +18717,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 411088866192368674}
+  - {fileID: 8479651538309250924}
   - {fileID: 1109127655165680367}
   - {fileID: 1630799760100026674}
   m_Father: {fileID: 0}
@@ -21507,12 +21507,12 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8100890699284927090}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.015}
+  m_LocalPosition: {x: 0, y: 0, z: -0.015000001}
   m_LocalScale: {x: 0.000278, y: 0.000278, z: 0.000278}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6714955653765331516}
-  m_Father: {fileID: 411088866192368674}
+  m_Father: {fileID: 7246895008340857753}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -22530,7 +22530,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!33 &9047847090560913840
 MeshFilter:
   m_ObjectHideFlags: 0
