@@ -7,6 +7,8 @@ public class HUD : MonoBehaviour
 {
     [SerializeField] private GameObject artificialHorizon;
     [SerializeField] private GameObject altitudeMeter;
+
+    private GameObject bankAngleArrowAnchor;
     [SerializeField] private Transform drone;
 
     [SerializeField] private float amplitude = 1;
@@ -16,6 +18,7 @@ public class HUD : MonoBehaviour
 
     private void Start()
     {
+        bankAngleArrowAnchor = GameObject.Find("BankAngleArrowAnchor");
         artHozStartYpos = artificialHorizon.transform.position.y;
         altMeterStartYpos = altitudeMeter.transform.position.y;
     }
@@ -25,6 +28,7 @@ public class HUD : MonoBehaviour
         float droneRotation = drone.eulerAngles.z; // Get the rotation around the z-axis of the drone
         artificialHorizon.transform.rotation = Quaternion.Euler(0f, 0f, -droneRotation); //Rotate the artificial horizon on the z-axis opposite to the drone
 
+        bankAngleArrowAnchor.transform.rotation = Quaternion.Euler(0f, 0f, droneRotation);
 
 
         // Move the other object based on the rotation angle of this object

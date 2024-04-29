@@ -11,7 +11,7 @@ using UnityEngine.InputSystem;
 public class FixedWing_Controller : MonoBehaviour
 {
     [SerializeField] List<AeroSurface> controlSurfaces = null;
-    [SerializeField] List<WheelCollider> wheels = null;
+    [SerializeField] List<SphereCollider> wheels = null;
 
     [SerializeField] float rollControlSensitivity = 0.2f;
     [SerializeField] float pitchControlSensitivity = 0.2f;
@@ -21,7 +21,8 @@ public class FixedWing_Controller : MonoBehaviour
 
     [SerializeField] Text displayText = null;
 
-    [SerializeField] private GameObject propeller;
+    [SerializeField] private GameObject propellerR;
+    [SerializeField] private GameObject propellerL;
     [SerializeField] private float propellerSpeed = 500f;
 
     private AudioSource propellerSound;
@@ -61,13 +62,14 @@ public class FixedWing_Controller : MonoBehaviour
         {
             brakesTorque = brakesTorque > 0 ? 0 : 100f;
         }
-
+        
         displayText.text = "V: " + ((int)rb.velocity.magnitude).ToString("D3") + " m/s\n";
         displayText.text += "A: " + ((int)transform.position.y).ToString("D4") + " m\n";
         displayText.text += "T: " + (int)(thrustPercent * 100) + "%\n";
         displayText.text += brakesTorque > 0 ? "B: ON" : "B: OFF";
-
-        propeller.transform.Rotate(0f, 0f, thrustPercent*propellerSpeed* Time.fixedDeltaTime);
+        
+        propellerR.transform.Rotate(0f, thrustPercent * propellerSpeed * Time.fixedDeltaTime, 0f);
+        //propellerL.transform.Rotate(0f, -1 * thrustPercent * propellerSpeed * Time.fixedDeltaTime, 0f);
 
         propellerSound.pitch = Mathf.Clamp(propellerSound.pitch + FWInputs.Throttle*2f, 0f, 5f);
     }
@@ -81,9 +83,9 @@ public class FixedWing_Controller : MonoBehaviour
         aircraftPhysics.SetThrustPercent(thrustPercent);
         foreach (var wheel in wheels)
         {
-            wheel.brakeTorque = brakesTorque;
+            //wheel.brakeTorque = brakesTorque;
             // small torque to wake up wheel collider
-            wheel.motorTorque = 0.01f;
+            //wheel.motorTorque = 0.01f;
         }
     }
 

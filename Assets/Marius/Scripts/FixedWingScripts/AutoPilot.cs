@@ -11,8 +11,8 @@ public class AutoPilot : MonoBehaviour
 
     private Transform currentWaypoint;
 
-    [SerializeField] private float rotationSpeed;
-    [SerializeField] private float distanceThreshHold = 10;
+    [SerializeField] private float rotationSpeed = 1;
+    [SerializeField] private float distanceThreshHold = 100;
 
     private void Start()
     {
