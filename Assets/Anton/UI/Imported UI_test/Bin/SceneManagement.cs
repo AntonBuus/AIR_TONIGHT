@@ -13,5 +13,4 @@ public class SceneManagement : MonoBehaviour
     {
         SceneManager.LoadScene(index);
     }
-
 }

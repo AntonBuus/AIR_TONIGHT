@@ -24,20 +24,21 @@ public class Waypoints : MonoBehaviour
         Gizmos.DrawLine(transform.GetChild(transform.childCount - 1).position, transform.GetChild(0).position);
     }
 
-    public Transform GetNextWaypoint(Transform currentWaypoint)
+    public Transform GetNextWaypoint(Transform activeWaypoint)
     {
-        if(currentWaypoint == null)
+        if(activeWaypoint == null) //If no waypoint is active, set the next waypoint to the first waypoint in the hierachy.
         {
             return transform.GetChild(0).transform;
         }
 
-        if (currentWaypoint.GetSiblingIndex() < transform.childCount - 1) //-1 because we start at 0 and not 1. So it goes, 0, 1, 2...
+        //If the active waypoint's placement in the hierachy is less than the total amount of waypoints, set the next waypoint as the active waypoint.
+        if (activeWaypoint.GetSiblingIndex() < transform.childCount - 1) //-1 because the GetSiblingIndex counts from 0 while the childCount starts from 1. 
         {
-            return transform.GetChild(currentWaypoint.GetSiblingIndex() + 1).transform;
+            return transform.GetChild(activeWaypoint.GetSiblingIndex() + 1).transform; //Returns the transform of the next waypoint in the hieracy
         }
         else
         {
-            return transform.GetChild(0);
+            return transform.GetChild(0); //If not more waypoints in the hierachy, start over from the first waypoint
         }
     }
 }
