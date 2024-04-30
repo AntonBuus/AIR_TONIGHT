@@ -15,6 +15,13 @@ public class PreFlightChecklist : MonoBehaviour
     private void Start()
     {
         checklistPoints = GetComponentsInChildren<Toggle>(); //Gets all childcomponents of type Toggle and assigns to array
+
+        foreach (Toggle t in checklistPoints)
+        {
+            t.onValueChanged.AddListener(delegate { CheckOffPoint(); }); //Adds to CheckOffPoint method to the OnValueChanged event on each CheckOffPoint so we don't have to do it in the inspector.
+            //By using delegate { CheckOffPoint(); }, we're creating an anonymous function that will call CheckOffPoint() when the onValueChanged event is triggered. This way, we're passing a reference to the method rather than calling it immediately.
+        }
+
     }
 
     private void Update()
