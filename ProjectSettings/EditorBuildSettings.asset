@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/[1] Iteration/Scenes/[0] MainMenu.unity
     guid: 73a11237d2bc5da4796dfccc654a9022
   - enabled: 1
-    path: Assets/[1] Iteration/Scenes/[1] FlightScene.unity
+    path: Assets/[1] Iteration/Scenes/[2] FlightRandomEmergency.unity
     guid: e96c1993fb5ac314ba686a745f18ace8
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}
