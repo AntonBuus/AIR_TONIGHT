@@ -18,7 +18,7 @@ public class FixedWing_Controller : MonoBehaviour
     [SerializeField] List<SphereCollider> wheels = null;
 
     [Tooltip("If Wheel Break is 0, the breaks are Off. If value is 1, the breaks are On")]
-    private int wheelBreak = 1;
+    private int wheelBrake = 1;
 
     [SerializeField] float rollControlSensitivity = 0.2f;
     [SerializeField] float pitchControlSensitivity = 0.2f;
@@ -37,7 +37,6 @@ public class FixedWing_Controller : MonoBehaviour
     private AudioSource propellerSound;
 
     private float thrustPercent;
-    private float brakesTorque;
 
     private Transform activeWaypoint;
 
@@ -73,13 +72,13 @@ public class FixedWing_Controller : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.B))
         {
-            wheelBreak = wheelBreak > 0 ? 0 : 1;
+            wheelBrake = wheelBrake > 0 ? 0 : 1;
         }
         
         displayText.text = "V: " + ((int)rb.velocity.magnitude).ToString("D3") + " m/s\n";
         displayText.text += "A: " + ((int)transform.position.y).ToString("D4") + " m\n";
         displayText.text += "T: " + (int)(thrustPercent * 100) + "%\n";
-        displayText.text += wheelBreak > 0 ? "B: ON" : "B: OFF";
+        displayText.text += wheelBrake > 0 ? "B: ON" : "B: OFF";
         
         propellerR.transform.Rotate(0f, thrustPercent * propellerSpeed * Time.fixedDeltaTime, 0f); //Rotates the right propeller counter clockwise
         propellerL.transform.Rotate(0f, -1 * thrustPercent * propellerSpeed * Time.fixedDeltaTime, 0f); //Rotates the left propeller clockwise
@@ -89,7 +88,7 @@ public class FixedWing_Controller : MonoBehaviour
 
     private void FixedUpdate()
     {
-        WheelBreaks();
+        WheelBrakes();
 
         if(autoPilot)
         {
@@ -154,9 +153,9 @@ public class FixedWing_Controller : MonoBehaviour
         }
     }
 
-    private void WheelBreaks()
+    private void WheelBrakes()
     {
-        if(wheelBreak == 0)
+        if(wheelBrake == 0)
         {
             //Sets the spherecolliders on the wheels to be able to "drive" on the ground
             foreach (var wheel in wheels)
@@ -169,7 +168,7 @@ public class FixedWing_Controller : MonoBehaviour
                 wheel.material.bounceCombine = PhysicMaterialCombine.Average;
             }
         }
-        else if (wheelBreak == 1)
+        else if (wheelBrake == 1)
         {
             //Sets the spherecolliders on the wheels to "break" on the ground
             foreach (var wheel in wheels)
