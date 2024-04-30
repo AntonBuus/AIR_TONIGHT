@@ -1,53 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 using TMPro;
-using Unity.VisualScripting;
 
 public class DroneVariables : MonoBehaviour
 {
-    public TMP_Text speedText;
-    public TMP_Text heightText;
-    public TMP_Text clearanceText;
+    [SerializeField] private TMP_Text clearanceText;
+    [SerializeField] private TMP_Text speedText;
+    [SerializeField] private TMP_Text altitudeText;
+    [SerializeField] private TMP_Text latitudeText;
+    [SerializeField] private TMP_Text longitudeText;
 
     private Rigidbody rb;
-    private float droneHeight;
-    private float hoverError;
-    // Start is called before the first frame update
+    [SerializeField] private float _droneVelocity;
+    [SerializeField] private float _droneHeight;
+    [SerializeField] private float _droneClearance;
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Vector3 v3Vel = rb.velocity;
-        float vel=v3Vel.magnitude;
-        float velKMH = vel * 3.6f;
-        speedText.text = "Speed:\n" + velKMH.ToString("F2")+ " km/h";
-        droneHeight = transform.position.y;
-        heightText.text = "Height:\n" + droneHeight.ToString("F2") + " m";
-        float terrainHeight = Terrain.activeTerrain.SampleHeight(transform.position);
-        float droneClearance=terrainHeight-droneHeight;
-        float posDroneClearance = Mathf.Abs(droneClearance);
-        clearanceText.text = "Clearance:\n" + posDroneClearance.ToString("F2") + " m";
+        clearanceText.text = "Clearance:\n" + _droneClearance.ToString("F2") + " m";
 
-        //Debug.Log("Drone height: " + droneHeight + " " + "Terrain height: " + terrainHeight+"Raycast: "+hoverError);
+        Vector3 v3Vel = rb.velocity;
+        _droneVelocity = v3Vel.magnitude;
+        //float velKMH = _droneVelocity * 3.6f;
+        //speedText.text = "Speed:\n" + velKMH.ToString("F2")+ " km/h";
+        speedText.text = "Speed:\n" + _droneVelocity.ToString("F2")+ " m/s";
+
+        float _droneHeight = transform.position.y;
+        float _droneLatitude = transform.position.x;
+        float _droneLongitude = transform.position.z;
+        altitudeText.text = "Altitude:\n" + _droneHeight.ToString("F2") + " m";
+        latitudeText.text = "Latitude:\n" + _droneLatitude.ToString("F2");
+        longitudeText.text = "Longitude:\n" + _droneLongitude.ToString("F2");
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         RaycastHit hit;
         Ray downRay = new Ray(transform.position, -Vector3.up);
 
-
+        // Cast a ray straight downwards.
         if (Physics.Raycast(downRay, out hit))
         {
-            // The "error" in height is the difference between the desired height
-            // and the height measured by the raycast distance.
-            hoverError = droneHeight - hit.distance;
+            _droneClearance = hit.distance;
         }
     }
 }
