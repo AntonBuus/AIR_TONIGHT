@@ -4,9 +4,9 @@ using UnityEngine.UI;
 using TMPro;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(AircraftPhysics))]
 [RequireComponent(typeof(FixedWing_Inputs))]
-[RequireComponent(typeof(AudioSource))]
 
 public class FixedWing_Controller : MonoBehaviour
 {
@@ -36,6 +36,7 @@ public class FixedWing_Controller : MonoBehaviour
     [SerializeField] private float propellerSpeed = 500f;
 
     private AudioSource propellerSound;
+    [SerializeField] private float maxPitch = 5f;
 
     public float thrustPercent;
 
@@ -71,10 +72,11 @@ public class FixedWing_Controller : MonoBehaviour
             Flap = Flap > 0 ? 0 : 0.3f;
         }
 
-        if (Input.GetKeyDown(KeyCode.B))
+        //Toggles the brakes when B is pressed.
+        /*if (Input.GetKeyDown(KeyCode.B))
         {
             wheelBrake = wheelBrake > 0 ? 0 : 1;
-        }
+        }*/
         
         displayText.text = "V: " + ((int)rb.velocity.magnitude).ToString("D3") + " m/s\n";
         displayText.text += "A: " + ((int)transform.position.y).ToString("D4") + " m\n";
@@ -84,7 +86,7 @@ public class FixedWing_Controller : MonoBehaviour
         propellerR.transform.Rotate(0f, thrustPercent * propellerSpeed * Time.fixedDeltaTime, 0f); //Rotates the right propeller counter clockwise
         propellerL.transform.Rotate(0f, -1 * thrustPercent * propellerSpeed * Time.fixedDeltaTime, 0f); //Rotates the left propeller clockwise
 
-        propellerSound.pitch = Mathf.Clamp(propellerSound.pitch + FWInputs.Throttle*2f, 0f, 5f);
+
     }
 
     private void FixedUpdate()
@@ -99,6 +101,8 @@ public class FixedWing_Controller : MonoBehaviour
             }
             else if (autoPilot == false)
             {
+                propellerSound.pitch = Mathf.Clamp(propellerSound.pitch + FWInputs.Throttle * 2f, 0f, 5f);
+
                 thrustPercent = Mathf.Clamp(thrustPercent + FWInputs.Throttle, 0, 1); //This line sets thrustPercent according to the value of the Throttle input, limited to a value between 0 and 1.
                 SetControlSurfacesAngles(FWInputs.Pitch, FWInputs.Roll, -FWInputs.Yaw, Flap);
             }
@@ -158,7 +162,16 @@ public class FixedWing_Controller : MonoBehaviour
 
     private void WheelBrakes()
     {
-        if(wheelBrake == 0)
+        if(thrustPercent == 0) //(thrustPercent instead of wheelBrake)
+        {
+            //Sets the spherecolliders on the wheels to "break" on the ground
+            foreach (var wheel in wheels)
+            {
+                wheel.material.staticFriction = 1;
+                wheel.material.frictionCombine = PhysicMaterialCombine.Average;
+            }
+        }
+        else //if (wheelBrake == 1)
         {
             //Sets the spherecolliders on the wheels to be able to "drive" on the ground
             foreach (var wheel in wheels)
@@ -171,20 +184,11 @@ public class FixedWing_Controller : MonoBehaviour
                 wheel.material.bounceCombine = PhysicMaterialCombine.Average;
             }
         }
-        else if (wheelBrake == 1)
-        {
-            //Sets the spherecolliders on the wheels to "break" on the ground
-            foreach (var wheel in wheels)
-            {
-                wheel.material.staticFriction = 1;
-                wheel.material.frictionCombine = PhysicMaterialCombine.Average;
-            }
-        }
-
     }
 
     public void ToggleThrottle() //To be assigned to a button in the inspector
     {
+        propellerSound.pitch = propellerSound.pitch > 0 ? 0 : 5f;
         thrustPercent = thrustPercent > 0 ? 0 : 1f;
     }
 

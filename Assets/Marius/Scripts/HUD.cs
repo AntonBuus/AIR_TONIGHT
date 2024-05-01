@@ -26,9 +26,9 @@ public class HUD : MonoBehaviour
     void Update()
     {
         float droneRotation = drone.eulerAngles.z; // Get the rotation around the z-axis of the drone
-        artificialHorizon.transform.rotation = Quaternion.Euler(0f, 0f, -droneRotation); //Rotate the artificial horizon on the z-axis opposite to the drone
+        artificialHorizon.transform.localRotation = Quaternion.Euler(0f, 0f, -droneRotation); //Rotate the artificial horizon on the z-axis opposite to the drone
 
-        bankAngleArrowAnchor.transform.rotation = Quaternion.Euler(0f, 0f, droneRotation);
+        bankAngleArrowAnchor.transform.localRotation = Quaternion.Euler(0f, 0f, droneRotation);
 
 
         // Move the other object based on the rotation angle of this object
