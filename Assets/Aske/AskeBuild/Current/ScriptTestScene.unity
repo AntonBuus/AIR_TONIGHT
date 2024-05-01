@@ -2059,6 +2059,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1021186969061817853, guid: eedac3792686441428d93bb1838fb806, type: 3}
+      propertyPath: m_Name
+      value: ThrottleText
+      objectReference: {fileID: 0}
+    - target: {fileID: 2839671619462266929, guid: eedac3792686441428d93bb1838fb806, type: 3}
+      propertyPath: m_text
+      value: Throttle
+      objectReference: {fileID: 0}
+    - target: {fileID: 3409240801802445827, guid: eedac3792686441428d93bb1838fb806, type: 3}
+      propertyPath: m_Name
+      value: ClearanceText
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143657305102530923, guid: eedac3792686441428d93bb1838fb806, type: 3}
+      propertyPath: m_text
+      value: Clearance
+      objectReference: {fileID: 0}
     - target: {fileID: 7125644109581928468, guid: eedac3792686441428d93bb1838fb806, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.57
