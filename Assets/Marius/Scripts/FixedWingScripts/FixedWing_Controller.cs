@@ -13,11 +13,12 @@ public class FixedWing_Controller : MonoBehaviour
     #region Variables
     [Tooltip("When active, the drone flies autonomously")] 
     public bool autoPilot = true;
+    public bool controlFailure = false;
 
     [SerializeField] List<AeroSurface> controlSurfaces = null;
     [SerializeField] List<SphereCollider> wheels = null;
 
-    [Tooltip("If Wheel Break is 0, the breaks are Off. If value is 1, the breaks are On")]
+    [Tooltip("If Wheel Brake is 0, the brakes are Off. If value is 1, the brakes are On")]
     private int wheelBrake = 1;
 
     [SerializeField] float rollControlSensitivity = 0.2f;
@@ -36,7 +37,7 @@ public class FixedWing_Controller : MonoBehaviour
 
     private AudioSource propellerSound;
 
-    private float thrustPercent;
+    public float thrustPercent;
 
     private Transform activeWaypoint;
 
@@ -89,16 +90,18 @@ public class FixedWing_Controller : MonoBehaviour
     private void FixedUpdate()
     {
         WheelBrakes();
-
-        if(autoPilot)
-        {
-            AutoPilot();
-            SetControlSurfacesAngles(0, 0, 0, 0);
-        }
-        else if (autoPilot == false)
-        {
-            thrustPercent = Mathf.Clamp(thrustPercent + FWInputs.Throttle, 0, 1); //This line sets thrustPercent according to the value of the Throttle input, limited to a value between 0 and 1.
-            SetControlSurfacesAngles(FWInputs.Pitch, FWInputs.Roll, -FWInputs.Yaw, Flap);
+        if (controlFailure == false)
+        { 
+            if(autoPilot)
+            {
+                AutoPilot();
+                SetControlSurfacesAngles(0, 0, 0, 0);
+            }
+            else if (autoPilot == false)
+            {
+                thrustPercent = Mathf.Clamp(thrustPercent + FWInputs.Throttle, 0, 1); //This line sets thrustPercent according to the value of the Throttle input, limited to a value between 0 and 1.
+                SetControlSurfacesAngles(FWInputs.Pitch, FWInputs.Roll, -FWInputs.Yaw, Flap);
+            }
         }
 
         aircraftPhysics.SetThrustPercent(thrustPercent);
