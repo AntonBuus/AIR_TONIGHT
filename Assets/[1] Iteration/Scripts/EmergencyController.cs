@@ -10,10 +10,6 @@ public class EmergencyController : MonoBehaviour
     private FixedWing_Controller _fixedWing_Controller;
     private Menu_Manager _menu_Manager;
 
-    [SerializeField] private gpsJam gpsJamScript;
-    [SerializeField] private TabletConnLoss tabletConnLossScript;
-    [SerializeField] private BrokenOnTakeoff brokenOnTakeoffScript;
-
     [SerializeField] private Transform waypoint1;
     [SerializeField] private Transform waypoint2;
     [SerializeField] private Transform waypoint3;
@@ -59,8 +55,7 @@ public class EmergencyController : MonoBehaviour
             if (fwcEnabled == false)
             {
                 fwcEnabled = true;
-                // No manual or autopilot controls.
-                _fixedWing_Controller.controlFailure = true;
+                _fixedWing_Controller.autoPilot = false;
             }
         }
         if (Vector3.Distance(drone.transform.position, waypoint3.position) < _threshold)
@@ -78,7 +73,8 @@ public class EmergencyController : MonoBehaviour
             if (autopilotToggled == false)
             {
                 autopilotToggled = true;
-                _fixedWing_Controller.autoPilot = false;
+                // No manual or autopilot controls.
+                _fixedWing_Controller.controlFailure = true;
             }
         }
         if (Vector3.Distance(drone.transform.position, waypoint3.position) < _threshold)

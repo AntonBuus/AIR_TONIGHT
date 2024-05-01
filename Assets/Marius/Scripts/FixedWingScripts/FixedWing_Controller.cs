@@ -29,7 +29,7 @@ public class FixedWing_Controller : MonoBehaviour
 
     [Range(0, 1)] public float Flap;
 
-    [SerializeField] Text displayText = null;
+    //[SerializeField] Text displayText = null;
 
     [SerializeField] private GameObject propellerR;
     [SerializeField] private GameObject propellerL;
@@ -191,6 +191,11 @@ public class FixedWing_Controller : MonoBehaviour
     {
         propellerSound.pitch = propellerSound.pitch > 0 ? 0 : 5f;
         thrustPercent = thrustPercent > 0 ? 0 : 1f;
+    }
+
+    public void ToggleAutoPilot()
+    {
+        autoPilot = autoPilot = false ? true : false;
     }
 
     #endregion
