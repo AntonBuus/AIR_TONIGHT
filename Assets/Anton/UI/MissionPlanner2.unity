@@ -17912,7 +17912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wayPointSize: 2
-  _waypointToSpawn: {fileID: 6674545215417423401, guid: 07b0233631572db4092006a22883aaf1, type: 3}
+  _waypointToSpawn: {fileID: 0}
 --- !u!4 &1460085263
 Transform:
   m_ObjectHideFlags: 0
