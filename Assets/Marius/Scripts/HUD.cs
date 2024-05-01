@@ -19,24 +19,24 @@ public class HUD : MonoBehaviour
     private void Start()
     {
         bankAngleArrowAnchor = GameObject.Find("BankAngleArrowAnchor");
-        artHozStartYpos = artificialHorizon.transform.position.y;
-        altMeterStartYpos = altitudeMeter.transform.position.y;
+        artHozStartYpos = artificialHorizon.transform.localPosition.y;
+        altMeterStartYpos = altitudeMeter.transform.localPosition.y;
     }
 
     void Update()
     {
-        float droneRotation = drone.eulerAngles.z; // Get the rotation around the z-axis of the drone
-        artificialHorizon.transform.rotation = Quaternion.Euler(0f, 0f, -droneRotation); //Rotate the artificial horizon on the z-axis opposite to the drone
+        float droneRotation = drone.localEulerAngles.z; // Get the rotation around the z-axis of the drone
+        artificialHorizon.transform.localRotation = Quaternion.Euler(0f, 0f, -droneRotation); //Rotate the artificial horizon on the z-axis opposite to the drone
 
-        bankAngleArrowAnchor.transform.rotation = Quaternion.Euler(0f, 0f, droneRotation);
+        bankAngleArrowAnchor.transform.localRotation = Quaternion.Euler(0f, 0f, droneRotation);
 
 
         // Move the other object based on the rotation angle of this object
         float rotationAngle = drone.transform.eulerAngles.x;
         float desiredYPosition = Mathf.Sin(rotationAngle * Mathf.Deg2Rad) * amplitude;
 
-        artificialHorizon.transform.position = new Vector3(artificialHorizon.transform.position.x, artHozStartYpos + desiredYPosition, artificialHorizon.transform.position.z);
+        artificialHorizon.transform.localPosition = new Vector3(artificialHorizon.transform.localPosition.x, artHozStartYpos + desiredYPosition, artificialHorizon.transform.localPosition.z);
 
-        altitudeMeter.transform.position = new Vector3(altitudeMeter.transform.position.x, altMeterStartYpos + desiredYPosition, altitudeMeter.transform.position.z);
+        altitudeMeter.transform.localPosition = new Vector3(altitudeMeter.transform.localPosition.x, altMeterStartYpos + desiredYPosition, altitudeMeter.transform.localPosition.z);
     }
 }

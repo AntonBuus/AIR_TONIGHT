@@ -8,6 +8,8 @@ public class EmergencyController : MonoBehaviour
     private GameObject drone;
     private EmergencyManager _emergencyManager;
     private FixedWing_Controller _fixedWing_Controller;
+    private Menu_Manager _menu_Manager;
+
     [SerializeField] private gpsJam gpsJamScript;
     [SerializeField] private TabletConnLoss tabletConnLossScript;
     [SerializeField] private BrokenOnTakeoff brokenOnTakeoffScript;
@@ -15,21 +17,22 @@ public class EmergencyController : MonoBehaviour
     [SerializeField] private Transform waypoint1;
     [SerializeField] private Transform waypoint2;
     [SerializeField] private Transform waypoint3;
-
-    private float threshold = 50;
+    [SerializeField] private float _threshold = 50;
 
     bool fwcEnabled = false;
     bool autopilotToggled = false;
     bool throttleToggled = false;
 
     private int _activeEmergency;
-    // Start is called before the first frame update
+
     void Start()
     {
         _emergencyManager = FindObjectOfType<EmergencyManager>();
         _activeEmergency = _emergencyManager.currentEmergency;
 
         _fixedWing_Controller = FindObjectOfType<FixedWing_Controller>();
+
+        _menu_Manager = FindObjectOfType<Menu_Manager>();
     }
 
     private void Update()
@@ -48,23 +51,29 @@ public class EmergencyController : MonoBehaviour
         }
     }
 
+    // disable autopilot to imitate no gps signal.
     private void GpsJam()
     {
-        if (Vector3.Distance(drone.transform.position,waypoint1.position) < threshold)
+        if (Vector3.Distance(drone.transform.position,waypoint1.position) < _threshold)
         {
             if (fwcEnabled == false)
             {
                 fwcEnabled = true;
-                //should be disabled via bools in fixedwing_controller.cs instead
-                _fixedWing_Controller.enabled = false;
+                // No manual or autopilot controls.
+                _fixedWing_Controller.controlFailure = true;
             }
         }
+        if (Vector3.Distance(drone.transform.position, waypoint3.position) < _threshold)
+        {
+            _menu_Manager.EmergencySuccess();
+        }
     }
-
+    
+    // disable autopilot and manualControl to imitate GPS and controller connection loss.
     private void TabletConnLoss()
     {
         //Should prevent ToggleThrottle button from working
-        if (Vector3.Distance(drone.transform.position, waypoint2.position) < threshold)
+        if (Vector3.Distance(drone.transform.position, waypoint2.position) < _threshold)
         {
             if (autopilotToggled == false)
             {
@@ -72,19 +81,28 @@ public class EmergencyController : MonoBehaviour
                 _fixedWing_Controller.autoPilot = false;
             }
         }
+        if (Vector3.Distance(drone.transform.position, waypoint3.position) < _threshold)
+        {
+            _menu_Manager.EmergencySuccess();
+        }
     }
 
+    // disable throttle to imitate engine or propeller issue.
     private void BrokenOnTakeoff()
     {
         //broken sound
         //Should prevent ToggleThrottle button from working
-        if (Vector3.Distance(drone.transform.position, waypoint3.position) < threshold)
+        if (Vector3.Distance(drone.transform.position, waypoint3.position) < _threshold)
         {
             if (throttleToggled == false)
             {
                 throttleToggled = true;
                 _fixedWing_Controller.ToggleThrottle();
             }
+        }
+        if (Vector3.Distance(drone.transform.position, waypoint3.position) < _threshold)
+        {
+            _menu_Manager.EmergencySuccess();
         }
     }
 }

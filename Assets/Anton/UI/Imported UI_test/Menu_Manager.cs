@@ -71,4 +71,14 @@ public class Menu_Manager : MonoBehaviour
         Application.Quit();
         Debug.Log("QUIT Game!");
     }
+
+    public void EmergencySuccess()
+    {
+        Debug.Log("Emergency success");
+    }
+
+    public void EmergencyFail()
+    {
+        Debug.Log("Emergency fail");
+    }
 }

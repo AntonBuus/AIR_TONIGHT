@@ -10,8 +10,12 @@ public class DroneVariables : MonoBehaviour
     [SerializeField] private TMP_Text altitudeText;
     [SerializeField] private TMP_Text latitudeText;
     [SerializeField] private TMP_Text longitudeText;
+    [SerializeField] private TMP_Text throttleText;
+
 
     private Rigidbody rb;
+    private FixedWing_Controller _fixedWing_Controller;
+
     [SerializeField] private float _droneVelocity;
     [SerializeField] private float _droneHeight;
     [SerializeField] private float _droneClearance;
@@ -20,6 +24,7 @@ public class DroneVariables : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        _fixedWing_Controller = FindObjectOfType<FixedWing_Controller>();
     }
 
     void Update()
@@ -38,6 +43,7 @@ public class DroneVariables : MonoBehaviour
         altitudeText.text = "Altitude:\n" + _droneHeight.ToString("F2") + " m";
         latitudeText.text = "Latitude:\n" + _droneLatitude.ToString("F2");
         longitudeText.text = "Longitude:\n" + _droneLongitude.ToString("F2");
+        throttleText.text = "Thrust:\n" + (int)(_fixedWing_Controller.thrustPercent * 100) + " %";
     }
 
     void FixedUpdate()
