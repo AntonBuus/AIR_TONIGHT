@@ -8,6 +8,7 @@ public class EmergencyController : MonoBehaviour
     private GameObject drone;
     private EmergencyManager _emergencyManager;
     private FixedWing_Controller _fixedWing_Controller;
+    private Menu_Manager _menu_Manager;
 
     [SerializeField] private gpsJam gpsJamScript;
     [SerializeField] private TabletConnLoss tabletConnLossScript;
@@ -30,6 +31,8 @@ public class EmergencyController : MonoBehaviour
         _activeEmergency = _emergencyManager.currentEmergency;
 
         _fixedWing_Controller = FindObjectOfType<FixedWing_Controller>();
+
+        _menu_Manager = FindObjectOfType<Menu_Manager>();
     }
 
     private void Update()
@@ -60,6 +63,10 @@ public class EmergencyController : MonoBehaviour
                 _fixedWing_Controller.controlFailure = true;
             }
         }
+        if (Vector3.Distance(drone.transform.position, waypoint3.position) < _threshold)
+        {
+            _menu_Manager.EmergencySuccess();
+        }
     }
     
     // disable autopilot and manualControl to imitate GPS and controller connection loss.
@@ -73,6 +80,10 @@ public class EmergencyController : MonoBehaviour
                 autopilotToggled = true;
                 _fixedWing_Controller.autoPilot = false;
             }
+        }
+        if (Vector3.Distance(drone.transform.position, waypoint3.position) < _threshold)
+        {
+            _menu_Manager.EmergencySuccess();
         }
     }
 
@@ -88,6 +99,10 @@ public class EmergencyController : MonoBehaviour
                 throttleToggled = true;
                 _fixedWing_Controller.ToggleThrottle();
             }
+        }
+        if (Vector3.Distance(drone.transform.position, waypoint3.position) < _threshold)
+        {
+            _menu_Manager.EmergencySuccess();
         }
     }
 }

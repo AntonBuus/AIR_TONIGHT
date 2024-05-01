@@ -592,7 +592,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &248332141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -608,9 +608,9 @@ MonoBehaviour:
   gpsJamScript: {fileID: 1332644843}
   tabletConnLossScript: {fileID: 734010764}
   brokenOnTakeoffScript: {fileID: 1662763803}
-  waypoint1: {fileID: 0}
-  waypoint2: {fileID: 0}
-  waypoint3: {fileID: 0}
+  waypoint1: {fileID: 1432435683}
+  waypoint2: {fileID: 1911542890}
+  waypoint3: {fileID: 821742832}
   _threshold: 50
 --- !u!4 &248332142
 Transform:
@@ -2237,7 +2237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97694febb4b3b947a9c0eb784da9072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoPilot: 0
+  autoPilot: 1
   controlFailure: 0
   controlSurfaces:
   - {fileID: 1887866243}
@@ -2260,7 +2260,7 @@ MonoBehaviour:
   propellerR: {fileID: 2993602}
   propellerL: {fileID: 317854915}
   propellerSpeed: 500
-  thrustPercent: 0
+  thrustPercent: 0.1
 --- !u!82 &1343032759
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2815,7 +2815,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1624509062
 MonoBehaviour:
   m_ObjectHideFlags: 0
