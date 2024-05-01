@@ -78,11 +78,12 @@ public class FixedWing_Controller : MonoBehaviour
             wheelBrake = wheelBrake > 0 ? 0 : 1;
         }*/
         
+        /*
         displayText.text = "V: " + ((int)rb.velocity.magnitude).ToString("D3") + " m/s\n";
         displayText.text += "A: " + ((int)transform.position.y).ToString("D4") + " m\n";
         displayText.text += "T: " + (int)(thrustPercent * 100) + "%\n";
         displayText.text += wheelBrake > 0 ? "B: ON" : "B: OFF";
-        
+        */
         propellerR.transform.Rotate(0f, thrustPercent * propellerSpeed * Time.fixedDeltaTime, 0f); //Rotates the right propeller counter clockwise
         propellerL.transform.Rotate(0f, -1 * thrustPercent * propellerSpeed * Time.fixedDeltaTime, 0f); //Rotates the left propeller clockwise
 
