@@ -1057,11 +1057,23 @@ MonoBehaviour:
   clearanceText: {fileID: 1729776804}
   speedText: {fileID: 1729776807}
   altitudeText: {fileID: 1729776806}
-  latitudeText: {fileID: 1729776805}
+  latitudeText: {fileID: 1152329592}
   longitudeText: {fileID: 1729776803}
+  thrustText: {fileID: 1729776805}
   _droneVelocity: 0
   _droneHeight: 0
   _droneClearance: 0
+--- !u!114 &1152329592 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6234585735105509237, guid: eedac3792686441428d93bb1838fb806, type: 3}
+  m_PrefabInstance: {fileID: 1729776802}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1170552095
 GameObject:
   m_ObjectHideFlags: 0
@@ -2716,7 +2728,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!114 &1729776805 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6234585735105509237, guid: eedac3792686441428d93bb1838fb806, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2839671619462266929, guid: eedac3792686441428d93bb1838fb806, type: 3}
   m_PrefabInstance: {fileID: 1729776802}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

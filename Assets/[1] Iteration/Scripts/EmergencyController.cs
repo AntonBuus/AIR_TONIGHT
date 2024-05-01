@@ -16,8 +16,6 @@ public class EmergencyController : MonoBehaviour
     [SerializeField] private Transform waypoint1;
     [SerializeField] private Transform waypoint2;
     [SerializeField] private Transform waypoint3;
-
-    [SerializeField] private float _thrustPercent;
     [SerializeField] private float _threshold = 50;
 
     bool fwcEnabled = false;
@@ -32,7 +30,6 @@ public class EmergencyController : MonoBehaviour
         _activeEmergency = _emergencyManager.currentEmergency;
 
         _fixedWing_Controller = FindObjectOfType<FixedWing_Controller>();
-        _thrustPercent = _fixedWing_Controller.thrustPercent*100;
     }
 
     private void Update()
