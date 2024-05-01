@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EmergencyController : MonoBehaviour
 {
-    private GameObject drone;
+    public GameObject drone;
     private EmergencyManager _emergencyManager;
     private FixedWing_Controller _fixedWing_Controller;
     [SerializeField] private gpsJam gpsJamScript;

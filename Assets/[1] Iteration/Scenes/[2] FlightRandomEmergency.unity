@@ -152,9 +152,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcfa179f47d05634d88055de7519e0ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drone: {fileID: 7232857267962187259}
   gpsJamScript: {fileID: 1332644843}
   tabletConnLossScript: {fileID: 734010764}
   brokenOnTakeoffScript: {fileID: 1662763803}
+  waypoint1: {fileID: 1432435683}
+  waypoint2: {fileID: 1220052257}
+  waypoint3: {fileID: 1911542890}
 --- !u!4 &248332142
 Transform:
   m_ObjectHideFlags: 0
@@ -10984,6 +10988,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97694febb4b3b947a9c0eb784da9072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoPilot: 1
   controlSurfaces:
   - {fileID: 5684276921423357333}
   - {fileID: 835889004696704769}
@@ -10999,6 +11004,7 @@ MonoBehaviour:
   rollControlSensitivity: 1
   pitchControlSensitivity: 1
   yawControlSensitivity: 1
+  distanceToWaypointThresh: 50
   Flap: 0
   displayText: {fileID: 940946159}
   propellerR: {fileID: 608453370594725105}

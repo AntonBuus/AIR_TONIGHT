@@ -1,13 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+[RequireComponent(typeof(LineRenderer))]
 
 public class Waypoints : MonoBehaviour
 {
     [Range(0f, 2f)]
     [SerializeField] private float wayPointSize = 1f;
+    public GameObject _waypointToSpawn;
+    private LineRenderer _line;
 
-    private void OnDrawGizmos() //Only runs in scene view
+    private void Awake()
+    {
+        _line = GetComponent<LineRenderer>();
+    }
+    private void Start() //Only runs in scene view
+    {
+        foreach (Transform t in transform)
+        {
+            Instantiate(_waypointToSpawn, new Vector3(t.position.x,60,t.position.z), Quaternion.Euler(90, 0, 0));
+
+        }
+
+        _line.positionCount = transform.childCount;
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+           _line.SetPosition(i,transform.GetChild(i).position);
+        }
+    }
+        private void OnDrawGizmos() //Only runs in scene view
     {
         foreach(Transform t in transform)
         {
