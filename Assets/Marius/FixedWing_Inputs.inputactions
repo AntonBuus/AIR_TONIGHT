@@ -77,6 +77,39 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "VRLstick",
+                    "id": "dc331857-1f9b-4f60-baf8-87b5de649256",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Yaw",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "aaf8c950-67dd-444d-8d91-f51d8e605c88",
+                    "path": "<XRInputV1::Oculus::OculusTouchControllerOpenXR>{LeftHand}/thumbstick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Yaw",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "c819c3e5-66ef-4b5b-9b27-29532b7d24dc",
+                    "path": "<XRInputV1::Oculus::OculusTouchControllerOpenXR>{LeftHand}/thumbstick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Yaw",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "RStick",
                     "id": "08ea34ab-998c-4a04-88b8-1f36b6f3b77f",
                     "path": "1DAxis",
@@ -102,6 +135,39 @@
                     "name": "positive",
                     "id": "b17b65ba-f3db-463e-8dbe-e799857664b6",
                     "path": "<Gamepad>/rightStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "VRRStick",
+                    "id": "ac1f754c-7cb2-43ac-8db5-9b589728b580",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Roll",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "f87e4257-e5a7-45aa-9fe7-a7a27c0d65c2",
+                    "path": "<XRInputV1::Oculus::OculusTouchControllerOpenXR>{RightHand}/thumbstick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "39bb286e-b3dc-4fed-a265-c5a07e5aea34",
+                    "path": "<XRInputV1::Oculus::OculusTouchControllerOpenXR>{RightHand}/thumbstick/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -143,6 +209,39 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "VRRStick",
+                    "id": "aaa17256-539d-4d52-bba4-f9257e9fb1a0",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pitch",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "5acc3675-7184-46b2-ae2b-c85efc3ee5d8",
+                    "path": "<XRInputV1::Oculus::OculusTouchControllerOpenXR>{RightHand}/thumbstick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pitch",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "f02dc3ef-a74d-4e18-90f1-dac4019d484e",
+                    "path": "<XRInputV1::Oculus::OculusTouchControllerOpenXR>{RightHand}/thumbstick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pitch",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "LStick",
                     "id": "4413f8b0-1575-4e75-8d64-50b309ddf1f4",
                     "path": "1DAxis",
@@ -168,6 +267,39 @@
                     "name": "positive",
                     "id": "91c83220-3778-4e9c-a0b6-41bb2bf83702",
                     "path": "<Gamepad>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throttle",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "VRLStick",
+                    "id": "f574dab6-28e8-4cb6-acb0-d883fffcc3ed",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throttle",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "ddee847c-4187-49a8-acfa-ef4ed6a1db79",
+                    "path": "<XRInputV1::Oculus::OculusTouchControllerOpenXR>{LeftHand}/thumbstick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throttle",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "55c54414-c463-4b94-be58-7b92b9df6ae5",
+                    "path": "<XRInputV1::Oculus::OculusTouchControllerOpenXR>{LeftHand}/thumbstick/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
