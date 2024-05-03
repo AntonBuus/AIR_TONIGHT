@@ -8,7 +8,10 @@ using UnityEngine.InputSystem;
 public class Menu_Manager : MonoBehaviour
 {
     public GameObject _menu;
-    
+
+    public GameObject _rayInteractor1;
+    public GameObject _rayInteractor2;
+
     public Transform _head;
     public float _spawnDistance = 2;
     public InputActionProperty _showMenuButton;
@@ -38,14 +41,16 @@ public class Menu_Manager : MonoBehaviour
     public void ActivateDeactivateMenu()
     {
         _menu.SetActive(!_menu.activeSelf);
-        if(GameIsPaused)
-        {
-            ResumeTime();
-        }
-        else
-        {
-            PauseTime();
-        }
+        _rayInteractor1.SetActive(!_rayInteractor1.activeSelf);
+        _rayInteractor2.SetActive(!_rayInteractor2.activeSelf);
+        //if(GameIsPaused)
+        //{
+        //    ResumeTime();
+        //}
+        //else
+        //{
+        //    PauseTime();
+        //}
     }
    
     void ResumeTime(){

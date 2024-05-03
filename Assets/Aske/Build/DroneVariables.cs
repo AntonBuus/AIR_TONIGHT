@@ -29,21 +29,21 @@ public class DroneVariables : MonoBehaviour
 
     void Update()
     {
-        clearanceText.text = "Clearance:\n" + _droneClearance.ToString("F2") + " m";
+        clearanceText.text = _droneClearance.ToString("F2") + " m";
 
         Vector3 v3Vel = rb.velocity;
         _droneVelocity = v3Vel.magnitude;
         //float velKMH = _droneVelocity * 3.6f;
         //speedText.text = "Speed:\n" + velKMH.ToString("F2")+ " km/h";
-        speedText.text = "Speed:\n" + _droneVelocity.ToString("F2")+ " m/s";
+        speedText.text = _droneVelocity.ToString("F2")+ " m/s";
 
         float _droneHeight = transform.position.y;
         float _droneLatitude = transform.position.x;
         float _droneLongitude = transform.position.z;
-        altitudeText.text = "Altitude:\n" + _droneHeight.ToString("F2") + " m";
-        latitudeText.text = "Latitude:\n" + _droneLatitude.ToString("F2");
-        longitudeText.text = "Longitude:\n" + _droneLongitude.ToString("F2");
-        throttleText.text = "Thrust:\n" + (int)(_fixedWing_Controller.thrustPercent * 100) + " %";
+        altitudeText.text = _droneHeight.ToString("F2") + " m";
+        latitudeText.text = _droneLatitude.ToString("F2");
+        longitudeText.text = _droneLongitude.ToString("F2");
+        throttleText.text = (int)(_fixedWing_Controller.thrustPercent * 100) + " %";
     }
 
     void FixedUpdate()
