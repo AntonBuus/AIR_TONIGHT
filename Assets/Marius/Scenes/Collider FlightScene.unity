@@ -8750,7 +8750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97694febb4b3b947a9c0eb784da9072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoPilot: 0
+  autoPilot: 1
   controlFailure: 0
   controlSurfaces:
   - {fileID: 2320877698426595494}
@@ -13507,7 +13507,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4120820141109805151}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6eed9b71db76134593737a6f511f5e7, type: 3}
   m_Name: 
@@ -28017,6 +28017,7 @@ GameObject:
   - component: {fileID: 6157441154618692294}
   - component: {fileID: 764250699644373861}
   - component: {fileID: 3927631098040117443}
+  - component: {fileID: 7232857267962187260}
   m_Layer: 0
   m_Name: Drone
   m_TagString: Untagged
@@ -28024,6 +28025,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &7232857267962187260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7232857267962187259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fb8c57b1e65bd943bc256dda850ee6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crashExplosion: {fileID: 0}
+  droneCrashed: 0
+  droneLanded: 0
 --- !u!33 &7251530857347766023
 MeshFilter:
   m_ObjectHideFlags: 0

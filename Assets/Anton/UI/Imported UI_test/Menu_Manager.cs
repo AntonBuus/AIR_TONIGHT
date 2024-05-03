@@ -16,13 +16,16 @@ public class Menu_Manager : MonoBehaviour
     [SerializeField] private GameObject brokenOnTakeoffEmergencyCanvas;
     [SerializeField] private TMP_Text reportStatusText;
 
+    [SerializeField] private GameObject _leftRayInteractor;
+    [SerializeField] private GameObject _rightRayInteractor;
+
     private EmergencyManager _emergencyManager;
     private int _activeEmergency;
 
     private CrashLandingDetection _crashLandingDetection;
     private bool _droneCrashed;
 
-    public Transform _head;
+    public Transform _mainCamera;
     public float _spawnDistance = 2;
     public InputActionProperty _showMenuButton;
 
@@ -46,11 +49,11 @@ public class Menu_Manager : MonoBehaviour
 
             if (_menu.activeSelf)
             {
-                _menu.transform.position = _head.position + new Vector3(_head.forward.x, 0, _head.forward.z).normalized * _spawnDistance;
+                _menu.transform.position = _mainCamera.position + new Vector3(_mainCamera.forward.x, 0, _mainCamera.forward.z).normalized * _spawnDistance;
             }
         }
 
-        _menu.transform.LookAt(new Vector3(_head.position.x, _menu.transform.position.y, _head.position.z));
+        _menu.transform.LookAt(new Vector3(_mainCamera.position.x, _menu.transform.position.y, _mainCamera.position.z));
         _menu.transform.forward *= -1;
     }
     //----------------------------------------
@@ -60,14 +63,16 @@ public class Menu_Manager : MonoBehaviour
     public void ActivateDeactivateMenu()
     {
         _menu.SetActive(!_menu.activeSelf);
-        if(GameIsPaused)
+        _leftRayInteractor.SetActive(!_leftRayInteractor.activeSelf);
+        _rightRayInteractor.SetActive(!_rightRayInteractor.activeSelf);
+        /*if (GameIsPaused)
         {
             ResumeTime();
         }
         else
         {
             PauseTime();
-        }
+        }*/
     }
    
     void ResumeTime(){
@@ -86,7 +91,7 @@ public class Menu_Manager : MonoBehaviour
     public void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        ResumeTime();
+        //ResumeTime();
     }
     public void QuitGame()
     {
@@ -97,7 +102,7 @@ public class Menu_Manager : MonoBehaviour
     public void MissionEndScreen()
     {
         Debug.Log("Emergency success");
-        PauseTime();
+        //PauseTime();
 
         if (_droneCrashed == true)
         {
@@ -114,20 +119,20 @@ public class Menu_Manager : MonoBehaviour
         {
             case 1:
                 gpsJamCanvas.SetActive(gpsJamCanvas);
-                gpsJamCanvas.transform.position = _head.position + new Vector3(_head.forward.x, 0, _head.forward.z).normalized * _spawnDistance;
-                gpsJamCanvas.transform.LookAt(new Vector3(_head.position.x, _menu.transform.position.y, _head.position.z));
+                gpsJamCanvas.transform.position = _mainCamera.position + new Vector3(_mainCamera.forward.x, 0, _mainCamera.forward.z).normalized * _spawnDistance;
+                gpsJamCanvas.transform.LookAt(new Vector3(_mainCamera.position.x, _menu.transform.position.y, _mainCamera.position.z));
                 gpsJamCanvas.transform.forward *= -1;
                 break;
             case 2:
                 tabletConnLossCanvas.SetActive(tabletConnLossCanvas);
-                tabletConnLossCanvas.transform.position = _head.position + new Vector3(_head.forward.x, 0, _head.forward.z).normalized * _spawnDistance;
-                tabletConnLossCanvas.transform.LookAt(new Vector3(_head.position.x, _menu.transform.position.y, _head.position.z));
+                tabletConnLossCanvas.transform.position = _mainCamera.position + new Vector3(_mainCamera.forward.x, 0, _mainCamera.forward.z).normalized * _spawnDistance;
+                tabletConnLossCanvas.transform.LookAt(new Vector3(_mainCamera.position.x, _menu.transform.position.y, _mainCamera.position.z));
                 tabletConnLossCanvas.transform.forward *= -1;
                 break;
             case 3:
                 brokenOnTakeoffEmergencyCanvas.SetActive(brokenOnTakeoffEmergencyCanvas);
-                brokenOnTakeoffEmergencyCanvas.transform.position = _head.position + new Vector3(_head.forward.x, 0, _head.forward.z).normalized * _spawnDistance;
-                brokenOnTakeoffEmergencyCanvas.transform.LookAt(new Vector3(_head.position.x, _menu.transform.position.y, _head.position.z));
+                brokenOnTakeoffEmergencyCanvas.transform.position = _mainCamera.position + new Vector3(_mainCamera.forward.x, 0, _mainCamera.forward.z).normalized * _spawnDistance;
+                brokenOnTakeoffEmergencyCanvas.transform.LookAt(new Vector3(_mainCamera.position.x, _menu.transform.position.y, _mainCamera.position.z));
                 brokenOnTakeoffEmergencyCanvas.transform.forward *= -1;
                 break;
         }

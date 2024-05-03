@@ -1373,7 +1373,7 @@ GameObject:
   - component: {fileID: 6666084718964834283}
   - component: {fileID: 2005243621241075662}
   m_Layer: 5
-  m_Name: VariableText
+  m_Name: SpeedText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8022,7 +8022,7 @@ GameObject:
   - component: {fileID: 6219124092617468997}
   - component: {fileID: 2324267483154863545}
   m_Layer: 5
-  m_Name: VariableText
+  m_Name: ThrottleText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10643,7 +10643,7 @@ GameObject:
   - component: {fileID: 5556045101490130533}
   - component: {fileID: 4582174676434558936}
   m_Layer: 5
-  m_Name: VariableText
+  m_Name: LatitudeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13133,7 +13133,7 @@ GameObject:
   - component: {fileID: 1070661199530738867}
   - component: {fileID: 5330475398177114461}
   m_Layer: 5
-  m_Name: VariableText
+  m_Name: AltitudeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18184,7 +18184,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Speed
+  m_text: Altitude
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -18265,7 +18265,7 @@ GameObject:
   - component: {fileID: 6576592636310439786}
   - component: {fileID: 8192059661947941800}
   m_Layer: 5
-  m_Name: VariableText
+  m_Name: LongitudeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22632,7 +22632,7 @@ GameObject:
   - component: {fileID: 8294935022000078956}
   - component: {fileID: 4741461952703837592}
   m_Layer: 5
-  m_Name: VariableText
+  m_Name: ClearanceText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
