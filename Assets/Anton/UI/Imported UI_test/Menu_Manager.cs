@@ -33,8 +33,8 @@ public class Menu_Manager : MonoBehaviour
         _emergencyManager = FindObjectOfType<EmergencyManager>();
         _activeEmergency = _emergencyManager.currentEmergency;
 
-        _emergencyManager = FindObjectOfType<CrashLandingDetection>();
-        _droneCrashed = CrashLandingDetection.droneCrashed;
+        _crashLandingDetection = FindObjectOfType<CrashLandingDetection>();
+        _droneCrashed = _crashLandingDetection.droneCrashed;
     }
 
     void Update()
