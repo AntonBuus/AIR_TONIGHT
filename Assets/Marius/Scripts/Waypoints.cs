@@ -18,7 +18,14 @@ public class Waypoints : MonoBehaviour
     {
         foreach (Transform t in transform)
         {
-            Instantiate(_waypointToSpawn, new Vector3(t.position.x,60,t.position.z), Quaternion.Euler(90, 0, 0));
+            try
+            {
+                Instantiate(_waypointToSpawn, new Vector3(t.position.x, 60, t.position.z), Quaternion.Euler(90, 0, 0));
+            }
+            catch
+            {
+                print("No _waypointToSpawn prefab assigned in inspector");
+            }
 
         }
 

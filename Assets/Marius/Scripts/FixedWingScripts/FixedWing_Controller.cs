@@ -7,6 +7,7 @@ using TMPro;
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(AircraftPhysics))]
 [RequireComponent(typeof(FixedWing_Inputs))]
+[RequireComponent(typeof(CrashLandingDetection))]
 
 public class FixedWing_Controller : MonoBehaviour
 {
@@ -52,16 +53,14 @@ public class FixedWing_Controller : MonoBehaviour
     #region Main Methods
     private void Start()
     {
+
         aircraftPhysics = GetComponent<AircraftPhysics>(); //Reference to a script component
         FWInputs = GetComponent<FixedWing_Inputs>(); //Reference to a script component
-
         rb = GetComponent<Rigidbody>(); //Reference to a Ridgidbody
         propellerSound = GetComponent<AudioSource>(); //Refernce to an audiosource
-
         waypoints = FindObjectOfType<Waypoints>(); //Reference to the object with the waypoints script component
 
         activeWaypoint = waypoints.GetNextWaypoint(activeWaypoint); //Sets the active waypoint to the first waypoint in the hierachy
-
         propellerSound.pitch = 0;
     }
 
