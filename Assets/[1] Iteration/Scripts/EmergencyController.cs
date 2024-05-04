@@ -60,7 +60,7 @@ public class EmergencyController : MonoBehaviour
         }
         if (Vector3.Distance(drone.transform.position, waypoint3.position) < _threshold)
         {
-            _menu_Manager.EmergencySuccess();
+            _menu_Manager.MissionEndScreen();
         }
     }
     
@@ -79,7 +79,7 @@ public class EmergencyController : MonoBehaviour
         }
         if (Vector3.Distance(drone.transform.position, waypoint3.position) < _threshold)
         {
-            _menu_Manager.EmergencySuccess();
+            _menu_Manager.MissionEndScreen();
         }
     }
 
@@ -98,7 +98,7 @@ public class EmergencyController : MonoBehaviour
         }
         if (Vector3.Distance(drone.transform.position, waypoint3.position) < _threshold)
         {
-            _menu_Manager.EmergencySuccess();
+            _menu_Manager.MissionEndScreen();
         }
     }
 }

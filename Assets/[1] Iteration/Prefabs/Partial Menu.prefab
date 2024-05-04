@@ -1710,18 +1710,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b0808e41af8d5a488a002030d74f205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menu: {fileID: 5440343858408733076}
-  head: {fileID: 0}
-  spawnDistance: 2
-  showMenuButton:
-    m_UseReference: 1
+  _menu: {fileID: 0}
+  endScreenCanvas: {fileID: 0}
+  gpsJamCanvas: {fileID: 0}
+  tabletConnLossCanvas: {fileID: 0}
+  brokenOnTakeoffEmergencyCanvas: {fileID: 0}
+  reportStatusText: {fileID: 0}
+  _leftRayInteractor: {fileID: 0}
+  _rightRayInteractor: {fileID: 0}
+  _mainCamera: {fileID: 0}
+  _spawnDistance: 2
+  _showMenuButton:
+    m_UseReference: 0
     m_Action:
       m_Name: Show Menu Button
       m_Type: 0
       m_ExpectedControlType: 
-      m_Id: 4601fb35-8d6c-4b96-865b-914a7be3ed47
+      m_Id: 2bbfac9a-23c5-42f3-a8e7-118383b73cd4
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -1611397535374256820, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: 0}
