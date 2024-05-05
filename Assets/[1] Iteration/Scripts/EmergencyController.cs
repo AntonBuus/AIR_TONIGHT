@@ -57,11 +57,11 @@ public class EmergencyController : MonoBehaviour
                 fwcEnabled = true;
                 _fixedWing_Controller.autoPilot = false;
             }
-        }
+        }/*
         if (Vector3.Distance(drone.transform.position, waypoint3.position) < _threshold)
         {
             _menu_Manager.MissionEndScreen();
-        }
+        }*/
     }
     
     // disable autopilot and manualControl to imitate GPS and controller connection loss.
@@ -76,11 +76,11 @@ public class EmergencyController : MonoBehaviour
                 // No manual or autopilot controls.
                 _fixedWing_Controller.controlFailure = true;
             }
-        }
+        }/*
         if (Vector3.Distance(drone.transform.position, waypoint3.position) < _threshold)
         {
             _menu_Manager.MissionEndScreen();
-        }
+        }*/
     }
 
     // disable throttle to imitate engine or propeller issue.
@@ -95,10 +95,10 @@ public class EmergencyController : MonoBehaviour
                 throttleToggled = true;
                 _fixedWing_Controller.ToggleThrottle();
             }
-        }
+        }/*
         if (Vector3.Distance(drone.transform.position, waypoint3.position) < _threshold)
         {
             _menu_Manager.MissionEndScreen();
-        }
+        }*/
     }
 }
