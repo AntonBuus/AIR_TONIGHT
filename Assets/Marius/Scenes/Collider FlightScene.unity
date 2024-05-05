@@ -802,7 +802,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1460085262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15985,9 +15985,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   artificialHorizon: {fileID: 790637565333754224}
-  altitudeMeter: {fileID: 6988051103105169847}
+  pitchMeter: {fileID: 0}
+  bankAngleArrowAnchor: {fileID: 0}
   drone: {fileID: 4482147079378193714}
   amplitude: 25
+  zRotationSensitivity: 0
 --- !u!23 &4385601354218178569
 MeshRenderer:
   m_ObjectHideFlags: 0
