@@ -16,7 +16,7 @@ public class DroneVariables : MonoBehaviour
     private Rigidbody rb;
     private FixedWing_Controller _fixedWing_Controller;
 
-    [SerializeField] private float _droneVelocity;
+    public float _droneVelocity; //Made public by Marius to be used in NewHUD.cs
     [SerializeField] private float _droneHeight;
     [SerializeField] private float _droneClearance;
 
