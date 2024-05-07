@@ -53,6 +53,7 @@ public class FixedWing_Controller : MonoBehaviour
     #region Main Methods
     private void Start()
     {
+
         aircraftPhysics = GetComponent<AircraftPhysics>(); //Reference to a script component
         FWInputs = GetComponent<FixedWing_Inputs>(); //Reference to a script component
         rb = GetComponent<Rigidbody>(); //Reference to a Ridgidbody
@@ -85,15 +86,6 @@ public class FixedWing_Controller : MonoBehaviour
         propellerR.transform.Rotate(0f, thrustPercent * propellerSpeed * Time.fixedDeltaTime, 0f); //Rotates the right propeller counter clockwise
         propellerL.transform.Rotate(0f, -1 * thrustPercent * propellerSpeed * Time.fixedDeltaTime, 0f); //Rotates the left propeller clockwise
 
-
-        if(transform.localRotation.z != 0f && FWInputs.Roll== 0)
-        {
-            // Calculate the rotation needed to align with zero on the z-axis
-            Quaternion targetRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y, 0f);
-
-            // Rotate towards the target rotation
-            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, targetRotation, Time.deltaTime * 100);
-        }
 
     }
 
