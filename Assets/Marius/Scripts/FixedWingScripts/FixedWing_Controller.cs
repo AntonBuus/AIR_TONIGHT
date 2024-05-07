@@ -14,6 +14,9 @@ public class FixedWing_Controller : MonoBehaviour
     #region Variables
     [Tooltip("When active, the drone flies autonomously")] 
     public bool autoPilot = true;
+    [SerializeField] private float pitchResetSpeed = 10f;
+    [SerializeField] private float rotationResetSpeed = 100f;
+
     public bool controlFailure = false;
 
     [SerializeField] List<AeroSurface> controlSurfaces = null;
@@ -25,6 +28,7 @@ public class FixedWing_Controller : MonoBehaviour
     [SerializeField] float rollControlSensitivity = 0.2f;
     [SerializeField] float pitchControlSensitivity = 0.2f;
     [SerializeField] float yawControlSensitivity = 0.2f;
+
 
     [SerializeField] private float distanceToWaypointThresh = 50;
 
@@ -70,30 +74,30 @@ public class FixedWing_Controller : MonoBehaviour
             Flap = Flap > 0 ? 0 : 0.3f;
         }
 
-        //Toggles the brakes when B is pressed.
-        /*if (Input.GetKeyDown(KeyCode.B))
-        {
-            wheelBrake = wheelBrake > 0 ? 0 : 1;
-        }*/
-        
-        /*
-        displayText.text = "V: " + ((int)rb.velocity.magnitude).ToString("D3") + " m/s\n";
-        displayText.text += "A: " + ((int)transform.position.y).ToString("D4") + " m\n";
-        displayText.text += "T: " + (int)(thrustPercent * 100) + "%\n";
-        displayText.text += wheelBrake > 0 ? "B: ON" : "B: OFF";
-        */
         propellerR.transform.Rotate(0f, thrustPercent * propellerSpeed * Time.fixedDeltaTime, 0f); //Rotates the right propeller counter clockwise
         propellerL.transform.Rotate(0f, -1 * thrustPercent * propellerSpeed * Time.fixedDeltaTime, 0f); //Rotates the left propeller clockwise
 
 
-        if(transform.localRotation.z != 0f && FWInputs.Roll== 0)
+
+/*        //Resets the pitch of the drone when it is not actively adjusted and autopilot is off
+        if (transform.localRotation.x != 0f && FWInputs.Pitch == 0 && !autoPilot)
+        {
+            // Calculate the rotation needed to align with zero on the z-axis
+            Quaternion targetRotation = Quaternion.Euler(0f, transform.localRotation.eulerAngles.y, transform.localRotation.eulerAngles.z);
+
+            // Rotate towards the target rotation
+            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, targetRotation, Time.deltaTime * pitchResetSpeed);
+        }*/
+
+                //Resets the roll of the drone when it is not actively adjusted and autopilot is off
+/*        if (transform.localRotation.z != 0f && FWInputs.Roll == 0 && !autoPilot)
         {
             // Calculate the rotation needed to align with zero on the z-axis
             Quaternion targetRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y, 0f);
 
             // Rotate towards the target rotation
-            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, targetRotation, Time.deltaTime * 100);
-        }
+            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, targetRotation, Time.deltaTime * rollResetSpeed);
+        }*/
 
     }
 
@@ -109,11 +113,23 @@ public class FixedWing_Controller : MonoBehaviour
             }
             else if (autoPilot == false)
             {
+
                 propellerSound.pitch = Mathf.Clamp(propellerSound.pitch + FWInputs.Throttle * 2f, 0f, 5f);
 
                 thrustPercent = Mathf.Clamp(thrustPercent + FWInputs.Throttle, 0, 1); //This line sets thrustPercent according to the value of the Throttle input, limited to a value between 0 and 1.
                 SetControlSurfacesAngles(FWInputs.Pitch, FWInputs.Roll, -FWInputs.Yaw, Flap);
             }
+        }
+
+        //Resets the roll of the drone when it is not actively adjusted and autopilot is off
+        if (transform.localRotation.z != 0f && FWInputs.Roll == 0 && FWInputs.Pitch == 0 && !autoPilot)
+        {
+            // Calculate the rotation needed to align with zero on the z-axis
+            Quaternion targetRotation = Quaternion.Euler(0f, transform.localRotation.eulerAngles.y, 0f);
+
+            // Rotate towards the target rotation
+            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, targetRotation, Time.deltaTime * rotationResetSpeed);
+            //Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime * pitchResetSpeed);
         }
 
         aircraftPhysics.SetThrustPercent(thrustPercent);
