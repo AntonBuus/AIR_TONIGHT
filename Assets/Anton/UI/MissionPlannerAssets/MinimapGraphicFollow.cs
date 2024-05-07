@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class MinimapGraphicFollow : MonoBehaviour
 {
-    public Transform _playerPositionGraphic;
-
+    
+    [SerializeField] Transform _playerPositionGraphic;
+    [SerializeField] bool _rotateSprite = true;
 
     void LateUpdate()
     {
@@ -13,8 +14,11 @@ public class MinimapGraphicFollow : MonoBehaviour
 
         _newPosition.y = transform.position.y;
         transform.position = _newPosition;
-
-        transform.rotation = Quaternion.Euler(90f, _playerPositionGraphic.eulerAngles.y, 0f);
+        if ( _rotateSprite )
+        {
+            transform.rotation = Quaternion.Euler(90f, _playerPositionGraphic.eulerAngles.y, 0f);
+        }
+        
 
 
     }

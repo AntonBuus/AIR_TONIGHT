@@ -252,8 +252,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Settings
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c82049d9c3f4a604e9f1d505c65ef74d, type: 2}
+  m_sharedMaterial: {fileID: -145601167240766457, guid: c82049d9c3f4a604e9f1d505c65ef74d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1022,8 +1022,8 @@ MonoBehaviour:
   m_text: "Learn how to properly handle emergencies should they appear when you\u2019re
     on site"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c82049d9c3f4a604e9f1d505c65ef74d, type: 2}
+  m_sharedMaterial: {fileID: -145601167240766457, guid: c82049d9c3f4a604e9f1d505c65ef74d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1801,8 +1801,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Practice the surveying of buildings
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c82049d9c3f4a604e9f1d505c65ef74d, type: 2}
+  m_sharedMaterial: {fileID: -145601167240766457, guid: c82049d9c3f4a604e9f1d505c65ef74d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1914,9 +1914,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _menu: {fileID: 0}
-  _failCanvas: {fileID: 0}
-  _successCanvas: {fileID: 0}
-  _head: {fileID: 0}
+  endScreenCanvas: {fileID: 0}
+  gpsJamCanvas: {fileID: 0}
+  tabletConnLossCanvas: {fileID: 0}
+  brokenOnTakeoffEmergencyCanvas: {fileID: 0}
+  reportStatusText: {fileID: 0}
+  _leftRayInteractor: {fileID: 0}
+  _rightRayInteractor: {fileID: 0}
+  _mainCamera: {fileID: 0}
   _spawnDistance: 2
   _showMenuButton:
     m_UseReference: 0
@@ -2205,7 +2210,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3679339189876846519
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2730,8 +2735,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Start
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c82049d9c3f4a604e9f1d505c65ef74d, type: 2}
+  m_sharedMaterial: {fileID: -145601167240766457, guid: c82049d9c3f4a604e9f1d505c65ef74d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3425,7 +3430,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3719934175430691537
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4071,8 +4076,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Help companies reduce the risk of  power outatges and wildfires
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c82049d9c3f4a604e9f1d505c65ef74d, type: 2}
+  m_sharedMaterial: {fileID: -145601167240766457, guid: c82049d9c3f4a604e9f1d505c65ef74d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4205,8 +4210,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Get the basics down
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c82049d9c3f4a604e9f1d505c65ef74d, type: 2}
+  m_sharedMaterial: {fileID: -145601167240766457, guid: c82049d9c3f4a604e9f1d505c65ef74d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4339,8 +4344,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Select Mode
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6ded8eea365135642a832c6f127abbe3, type: 2}
+  m_sharedMaterial: {fileID: 5411436198361975710, guid: 6ded8eea365135642a832c6f127abbe3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5735,8 +5740,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Quit
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c82049d9c3f4a604e9f1d505c65ef74d, type: 2}
+  m_sharedMaterial: {fileID: -145601167240766457, guid: c82049d9c3f4a604e9f1d505c65ef74d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5954,7 +5959,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8675548389200569414
 RectTransform:
   m_ObjectHideFlags: 0
