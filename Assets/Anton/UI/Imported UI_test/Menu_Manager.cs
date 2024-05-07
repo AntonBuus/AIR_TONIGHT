@@ -28,9 +28,6 @@ public class Menu_Manager : MonoBehaviour
     [SerializeField] private GameObject _leftRayInteractor;
     [SerializeField] private GameObject _rightRayInteractor;
 
-    private Fade _fade;
-    private float _alphaValue;
-
     private EmergencyManager _emergencyManager;
     private int _activeEmergency;
 
@@ -38,14 +35,19 @@ public class Menu_Manager : MonoBehaviour
     public float _spawnDistance = 1;
     public InputActionProperty _showMenuButton;
 
-    private Vector3 _relativePosition;
-
     private void Start()
     {
-        _emergencyManager = FindObjectOfType<EmergencyManager>();
-        _activeEmergency = _emergencyManager.currentEmergency;
+        try
+        {
+            _emergencyManager = FindObjectOfType<EmergencyManager>();
+            _activeEmergency = _emergencyManager.currentEmergency;
+        }
+        catch
+        {
+            Debug.Log("emergencymanagerNotFound");
+            
+        }
 
-        _fade = FindObjectOfType<Fade>();
         FadeOut();
     }
 
@@ -150,9 +152,9 @@ public class Menu_Manager : MonoBehaviour
         Application.Quit();
     }
 
+
     public void MissionEndScreen()
     {
-        Debug.Log("mission end screen called");
         CrashLandingDetection _crashLandingDetection = FindObjectOfType<CrashLandingDetection>();
         bool _droneCrashed = _crashLandingDetection.droneCrashed;
 

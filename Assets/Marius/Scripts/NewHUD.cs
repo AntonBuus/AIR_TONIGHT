@@ -38,9 +38,17 @@ public class NewHUD : MonoBehaviour
     private void Start()
     {
         pitchMeterStartYpos = pitchMeter.transform.localPosition.y;
-
-        fwController = FindAnyObjectByType<FixedWing_Controller>();
-        droneVariables = FindAnyObjectByType<DroneVariables>();
+        try
+        {
+            fwController = FindAnyObjectByType<FixedWing_Controller>();
+            droneVariables = FindAnyObjectByType<DroneVariables>();
+        }
+        catch
+        {
+            fwController=null;
+            droneVariables=null;
+        }
+        
     }
 
 
@@ -89,13 +97,21 @@ public class NewHUD : MonoBehaviour
 
     private void GpsText()
     {
-        if(fwController.autoPilot == true)
+        try
         {
-            UpdateTextAndColor(gpsStatusText, "GPS: Fixed", Color.white);
+
+            if (fwController.autoPilot == true)
+            {
+                UpdateTextAndColor(gpsStatusText, "GPS: Fixed", Color.white);
+            }
+            else
+            {
+                UpdateTextAndColor(gpsStatusText, "GPS: No Fix", costumRed);
+            }
         }
-        else
+        catch
         {
-            UpdateTextAndColor(gpsStatusText, "GPS: No Fix", costumRed);
+            fwController=null;
         }
     }
 
@@ -116,13 +132,20 @@ public class NewHUD : MonoBehaviour
     private void AirspeedMeter()
     {
         float scaleFactor = 92.5f / 5;
+        try
+        {
+            float airSpeedMeterYpos = droneVariables._droneVelocity * scaleFactor;
 
-        float airSpeedMeterYpos = droneVariables._droneVelocity * scaleFactor;
+            airspeedNumbersContainer.transform.localPosition = new Vector2(0, Mathf.Clamp(-airSpeedMeterYpos, -1850, 185));
 
-        airspeedNumbersContainer.transform.localPosition = new Vector2(0, Mathf.Clamp(-airSpeedMeterYpos, -1850, 185));
-
-        airspeedMeterText.text = Mathf.RoundToInt(airSpeedMeterYpos).ToString();
-
-        ASText.text = droneVariables._droneVelocity.ToString();
+            airspeedMeterText.text = Mathf.RoundToInt(airSpeedMeterYpos).ToString();
+        
+            ASText.text = droneVariables._droneVelocity.ToString();
+        }
+        catch
+        {
+            droneVariables = null;
+        }
+        
     }
 }
