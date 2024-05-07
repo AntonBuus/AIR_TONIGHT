@@ -10,10 +10,10 @@ public class Menu_Manager : MonoBehaviour
 {
     public GameObject _menu;
 
-    [SerializeField] private GameObject endScreenCanvas;
     [SerializeField] private GameObject gpsJamCanvas;
     [SerializeField] private GameObject tabletConnLossCanvas;
     [SerializeField] private GameObject brokenOnTakeoffEmergencyCanvas;
+    [SerializeField] private GameObject reportStatusGO;
     [SerializeField] private TMP_Text reportStatusText;
 
     [SerializeField] private GameObject _leftRayInteractor;
@@ -22,11 +22,8 @@ public class Menu_Manager : MonoBehaviour
     private EmergencyManager _emergencyManager;
     private int _activeEmergency;
 
-    private CrashLandingDetection _crashLandingDetection;
-    private bool _droneCrashed;
-
     public Transform _mainCamera;
-    public float _spawnDistance = 2;
+    public float _spawnDistance = 1;
     public InputActionProperty _showMenuButton;
 
     private Vector3 _relativePosition;
@@ -35,9 +32,6 @@ public class Menu_Manager : MonoBehaviour
     {
         _emergencyManager = FindObjectOfType<EmergencyManager>();
         _activeEmergency = _emergencyManager.currentEmergency;
-
-        _crashLandingDetection = FindObjectOfType<CrashLandingDetection>();
-        _droneCrashed = _crashLandingDetection.droneCrashed;
     }
 
     void Update()
@@ -45,7 +39,6 @@ public class Menu_Manager : MonoBehaviour
         if (_showMenuButton.action.WasPressedThisFrame())
         {
             ActivateDeactivateMenu();
-            Debug.Log("Menu Pressed!");
 
             if (_menu.activeSelf)
             {
@@ -96,13 +89,13 @@ public class Menu_Manager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-        Debug.Log("QUIT Game!");
     }
 
     public void MissionEndScreen()
     {
-        Debug.Log("Emergency success");
-        //PauseTime();
+        Debug.Log("mission end screen called");
+        CrashLandingDetection _crashLandingDetection = FindObjectOfType<CrashLandingDetection>();
+        bool _droneCrashed = _crashLandingDetection.droneCrashed;
 
         if (_droneCrashed == true)
         {
@@ -113,7 +106,7 @@ public class Menu_Manager : MonoBehaviour
             reportStatusText.text = "Scenario successful!";
         }
 
-        endScreenCanvas.SetActive(true);
+        reportStatusGO.SetActive(true);
 
         switch (_activeEmergency)
         {

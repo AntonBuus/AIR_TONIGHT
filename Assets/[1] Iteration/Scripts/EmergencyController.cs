@@ -20,6 +20,7 @@ public class EmergencyController : MonoBehaviour
     bool throttleToggled = false;
 
     private int _activeEmergency;
+    public int emergencyBegun = 0;
 
     void Start()
     {
@@ -52,6 +53,7 @@ public class EmergencyController : MonoBehaviour
     {
         if (Vector3.Distance(drone.transform.position,waypoint1.position) < _threshold)
         {
+            emergencyBegun = 1;
             if (fwcEnabled == false)
             {
                 fwcEnabled = true;
@@ -70,6 +72,7 @@ public class EmergencyController : MonoBehaviour
         //Should prevent ToggleThrottle button from working
         if (Vector3.Distance(drone.transform.position, waypoint2.position) < _threshold)
         {
+            emergencyBegun = 2;
             if (autopilotToggled == false)
             {
                 autopilotToggled = true;
@@ -90,6 +93,7 @@ public class EmergencyController : MonoBehaviour
         //Should prevent ToggleThrottle button from working
         if (Vector3.Distance(drone.transform.position, waypoint3.position) < _threshold)
         {
+            emergencyBegun = 3;
             if (throttleToggled == false)
             {
                 throttleToggled = true;

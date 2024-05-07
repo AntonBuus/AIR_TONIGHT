@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 
 public class CrashLandingDetection : MonoBehaviour
 {
-    //private Menu_Manager menuManager;
+    private Menu_Manager menuManager;
 
     [Tooltip("Assign prefab with explosion here")]
     [SerializeField] private GameObject crashExplosion;
@@ -13,15 +14,21 @@ public class CrashLandingDetection : MonoBehaviour
     public bool droneCrashed = false;
     public bool droneLanded;
 
+    private EmergencyController _emergencyController;
+    private int _emergencyBegun;
+
     private void Start()
     {
-        //menuManager = FindObjectOfType<Menu_Manager>();
+        menuManager = FindObjectOfType<Menu_Manager>();
+
+        _emergencyController = FindObjectOfType<EmergencyController>();
+        _emergencyBegun = _emergencyController.emergencyBegun;
     }
     private void OnTriggerEnter(Collider other) //Check if the trigger colliders collides with anything.
     {
         try
         {
-            //menuManager.EmergencyFail();
+            menuManager.MissionEndScreen();
         }
         catch
         {
@@ -36,13 +43,14 @@ public class CrashLandingDetection : MonoBehaviour
 
     private void OnCollisionStay(Collision collision) //Checks if the colliders on the drone's wheels are touching the ground
     {
-        if (!droneCrashed)
+        if (!droneCrashed && _emergencyBegun >= 0)
         {
             droneLanded = true;
+            menuManager.MissionEndScreen();
         }
     }
 
-    private void OnCollisionExit(Collision collision) //Checks if the colliders on the drone's wheels are touching the ground
+    private void OnCollisionExit(Collision collision) //Checks if the colliders on the drone's wheels aren't touching the ground
     {
         droneLanded = false;
     }
