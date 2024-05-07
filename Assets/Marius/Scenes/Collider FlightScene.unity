@@ -7757,7 +7757,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.16576001, y: 0.16576001, z: 0.16576001}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1987977983946098875}
@@ -8751,6 +8751,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoPilot: 0
+  pitchResetSpeed: 1
+  rotationResetSpeed: 100
   controlFailure: 0
   controlSurfaces:
   - {fileID: 2320877698426595494}
@@ -14035,6 +14037,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoPilot: 1
+  pitchResetSpeed: 10
+  rotationResetSpeed: 100
   controlFailure: 0
   controlSurfaces:
   - {fileID: 5684276921423357333}
