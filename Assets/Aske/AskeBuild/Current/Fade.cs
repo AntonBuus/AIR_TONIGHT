@@ -6,15 +6,19 @@ using UnityEngine;
 
 public class Fade : MonoBehaviour
 {
-    [SerializeField] private CanvasGroup _canvasGroup;
+    public CanvasGroup _canvasGroup;
     [SerializeField] private bool _fadeIn = false;
-    [SerializeField] private bool _fadeOut = false;
+    public bool _fadeOut = false;
     [SerializeField] private float _fadeDuration;
-    //[SerializeField] private bool _faded = false;
+
+    private void Start()
+    {
+        FadeOut();
+    }
 
     public void FadeIn()
     {
-        _fadeIn= true;
+        _fadeIn = true;
     }
 
     public void FadeOut()

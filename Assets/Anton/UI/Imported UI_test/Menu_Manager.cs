@@ -1,3 +1,5 @@
+// Fade inspired by: https://www.youtube.com/watch?v=Ox0JCbVIMCQ
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +10,13 @@ using TMPro;
 
 public class Menu_Manager : MonoBehaviour
 {
+    [SerializeField] private CanvasGroup _canvasGroup;
+    [SerializeField] private bool _fadeIn = false;
+    [SerializeField] private bool _fadeOut = false;
+    [SerializeField] private float _fadeDuration = 1;
+    [SerializeField] private int sceneIndex;
+    [SerializeField] private bool sceneChange = false;
+
     public GameObject _menu;
 
     [SerializeField] private GameObject gpsJamCanvas;
@@ -18,6 +27,9 @@ public class Menu_Manager : MonoBehaviour
 
     [SerializeField] private GameObject _leftRayInteractor;
     [SerializeField] private GameObject _rightRayInteractor;
+
+    private Fade _fade;
+    private float _alphaValue;
 
     private EmergencyManager _emergencyManager;
     private int _activeEmergency;
@@ -32,6 +44,9 @@ public class Menu_Manager : MonoBehaviour
     {
         _emergencyManager = FindObjectOfType<EmergencyManager>();
         _activeEmergency = _emergencyManager.currentEmergency;
+
+        _fade = FindObjectOfType<Fade>();
+        FadeOut();
     }
 
     void Update()
@@ -48,8 +63,42 @@ public class Menu_Manager : MonoBehaviour
 
         _menu.transform.LookAt(new Vector3(_mainCamera.position.x, _menu.transform.position.y, _mainCamera.position.z));
         _menu.transform.forward *= -1;
+
+        if (_fadeIn == true)
+        {
+            if (_canvasGroup.alpha <= 1)
+            {
+                _canvasGroup.alpha += _fadeDuration * Time.deltaTime;
+                if (_canvasGroup.alpha == 1)
+                {
+                    _fadeIn = false;
+                }
+            }
+        }
+
+        if (_fadeOut == true)
+        {
+            if (_canvasGroup.alpha >= 0)
+            {
+                _canvasGroup.alpha -= _fadeDuration * Time.deltaTime;
+                if (_canvasGroup.alpha == 0)
+                {
+                    _fadeOut = false;
+                }
+            }
+        }
     }
     //----------------------------------------
+
+    public void FadeIn()
+    {
+        _fadeIn = true;
+    }
+
+    public void FadeOut()
+    {
+        _fadeOut = true;
+    }
 
     public static bool GameIsPaused = false;
     
@@ -77,9 +126,19 @@ public class Menu_Manager : MonoBehaviour
         Time.timeScale = 0f;
         GameIsPaused = true;
     }
+
     public void LoadScene(int index)
     {
-        SceneManager.LoadScene(index);
+        sceneIndex = index;
+        //sceneChange = true;
+        StartCoroutine(ChangeScene());
+    }
+
+    public IEnumerator ChangeScene()
+    {
+        FadeIn();
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(sceneIndex);
     }
     public void RestartScene()
     {

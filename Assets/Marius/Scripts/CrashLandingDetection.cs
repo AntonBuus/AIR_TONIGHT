@@ -43,7 +43,7 @@ public class CrashLandingDetection : MonoBehaviour
 
     private void OnCollisionStay(Collision collision) //Checks if the colliders on the drone's wheels are touching the ground
     {
-        if (!droneCrashed && _emergencyBegun >= 0)
+        if (!droneCrashed && _emergencyBegun > 0)
         {
             droneLanded = true;
             menuManager.MissionEndScreen();

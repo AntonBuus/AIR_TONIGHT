@@ -52,6 +52,8 @@ public class FixedWing_Controller : MonoBehaviour
     private FixedWing_Inputs FWInputs;
     private Waypoints waypoints;
 
+    public bool grabbedController = false;
+
     #endregion
 
     #region Main Methods
@@ -101,7 +103,12 @@ public class FixedWing_Controller : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
+    public void BoolGrabbedController(bool grabbedController)
+    {
+        grabbedController = grabbedController;
+    }
+
+    public void FixedUpdate()
     {
         WheelBrakes();
         if (controlFailure == false)
@@ -111,7 +118,7 @@ public class FixedWing_Controller : MonoBehaviour
                 AutoPilot();
                 SetControlSurfacesAngles(0, 0, 0, 0);
             }
-            else if (autoPilot == false)
+            else if (autoPilot == false && grabbedController == true)
             {
 
                 propellerSound.pitch = Mathf.Clamp(propellerSound.pitch + FWInputs.Throttle * 2f, 0f, 5f);
@@ -220,7 +227,6 @@ public class FixedWing_Controller : MonoBehaviour
     {
         autoPilot = autoPilot = false ? true : false;
     }
-
     #endregion
 
 }
