@@ -14,8 +14,8 @@ public class FixedWing_Controller : MonoBehaviour
     #region Variables
     [Tooltip("When active, the drone flies autonomously")] 
     public bool autoPilot = true;
-    [SerializeField] private float pitchResetSpeed = 10f;
-    [SerializeField] private float rotationResetSpeed = 100f;
+
+    [SerializeField] private float rotationResetSpeed = 25;
 
     public bool controlFailure = false;
 
