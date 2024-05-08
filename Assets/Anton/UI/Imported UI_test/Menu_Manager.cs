@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using System;
 using TMPro;
+using UnityEngine.XR.Interaction.Toolkit.Filtering;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class Menu_Manager : MonoBehaviour
 {
@@ -107,8 +109,29 @@ public class Menu_Manager : MonoBehaviour
     public void ActivateDeactivateMenu()
     {
         _menu.SetActive(!_menu.activeSelf);
-        _leftRayInteractor.SetActive(!_leftRayInteractor.activeSelf);
-        _rightRayInteractor.SetActive(!_rightRayInteractor.activeSelf);
+        //_leftRayInteractor.SetActive(!_leftRayInteractor.activeSelf);
+        //_rightRayInteractor.SetActive(!_rightRayInteractor.activeSelf);
+        //More clunky way to disable objects, though these are script specific
+        if(_rightRayInteractor.GetComponent<XRRayInteractor>().enabled == false)
+        {
+            _rightRayInteractor.GetComponent<XRRayInteractor>().enabled = true;
+        }
+        else if (_rightRayInteractor.GetComponent<XRRayInteractor>().enabled == true)
+        {
+            _rightRayInteractor.GetComponent<XRRayInteractor>().enabled = false;
+        }
+
+        if(_leftRayInteractor.GetComponent<XRRayInteractor>().enabled == false)
+        {
+            _leftRayInteractor.GetComponent<XRRayInteractor>().enabled = true;
+        }
+        else if (_leftRayInteractor.GetComponent<XRRayInteractor>().enabled == true)
+        {
+            _leftRayInteractor.GetComponent<XRRayInteractor>().enabled = false;
+        }
+        
+        
+
         /*if (GameIsPaused)
         {
             ResumeTime();
