@@ -112,24 +112,16 @@ public class Menu_Manager : MonoBehaviour
         //_leftRayInteractor.SetActive(!_leftRayInteractor.activeSelf);
         //_rightRayInteractor.SetActive(!_rightRayInteractor.activeSelf);
         //More clunky way to disable objects, though these are script specific
-        if(_rightRayInteractor.GetComponent<XRRayInteractor>().enabled == false)
+        if(_rightRayInteractor.GetComponent<XRRayInteractor>().enabled == false || _leftRayInteractor.GetComponent<XRRayInteractor>().enabled == false)
         {
             _rightRayInteractor.GetComponent<XRRayInteractor>().enabled = true;
-        }
-        else if (_rightRayInteractor.GetComponent<XRRayInteractor>().enabled == true)
-        {
-            _rightRayInteractor.GetComponent<XRRayInteractor>().enabled = false;
-        }
-
-        if(_leftRayInteractor.GetComponent<XRRayInteractor>().enabled == false)
-        {
             _leftRayInteractor.GetComponent<XRRayInteractor>().enabled = true;
         }
-        else if (_leftRayInteractor.GetComponent<XRRayInteractor>().enabled == true)
+        else if (_rightRayInteractor.GetComponent<XRRayInteractor>().enabled == true || _leftRayInteractor.GetComponent<XRRayInteractor>().enabled == true)
         {
+            _rightRayInteractor.GetComponent<XRRayInteractor>().enabled = false;
             _leftRayInteractor.GetComponent<XRRayInteractor>().enabled = false;
-        }
-        
+        }        
         
 
         /*if (GameIsPaused)

@@ -126,7 +126,7 @@ public class NewHUD : MonoBehaviour
 
         altitudeNumbersContainer.transform.localPosition = new Vector2(0, Mathf.Clamp(-desiredYpos, -1850, 185)); //-desiredYpos because the altitudeNumber's y-pos should be inverted of the drones in order for the altitudeNumbers to rise
 
-        altitudeMeterText.text = Mathf.RoundToInt(drone.position.y).ToString();
+        altitudeMeterText.text = Mathf.RoundToInt(drone.position.y).ToString() + " m";
     }
 
     private void AirspeedMeter()
@@ -138,9 +138,9 @@ public class NewHUD : MonoBehaviour
 
             airspeedNumbersContainer.transform.localPosition = new Vector2(0, Mathf.Clamp(-airSpeedMeterYpos, -1850, 185));
 
-            airspeedMeterText.text = Mathf.RoundToInt(airSpeedMeterYpos).ToString();
+            airspeedMeterText.text = Mathf.RoundToInt(droneVariables._droneVelocity).ToString() + " m/s";
         
-            ASText.text = droneVariables._droneVelocity.ToString();
+            ASText.text = "AS " + droneVariables._droneVelocity.ToString();
         }
         catch
         {

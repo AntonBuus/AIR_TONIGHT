@@ -25,7 +25,6 @@ public class EmergencyController : MonoBehaviour
     void Start()
     {
         _emergencyManager = FindObjectOfType<EmergencyManager>();
-        _activeEmergency = _emergencyManager.currentEmergency;
 
         _fixedWing_Controller = FindObjectOfType<FixedWing_Controller>();
 
@@ -34,7 +33,7 @@ public class EmergencyController : MonoBehaviour
 
     private void Update()
     {
-        switch (_activeEmergency)
+        switch (_emergencyManager.currentEmergency)
         {
             case 1:
                 GpsJam();
@@ -53,6 +52,7 @@ public class EmergencyController : MonoBehaviour
     {
         if (Vector3.Distance(drone.transform.position,waypoint1.position) < _threshold)
         {
+
             emergencyBegun = 1;
             if (fwcEnabled == false)
             {
@@ -77,7 +77,7 @@ public class EmergencyController : MonoBehaviour
             {
                 autopilotToggled = true;
                 // No manual or autopilot controls.
-                _fixedWing_Controller.controlFailure = true;
+                //_fixedWing_Controller.controlFailure = true;
             }
         }/*
         if (Vector3.Distance(drone.transform.position, waypoint3.position) < _threshold)

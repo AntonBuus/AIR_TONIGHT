@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+//Placed on drone
 
 public class CrashLandingDetection : MonoBehaviour
 {
@@ -15,14 +16,14 @@ public class CrashLandingDetection : MonoBehaviour
     public bool droneLanded;
 
     private EmergencyController _emergencyController;
+    private DroneVariables _droneVariables;
     private int _emergencyBegun;
 
     private void Start()
     {
         menuManager = FindObjectOfType<Menu_Manager>();
-
         _emergencyController = FindObjectOfType<EmergencyController>();
-        _emergencyBegun = _emergencyController.emergencyBegun;
+        _droneVariables = FindAnyObjectByType<DroneVariables>();
     }
     private void OnTriggerEnter(Collider other) //Check if the trigger colliders collides with anything.
     {
@@ -43,7 +44,7 @@ public class CrashLandingDetection : MonoBehaviour
 
     private void OnCollisionStay(Collision collision) //Checks if the colliders on the drone's wheels are touching the ground
     {
-        if (!droneCrashed && _emergencyBegun > 0)
+        if (!droneCrashed && _emergencyController.emergencyBegun > 0 && _droneVariables._droneVelocity < 1)
         {
             droneLanded = true;
             menuManager.MissionEndScreen();

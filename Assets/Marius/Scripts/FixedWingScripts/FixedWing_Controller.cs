@@ -47,6 +47,9 @@ public class FixedWing_Controller : MonoBehaviour
 
     private Transform activeWaypoint;
 
+    private float incrementalWaypointHeight;
+    private bool isLanding = false;
+
     private AircraftPhysics aircraftPhysics;
     private Rigidbody rb;
     private FixedWing_Inputs FWInputs;
@@ -67,6 +70,8 @@ public class FixedWing_Controller : MonoBehaviour
 
         activeWaypoint = waypoints.GetNextWaypoint(activeWaypoint); //Sets the active waypoint to the first waypoint in the hierachy
         propellerSound.pitch = 0;
+
+        incrementalWaypointHeight = waypoints.transform.GetChild(1).position.y; //Saves the initial height of the second waypoint to be referenced in TakeOff();
     }
 
     private void Update()
@@ -103,16 +108,9 @@ public class FixedWing_Controller : MonoBehaviour
 
     }
 
-    public void BoolGrabbedController()
+    public void BoolGrabbedController(bool isGrabbed)
     {
-        if (grabbedController == true)
-        {
-            grabbedController = false;
-        }
-        else if (autoPilot == false)
-        {
-            grabbedController = true;
-        }
+        grabbedController = isGrabbed;
     }
 
     public void FixedUpdate()
@@ -189,18 +187,49 @@ public class FixedWing_Controller : MonoBehaviour
         {
             activeWaypoint = waypoints.GetNextWaypoint(activeWaypoint); //Sets active waypoint to the next waypoint
 
+            if(isLanding == false)
+            {
+                //Ensures that all waypoints are set at the same height
+                for (int i = 0; i < waypoints.transform.childCount; i++)
+                {
+                    Vector3 waypointsYpos = new Vector3(waypoints.transform.GetChild(i).position.x, incrementalWaypointHeight, waypoints.transform.GetChild(i).position.z);
+
+                    waypoints.transform.GetChild(i).position = waypointsYpos;
+                }
+            }
             //The below if-statement ensures, that the y position of the first waypoint is the same as the other waypoints once it has been reached the first time
-            if(Vector3.Distance(transform.position, waypoints.transform.GetChild(0).transform.position) < distanceToWaypointThresh && waypoints.transform.GetChild(0).transform.position.y != waypoints.transform.GetChild(1).transform.position.y)
+/*            if (Vector3.Distance(transform.position, waypoints.transform.GetChild(0).transform.position) < distanceToWaypointThresh && waypoints.transform.GetChild(0).transform.position.y != waypoints.transform.GetChild(1).transform.position.y)
             {
                 Vector3 firstWaypointPosition = waypoints.transform.GetChild(0).position; //Gets vector3 position of the first waypoint and stores in a variable
                 firstWaypointPosition.y = waypoints.transform.GetChild(1).position.y; //Set the y position to the same of the second waypoint
                 waypoints.transform.GetChild(0).position = firstWaypointPosition; //Actually assigns the y position of the first waypoint to the firs waypoint position
-            }
+            }*/
         }
+    }
+
+    public void Takeoff()
+    {
+        isLanding = false;
+        thrustPercent = 1;
+
+/*        for (int i = 0; i < waypoints.transform.childCount; i++)
+        {
+            Vector3 waypointsYpos = new Vector3(waypoints.transform.GetChild(i).position.x, incrementalWaypointHeight, waypoints.transform.GetChild(i).position.z);
+
+            waypoints.transform.GetChild(i).position = waypointsYpos;
+
+            *//*waypoints.GetNextWaypoint(activeWaypoint).position; //Gets vector3 position of the next waypoint and stores in a variable
+            nextWaypointPosition.y = 0; //Set the y position of the next waypoint to 0
+            waypoints.GetNextWaypoint(activeWaypoint).position = nextWaypointPosition; //Actually assigns the y position of the first waypoint to the firs waypoint position
+        *//*
+        }*/
+
+        activeWaypoint.position = new Vector3(activeWaypoint.position.x, 0, activeWaypoint.position.z);
     }
 
     public void Landing()
     {
+        isLanding = true;
         thrustPercent = 0;
 
         for (int i = 0; i < waypoints.transform.childCount; i++)
