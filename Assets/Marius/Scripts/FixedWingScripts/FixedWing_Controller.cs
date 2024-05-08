@@ -199,6 +199,22 @@ public class FixedWing_Controller : MonoBehaviour
         }
     }
 
+    public void Landing()
+    {
+        thrustPercent = 0;
+
+        for (int i = 0; i < waypoints.transform.childCount; i++)
+        {
+            Vector3 waypointsYpos = new Vector3(waypoints.transform.GetChild(i).position.x, 0, waypoints.transform.GetChild(i).position.z);
+
+            waypoints.transform.GetChild(i).position = waypointsYpos;
+            
+            /*waypoints.GetNextWaypoint(activeWaypoint).position; //Gets vector3 position of the next waypoint and stores in a variable
+            nextWaypointPosition.y = 0; //Set the y position of the next waypoint to 0
+            waypoints.GetNextWaypoint(activeWaypoint).position = nextWaypointPosition; //Actually assigns the y position of the first waypoint to the firs waypoint position
+        */}
+    }
+
     private void WheelBrakes()
     {
         if(thrustPercent == 0) //(thrustPercent instead of wheelBrake)
