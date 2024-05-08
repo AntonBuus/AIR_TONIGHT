@@ -103,9 +103,16 @@ public class FixedWing_Controller : MonoBehaviour
 
     }
 
-    public void BoolGrabbedController(bool grabbedController)
+    public void BoolGrabbedController()
     {
-        grabbedController = grabbedController;
+        if (grabbedController == true)
+        {
+            grabbedController = false;
+        }
+        else if (autoPilot == false)
+        {
+            grabbedController = true;
+        }
     }
 
     public void FixedUpdate()
@@ -125,6 +132,7 @@ public class FixedWing_Controller : MonoBehaviour
 
                 thrustPercent = Mathf.Clamp(thrustPercent + FWInputs.Throttle, 0, 1); //This line sets thrustPercent according to the value of the Throttle input, limited to a value between 0 and 1.
                 SetControlSurfacesAngles(FWInputs.Pitch, FWInputs.Roll, -FWInputs.Yaw, Flap);
+                print("Manual control");
             }
         }
 
@@ -225,7 +233,14 @@ public class FixedWing_Controller : MonoBehaviour
 
     public void ToggleAutoPilot()
     {
-        autoPilot = autoPilot = false ? true : false;
+        if (autoPilot == true)
+        {
+            autoPilot = false;
+        }
+        else if(autoPilot == false)
+        {
+            autoPilot = true;
+        }
     }
     #endregion
 
