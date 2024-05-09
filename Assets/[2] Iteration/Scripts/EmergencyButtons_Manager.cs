@@ -8,13 +8,20 @@ public class EmergencyButtons_Manager : MonoBehaviour
     [SerializeField] private GameObject brokenOnTakeOff;
     [SerializeField] private GameObject tabConnLoss;
 
+    [SerializeField] private GameObject reset;
+
     private EmergencyManager emergencyManager;
     // Start is called before the first frame update
     void Start()
     {
+        getEmergencyStatus();
+    }
+
+    private void getEmergencyStatus()
+    {
         emergencyManager = GetComponent<EmergencyManager>();
 
-        if(PlayerPrefs.GetInt("GPSjam done") == 0)
+        if (PlayerPrefs.GetInt("GPSjam done") == 0)
         {
             gpsJam.SetActive(false);
         }
@@ -25,6 +32,15 @@ public class EmergencyButtons_Manager : MonoBehaviour
 
         if (PlayerPrefs.GetInt("TabletConnLoss done") == 0)
         {
+            tabConnLoss.SetActive(false);
+        }
+        else
+        {
+            tabConnLoss.SetActive(true);
+        }
+
+        if (PlayerPrefs.GetInt("BrokenOnTakeoffEmergency done") == 0)
+        {
             brokenOnTakeOff.SetActive(false);
         }
         else
@@ -32,14 +48,23 @@ public class EmergencyButtons_Manager : MonoBehaviour
             brokenOnTakeOff.SetActive(true);
         }
 
-        if (PlayerPrefs.GetInt("BrokenOnTakeoffEmergency done") == 0)
+        if (PlayerPrefs.GetInt("BrokenOnTakeoffEmergency done") == 0 && PlayerPrefs.GetInt("BrokenOnTakeoffEmergency done") == 0 && PlayerPrefs.GetInt("GPSjam done") == 0)
         {
-            tabConnLoss.SetActive(false);
+            reset.SetActive(false);
         }
         else
         {
-            tabConnLoss.SetActive(true);
+            reset.SetActive(true);
         }
     }
 
+    public void ResetEmergenciesPlayerPrefs()
+    {
+        PlayerPrefs.SetInt("GPSjam done", 0);
+        PlayerPrefs.SetInt("TabletConnLoss done", 0);
+        PlayerPrefs.SetInt("BrokenOnTakeoffEmergency done", 0);
+        PlayerPrefs.Save();
+
+        getEmergencyStatus();
+    }
 }
