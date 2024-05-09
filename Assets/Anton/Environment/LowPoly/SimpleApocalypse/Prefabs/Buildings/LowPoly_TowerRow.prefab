@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4465712481235091686
 Transform:
@@ -46,6 +46,10 @@ PrefabInstance:
     - target: {fileID: 177010, guid: 340ac411e2887f54a9ad856b8f1b745f, type: 3}
       propertyPath: m_Name
       value: SA_Bld_PowerLineLarge_01 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 177010, guid: 340ac411e2887f54a9ad856b8f1b745f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 479434, guid: 340ac411e2887f54a9ad856b8f1b745f, type: 3}
       propertyPath: m_LocalScale.x
@@ -125,6 +129,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SA_Bld_PowerLineLarge_01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 177010, guid: 340ac411e2887f54a9ad856b8f1b745f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 479434, guid: 340ac411e2887f54a9ad856b8f1b745f, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -203,6 +211,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SA_Bld_PowerLineLarge_01 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 177010, guid: 340ac411e2887f54a9ad856b8f1b745f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 479434, guid: 340ac411e2887f54a9ad856b8f1b745f, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -280,6 +292,10 @@ PrefabInstance:
     - target: {fileID: 177010, guid: 340ac411e2887f54a9ad856b8f1b745f, type: 3}
       propertyPath: m_Name
       value: SA_Bld_PowerLineLarge_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 177010, guid: 340ac411e2887f54a9ad856b8f1b745f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 479434, guid: 340ac411e2887f54a9ad856b8f1b745f, type: 3}
       propertyPath: m_LocalScale.x
