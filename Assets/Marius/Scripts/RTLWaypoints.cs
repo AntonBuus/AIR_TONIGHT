@@ -1,49 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[RequireComponent(typeof(LineRenderer))]
 
-public class Waypoints : MonoBehaviour
+public class RTLWaypoints : MonoBehaviour
 {
     [Range(0f, 2f)]
     [SerializeField] private float wayPointSize = 1f;
-    public GameObject _waypointToSpawn;
-    private LineRenderer _line;
 
-    private void Awake()
-    {
-        _line = GetComponent<LineRenderer>();
-    }
-    private void Start()
-    {
-        foreach (Transform t in transform)
-        {
-            try
-            {
-                Instantiate(_waypointToSpawn, new Vector3(t.position.x, 60, t.position.z), Quaternion.Euler(90, 0, 0));
-            }
-            catch
-            {
-                print("No _waypointToSpawn prefab assigned in inspector");
-            }
-        }
-
-        _line.positionCount = transform.childCount;
-
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            _line.SetPosition(i, transform.GetChild(i).position);
-        }
-    }
     private void OnDrawGizmos() //Only runs in scene view
     {
         foreach (Transform t in transform)
         {
-            Gizmos.color = Color.yellow;
+            Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(t.position, wayPointSize);
         }
 
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.blue;
         for (int i = 0; i < transform.childCount - 1; i++)
         {
             Gizmos.DrawLine(transform.GetChild(i).position, transform.GetChild(i + 1).position);

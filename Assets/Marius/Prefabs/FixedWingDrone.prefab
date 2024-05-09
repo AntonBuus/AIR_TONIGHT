@@ -1562,8 +1562,6 @@ MonoBehaviour:
   rotationResetSpeed: 25
   controlFailure: 0
   controlSurfaces:
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 7510465958180919016}
   - {fileID: 2146129736769916518}
   - {fileID: 5266635398671721640}
