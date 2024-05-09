@@ -82,38 +82,10 @@ public class FixedWing_Controller : MonoBehaviour
 
     private void Update()
     {
-        _toggleButton.GetComponent<Toggle>().isOn = autoPilot;
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            Flap = Flap > 0 ? 0 : 0.3f;
-        }
-
         propellerR.transform.Rotate(0f, thrustPercent * propellerSpeed * Time.fixedDeltaTime, 0f); //Rotates the right propeller counter clockwise
         propellerL.transform.Rotate(0f, -1 * thrustPercent * propellerSpeed * Time.fixedDeltaTime, 0f); //Rotates the left propeller clockwise
-
-        propellerSound.pitch = Mathf.Clamp(propellerSound.pitch + FWInputs.Throttle * 2f, 0f, 5f);
-
-        /*        //Resets the pitch of the drone when it is not actively adjusted and autopilot is off
-                if (transform.localRotation.x != 0f && FWInputs.Pitch == 0 && !autoPilot)
-                {
-                    // Calculate the rotation needed to align with zero on the z-axis
-                    Quaternion targetRotation = Quaternion.Euler(0f, transform.localRotation.eulerAngles.y, transform.localRotation.eulerAngles.z);
-
-                    // Rotate towards the target rotation
-                    transform.localRotation = Quaternion.RotateTowards(transform.localRotation, targetRotation, Time.deltaTime * pitchResetSpeed);
-                }*/
-
-        //Resets the roll of the drone when it is not actively adjusted and autopilot is off
-        /*        if (transform.localRotation.z != 0f && FWInputs.Roll == 0 && !autoPilot)
-                {
-                    // Calculate the rotation needed to align with zero on the z-axis
-                    Quaternion targetRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y, 0f);
-
-                    // Rotate towards the target rotation
-                    transform.localRotation = Quaternion.RotateTowards(transform.localRotation, targetRotation, Time.deltaTime * rollResetSpeed);
-                }*/
-
+        
+        propellerSound.pitch = Mathf.Clamp(thrustPercent * 5, 0f, 5f);
     }
 
     public void BoolGrabbedController(bool isGrabbed)
@@ -195,7 +167,7 @@ public class FixedWing_Controller : MonoBehaviour
 
         transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime); //Rotates the this object from its current rotation to the desired rotation at time.deltatime
 
-        if (Vector3.Distance(transform.position, activeWaypoint.position) < distanceToWaypointThresh) //If the distance between this object and the current waypoint is less than the distance to waypoint threshhold
+        if (Vector3.Distance(transform.position, activeWaypoint.position) < distanceToWaypointThresh / 4) //If the distance between this object and the current waypoint is less than the distance to waypoint threshhold
         {
             activeWaypoint = waypoints.GetNextWaypoint(activeWaypoint); //Sets active waypoint to the next waypoint
 
@@ -230,6 +202,7 @@ public class FixedWing_Controller : MonoBehaviour
     {
         autoPilot = false;
         rtlActive = true;
+        thrustPercent = 0.5f;
         
         activeRTLWaypoint = rtlWaypoints.GetNextWaypoint(activeRTLWaypoint); //Sets the active waypoint to the first waypoint in the hierachy
     }
@@ -289,13 +262,18 @@ public class FixedWing_Controller : MonoBehaviour
 
     public void ToggleAutoPilot()
     {
+        if(thrustPercent < 0)
+        {
+            thrustPercent = 0.5f;
+        }
+
         rtlActive = false;
 
         if (autoPilot == true)
         {
             autoPilot = false;
         }
-        else
+        else if(autoPilot == false) //OG emergencybegun ikke er tabconnloss (int = 2)
         {
             autoPilot = true;
         }

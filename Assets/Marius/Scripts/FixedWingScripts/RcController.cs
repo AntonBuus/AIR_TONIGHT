@@ -16,7 +16,7 @@ public class RcController : MonoBehaviour
 
     void Update()
     {
-        if(fixedWing_Controller.autoPilot == true)
+        if(fixedWing_Controller.autoPilot == true ||fixedWing_Controller.rtlActive == true)
         {
             autoPilotOnOverlay.SetActive(true);
         }

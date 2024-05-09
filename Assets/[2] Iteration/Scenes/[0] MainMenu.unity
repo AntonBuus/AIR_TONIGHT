@@ -1062,7 +1062,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &913757796075492402
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2141,7 +2141,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1949614161999330246, guid: ea6386e78377ae14fa99e39bae0b74f2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.1
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 3562681135037121015, guid: ea6386e78377ae14fa99e39bae0b74f2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6069,7 +6069,7 @@ GameObject:
   - component: {fileID: 7973079256299143737}
   - component: {fileID: 8589055462322167287}
   m_Layer: 5
-  m_Name: Emergency
+  m_Name: RandomEmergency_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6616,18 +6616,6 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1120221710}
-        m_TargetAssemblyTypeName: EmergencyManager, Assembly-CSharp
-        m_MethodName: RandomEmergency
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
