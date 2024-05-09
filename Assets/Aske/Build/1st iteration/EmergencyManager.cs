@@ -15,6 +15,7 @@ using UnityEngine.Events;
         [Header("Emergency events")]
         // Array containing emergency events defined in the class "EmergencyEvents".
         [SerializeField] public EmergencyEvents[] _emergencyEvents;
+        private PreFlightChecklist _preFlightChecklist;
 
         private void Start()
         {
@@ -24,8 +25,9 @@ using UnityEngine.Events;
         // Method where the emergency is caused.
         public void RandomEmergency()
         {
-            bool placeholder = true;
-            if (/*no checklist*/ placeholder == false && takeOffPlayedBefore == false)
+            _preFlightChecklist = FindObjectOfType<PreFlightChecklist>();
+
+            if (_preFlightChecklist.allPointsChecked == false && takeOffPlayedBefore == false)
             {
                 BrokenOnTakeoffEmergency();
             }
