@@ -45,7 +45,10 @@ public class FixedWing_Controller : MonoBehaviour
 
     public float thrustPercent;
 
+    public GameObject _toggleButton;
+
     private Transform activeWaypoint;
+    private Transform activeRTLWaypoint;
 
     private float incrementalWaypointHeight;
     private bool isLanding = false;
@@ -54,8 +57,10 @@ public class FixedWing_Controller : MonoBehaviour
     private Rigidbody rb;
     private FixedWing_Inputs FWInputs;
     private Waypoints waypoints;
+    private RTLWaypoints rtlWaypoints;
 
     public bool grabbedController = false;
+    public bool rtlActive = false;
 
     #endregion
 
@@ -67,6 +72,7 @@ public class FixedWing_Controller : MonoBehaviour
         rb = GetComponent<Rigidbody>(); //Reference to a Ridgidbody
         propellerSound = GetComponent<AudioSource>(); //Refernce to an audiosource
         waypoints = FindObjectOfType<Waypoints>(); //Reference to the object with the waypoints script component
+        rtlWaypoints = FindObjectOfType<RTLWaypoints>();
 
         activeWaypoint = waypoints.GetNextWaypoint(activeWaypoint); //Sets the active waypoint to the first waypoint in the hierachy
         propellerSound.pitch = 0;
@@ -76,6 +82,8 @@ public class FixedWing_Controller : MonoBehaviour
 
     private void Update()
     {
+        _toggleButton.GetComponent<Toggle>().isOn = autoPilot;
+
         if (Input.GetKeyDown(KeyCode.F))
         {
             Flap = Flap > 0 ? 0 : 0.3f;
@@ -84,27 +92,27 @@ public class FixedWing_Controller : MonoBehaviour
         propellerR.transform.Rotate(0f, thrustPercent * propellerSpeed * Time.fixedDeltaTime, 0f); //Rotates the right propeller counter clockwise
         propellerL.transform.Rotate(0f, -1 * thrustPercent * propellerSpeed * Time.fixedDeltaTime, 0f); //Rotates the left propeller clockwise
 
+        propellerSound.pitch = Mathf.Clamp(propellerSound.pitch + FWInputs.Throttle * 2f, 0f, 5f);
 
+        /*        //Resets the pitch of the drone when it is not actively adjusted and autopilot is off
+                if (transform.localRotation.x != 0f && FWInputs.Pitch == 0 && !autoPilot)
+                {
+                    // Calculate the rotation needed to align with zero on the z-axis
+                    Quaternion targetRotation = Quaternion.Euler(0f, transform.localRotation.eulerAngles.y, transform.localRotation.eulerAngles.z);
 
-/*        //Resets the pitch of the drone when it is not actively adjusted and autopilot is off
-        if (transform.localRotation.x != 0f && FWInputs.Pitch == 0 && !autoPilot)
-        {
-            // Calculate the rotation needed to align with zero on the z-axis
-            Quaternion targetRotation = Quaternion.Euler(0f, transform.localRotation.eulerAngles.y, transform.localRotation.eulerAngles.z);
+                    // Rotate towards the target rotation
+                    transform.localRotation = Quaternion.RotateTowards(transform.localRotation, targetRotation, Time.deltaTime * pitchResetSpeed);
+                }*/
 
-            // Rotate towards the target rotation
-            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, targetRotation, Time.deltaTime * pitchResetSpeed);
-        }*/
+        //Resets the roll of the drone when it is not actively adjusted and autopilot is off
+        /*        if (transform.localRotation.z != 0f && FWInputs.Roll == 0 && !autoPilot)
+                {
+                    // Calculate the rotation needed to align with zero on the z-axis
+                    Quaternion targetRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y, 0f);
 
-                //Resets the roll of the drone when it is not actively adjusted and autopilot is off
-/*        if (transform.localRotation.z != 0f && FWInputs.Roll == 0 && !autoPilot)
-        {
-            // Calculate the rotation needed to align with zero on the z-axis
-            Quaternion targetRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y, 0f);
-
-            // Rotate towards the target rotation
-            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, targetRotation, Time.deltaTime * rollResetSpeed);
-        }*/
+                    // Rotate towards the target rotation
+                    transform.localRotation = Quaternion.RotateTowards(transform.localRotation, targetRotation, Time.deltaTime * rollResetSpeed);
+                }*/
 
     }
 
@@ -123,21 +131,25 @@ public class FixedWing_Controller : MonoBehaviour
                 AutoPilot();
                 SetControlSurfacesAngles(0, 0, 0, 0);
             }
-            else if (autoPilot == false && grabbedController == true)
+            else if (autoPilot == false && grabbedController == true && rtlActive == false)
             {
 
-                propellerSound.pitch = Mathf.Clamp(propellerSound.pitch + FWInputs.Throttle * 2f, 0f, 5f);
+                //propellerSound.pitch = Mathf.Clamp(propellerSound.pitch + FWInputs.Throttle * 2f, 0f, 5f);
 
                 thrustPercent = Mathf.Clamp(thrustPercent + FWInputs.Throttle, 0, 1); //This line sets thrustPercent according to the value of the Throttle input, limited to a value between 0 and 1.
                 SetControlSurfacesAngles(FWInputs.Pitch, FWInputs.Roll, -FWInputs.Yaw, Flap);
                 print("Manual control");
+            }
+            else if(autoPilot == false && rtlActive == true)
+            {
+                RTL();
             }
         }
 
         //Resets the roll of the drone when it is not actively adjusted and autopilot is off
         if (transform.localRotation.z != 0f && FWInputs.Roll == 0 && FWInputs.Pitch == 0 && !autoPilot)
         {
-            // Calculate the rotation needed to align with zero on the z-axis
+            // Calculate the rotation needed to align with 0 on the x- and z-axis 
             Quaternion targetRotation = Quaternion.Euler(0f, transform.localRotation.eulerAngles.y, 0f);
 
             // Rotate towards the target rotation
@@ -197,32 +209,35 @@ public class FixedWing_Controller : MonoBehaviour
                     waypoints.transform.GetChild(i).position = waypointsYpos;
                 }
             }
-            //The below if-statement ensures, that the y position of the first waypoint is the same as the other waypoints once it has been reached the first time
-/*            if (Vector3.Distance(transform.position, waypoints.transform.GetChild(0).transform.position) < distanceToWaypointThresh && waypoints.transform.GetChild(0).transform.position.y != waypoints.transform.GetChild(1).transform.position.y)
-            {
-                Vector3 firstWaypointPosition = waypoints.transform.GetChild(0).position; //Gets vector3 position of the first waypoint and stores in a variable
-                firstWaypointPosition.y = waypoints.transform.GetChild(1).position.y; //Set the y position to the same of the second waypoint
-                waypoints.transform.GetChild(0).position = firstWaypointPosition; //Actually assigns the y position of the first waypoint to the firs waypoint position
-            }*/
         }
+    }
+
+    public void RTL()
+    {
+        Vector3 tempWaypoint = (activeRTLWaypoint.position - transform.position).normalized; //Calculates and stores the direction of the next waypoint 
+
+        Quaternion lookRotation = Quaternion.LookRotation(tempWaypoint); //Calculates and stores the rotation towards the next waypoint
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * 0.5f); //Rotates the this object from its current rotation to the desired rotation at time.deltatime * 0.5f which is the rotationspeed
+
+        if (Vector3.Distance(transform.position, activeRTLWaypoint.position) < distanceToWaypointThresh) //If the distance between this object and the current waypoint is less than the distance to waypoint threshhold
+        {
+            activeWaypoint = rtlWaypoints.GetNextWaypoint(activeRTLWaypoint); //Sets active waypoint to the next waypoint
+        }
+    }
+
+    public void ActivateRTL()
+    {
+        autoPilot = false;
+        rtlActive = true;
+        
+        activeRTLWaypoint = rtlWaypoints.GetNextWaypoint(activeRTLWaypoint); //Sets the active waypoint to the first waypoint in the hierachy
     }
 
     public void Takeoff()
     {
         isLanding = false;
-        thrustPercent = 1;
-
-/*        for (int i = 0; i < waypoints.transform.childCount; i++)
-        {
-            Vector3 waypointsYpos = new Vector3(waypoints.transform.GetChild(i).position.x, incrementalWaypointHeight, waypoints.transform.GetChild(i).position.z);
-
-            waypoints.transform.GetChild(i).position = waypointsYpos;
-
-            *//*waypoints.GetNextWaypoint(activeWaypoint).position; //Gets vector3 position of the next waypoint and stores in a variable
-            nextWaypointPosition.y = 0; //Set the y position of the next waypoint to 0
-            waypoints.GetNextWaypoint(activeWaypoint).position = nextWaypointPosition; //Actually assigns the y position of the first waypoint to the firs waypoint position
-        *//*
-        }*/
+        thrustPercent = 0.5f; //Corresponds to 50% throttle
 
         activeWaypoint.position = new Vector3(activeWaypoint.position.x, 0, activeWaypoint.position.z);
     }
@@ -238,10 +253,7 @@ public class FixedWing_Controller : MonoBehaviour
 
             waypoints.transform.GetChild(i).position = waypointsYpos;
             
-            /*waypoints.GetNextWaypoint(activeWaypoint).position; //Gets vector3 position of the next waypoint and stores in a variable
-            nextWaypointPosition.y = 0; //Set the y position of the next waypoint to 0
-            waypoints.GetNextWaypoint(activeWaypoint).position = nextWaypointPosition; //Actually assigns the y position of the first waypoint to the firs waypoint position
-        */}
+        }
     }
 
     private void WheelBrakes()
@@ -272,17 +284,18 @@ public class FixedWing_Controller : MonoBehaviour
 
     public void ToggleThrottle() //To be assigned to a button in the inspector
     {
-        propellerSound.pitch = propellerSound.pitch > 0 ? 0 : 5f;
         thrustPercent = thrustPercent > 0 ? 0 : 1f;
     }
 
     public void ToggleAutoPilot()
     {
+        rtlActive = false;
+
         if (autoPilot == true)
         {
             autoPilot = false;
         }
-        else if(autoPilot == false)
+        else
         {
             autoPilot = true;
         }
