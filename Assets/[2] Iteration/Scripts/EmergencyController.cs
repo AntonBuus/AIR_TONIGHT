@@ -16,7 +16,7 @@ public class EmergencyController : MonoBehaviour
     private NewHUD _newHUD;
     private DroneVariables _droneVariables;
 
-    [SerializeField] private Toggle autoPilotToggle;
+    [SerializeField] private Button autoPilotToggle;
     [SerializeField] private Button rtlButton;
     [SerializeField] private Button landButton;
     [SerializeField] private Button disarmButton;
@@ -24,7 +24,6 @@ public class EmergencyController : MonoBehaviour
 
     [SerializeField] private Transform gpsJamInitWaypoint;
     [SerializeField] private Transform tabletConnLossInitWaypoint;
-    [SerializeField] private Transform brokenOnTakeoffInitWaypoint;
     [SerializeField] private float _threshold = 50;
 
     [SerializeField] private AudioClip brokenDroneSoundWoosh;
@@ -78,8 +77,8 @@ public class EmergencyController : MonoBehaviour
                 rtlButton.enabled = false;
                 landButton.enabled = false;
                 _droneVariables.enabled = false;
-                //_newHUD.GpsText();
-                //_newHUD.FailsafeText();
+                _newHUD.GpsText();
+                _newHUD.FailsafeText();
                 _menu_Manager.disarmNotAllowed = true;
                 MiniMapGraphic_Drone.SetActive(false);
             }
@@ -109,12 +108,26 @@ public class EmergencyController : MonoBehaviour
                 // No manual or autopilot controls.
                 //_fixedWing_Controller.controlFailure = true;
                 _fixedWing_Controller.ActivateRTL();
-                autoPilotToggle.enabled = false;
-                tablet.GetComponentInChildren<Button>().enabled = false;
+
+
+                Button[] buttons = tablet.GetComponentsInChildren<Button>();
+
+                foreach (Button button in buttons)
+                {
+                    button.enabled = false;
+                }
+                
+                Toggle[] toggles = tablet.GetComponentsInChildren<Toggle>();
+
+                foreach (Toggle toggle in toggles)
+                {
+                    toggle.enabled = false;
+                }
+
                 tablet.GetComponentInChildren<Toggle>().enabled = false;
                 _newHUD.enabled = false;
                 _droneVariables.enabled = false;
-                //_newHUD.FailsafeText();
+                _newHUD.FailsafeText();
                 _lostConnectionText.gameObject.SetActive(true);
                 //LostConnectionCount();
             }

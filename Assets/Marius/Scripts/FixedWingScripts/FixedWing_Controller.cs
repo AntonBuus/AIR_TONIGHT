@@ -50,8 +50,6 @@ public class FixedWing_Controller : MonoBehaviour
 
     public float thrustPercent;
 
-    public GameObject _toggleButton;
-
     private Transform activeWaypoint;
     private Transform activeRTLWaypoint;
 
@@ -311,7 +309,7 @@ public class FixedWing_Controller : MonoBehaviour
         {
             autoPilot = false;
         }
-        else if(autoPilot == false) //OG emergencybegun ikke er tabconnloss (int = 2)
+        else if(autoPilot == false && emergencyController.emergencyBegun == 2) //OG emergencybegun ikke er tabconnloss (int = 2)
         {
             autoPilot = true;
         }

@@ -110,7 +110,7 @@ public class NewHUD : MonoBehaviour
         textElement.color = color;
     }
 
-    private void GpsText()
+    public void GpsText()
     {
         UpdateTextAndColor(gpsStatusText, "GPS: No Fix", costumRed);
     }
