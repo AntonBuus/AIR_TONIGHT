@@ -15,6 +15,11 @@ public class FixedWing_Controller : MonoBehaviour
     [Tooltip("When active, the drone flies autonomously")] 
     public bool autoPilot = true;
 
+    public bool grabbedController = false;
+    public bool rtlActive = false;
+    public bool manualControl = false;
+
+
     [SerializeField] private float rotationResetSpeed = 25;
 
     public bool controlFailure = false;
@@ -58,9 +63,9 @@ public class FixedWing_Controller : MonoBehaviour
     private FixedWing_Inputs FWInputs;
     private Waypoints waypoints;
     private RTLWaypoints rtlWaypoints;
+    private CrashLandingDetection crashLandingDetection;
+    private EmergencyController emergencyController;
 
-    public bool grabbedController = false;
-    public bool rtlActive = false;
 
     #endregion
 
@@ -73,11 +78,23 @@ public class FixedWing_Controller : MonoBehaviour
         propellerSound = GetComponent<AudioSource>(); //Refernce to an audiosource
         waypoints = FindObjectOfType<Waypoints>(); //Reference to the object with the waypoints script component
         rtlWaypoints = FindObjectOfType<RTLWaypoints>();
+        emergencyController = FindAnyObjectByType<EmergencyController>();
+        crashLandingDetection = GetComponent<CrashLandingDetection>();
 
         activeWaypoint = waypoints.GetNextWaypoint(activeWaypoint); //Sets the active waypoint to the first waypoint in the hierachy
         propellerSound.pitch = 0;
 
         incrementalWaypointHeight = waypoints.transform.GetChild(1).position.y; //Saves the initial height of the second waypoint to be referenced in TakeOff();
+
+        //If autopilot is On by default, set manual control Off, else On
+        if (autoPilot)
+        {
+            manualControl = false;
+        }
+        else
+        {
+            manualControl= true;
+        }
     }
 
     private void Update()
@@ -97,22 +114,16 @@ public class FixedWing_Controller : MonoBehaviour
     {
         WheelBrakes();
         if (controlFailure == false)
-        { 
-            if(autoPilot)
+        {
+            if (autoPilot)
             {
                 AutoPilot();
-                SetControlSurfacesAngles(0, 0, 0, 0);
             }
-            else if (autoPilot == false && grabbedController == true && rtlActive == false)
-            {
 
-                //propellerSound.pitch = Mathf.Clamp(propellerSound.pitch + FWInputs.Throttle * 2f, 0f, 5f);
+                ManualControl();
+            
 
-                thrustPercent = Mathf.Clamp(thrustPercent + FWInputs.Throttle, 0, 1); //This line sets thrustPercent according to the value of the Throttle input, limited to a value between 0 and 1.
-                SetControlSurfacesAngles(FWInputs.Pitch, FWInputs.Roll, -FWInputs.Yaw, Flap);
-                print("Manual control");
-            }
-            else if(autoPilot == false && rtlActive == true)
+            if(rtlActive == true)
             {
                 RTL();
             }
@@ -159,8 +170,32 @@ public class FixedWing_Controller : MonoBehaviour
         }
     }
 
+    private void ManualControl()
+    {
+        if (!manualControl && grabbedController == true && autoPilot == false && rtlActive == false)
+        {
+            manualControl = true;
+            autoPilot = false;
+            rtlActive = false;
+        }
+        else if(grabbedController == false)
+        {
+            manualControl = false;
+        }
+        
+        thrustPercent = Mathf.Clamp(thrustPercent + FWInputs.Throttle, 0, ThrustPercent(1f)); //This line sets thrustPercent according to the value of the Throttle input, limited to a value between 0 and 1.
+        SetControlSurfacesAngles(FWInputs.Pitch, FWInputs.Roll, -FWInputs.Yaw, Flap);
+    }
+
     private void AutoPilot()
     {
+        SetControlSurfacesAngles(0, 0, 0, 0);
+
+        if (crashLandingDetection.droneLanded == true)
+        {
+            thrustPercent = ThrustPercent(0.5f);
+        }       
+
         Vector3 tempWaypoint = (activeWaypoint.position - transform.position).normalized; //Calculates and stores the direction of the next waypoint 
 
         Quaternion lookRotation = Quaternion.LookRotation(tempWaypoint); //Calculates and stores the rotation towards the next waypoint
@@ -201,8 +236,9 @@ public class FixedWing_Controller : MonoBehaviour
     public void ActivateRTL()
     {
         autoPilot = false;
+        manualControl = false;
         rtlActive = true;
-        thrustPercent = 0.5f;
+        thrustPercent = ThrustPercent(0.5f); ;
         
         activeRTLWaypoint = rtlWaypoints.GetNextWaypoint(activeRTLWaypoint); //Sets the active waypoint to the first waypoint in the hierachy
     }
@@ -210,7 +246,7 @@ public class FixedWing_Controller : MonoBehaviour
     public void Takeoff()
     {
         isLanding = false;
-        thrustPercent = 0.5f; //Corresponds to 50% throttle
+        thrustPercent = ThrustPercent(0.5f); ; //Corresponds to 50% throttle
 
         activeWaypoint.position = new Vector3(activeWaypoint.position.x, 0, activeWaypoint.position.z);
     }
@@ -262,12 +298,14 @@ public class FixedWing_Controller : MonoBehaviour
 
     public void ToggleAutoPilot()
     {
+        //SHould only set throttle to 0.5f if the drone is in the air, and not on the ground
         if(thrustPercent < 0)
         {
-            thrustPercent = 0.5f;
+            thrustPercent = ThrustPercent(0.5f);
         }
 
         rtlActive = false;
+        manualControl = false;
 
         if (autoPilot == true)
         {
@@ -276,6 +314,19 @@ public class FixedWing_Controller : MonoBehaviour
         else if(autoPilot == false) //OG emergencybegun ikke er tabconnloss (int = 2)
         {
             autoPilot = true;
+        }
+    }
+
+    public float ThrustPercent(float percent)
+    {
+        if(emergencyController.emergencyBegun == 3) //3 corresponds to the brokenontakeoff emergency
+        {
+            percent = 0.25f; //The max throttle value when the BrokenOnTakeoff emergency occurs
+            return percent;
+        }
+        else
+        {
+            return percent;
         }
     }
     #endregion

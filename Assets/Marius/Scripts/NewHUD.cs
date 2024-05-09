@@ -21,7 +21,17 @@ public class NewHUD : MonoBehaviour
 
     [SerializeField] private GameObject airspeedNumbersContainer;
     [SerializeField] private TextMeshProUGUI airspeedMeterText;
-    [SerializeField] private TextMeshProUGUI ASText;
+    [SerializeField] private TextMeshProUGUI ASText; //Airspeed text
+    [SerializeField] private TextMeshProUGUI GSText; //Groundspeed text
+
+    [SerializeField] private TextMeshProUGUI armedDisarmedText;
+    [SerializeField] private TextMeshProUGUI failsafeText;
+    [SerializeField] private TextMeshProUGUI deadReckoningText;
+    [SerializeField] private TextMeshProUGUI readyToArmText;
+    [SerializeField] private TextMeshProUGUI flightModeText;
+
+
+
 
     //private GameObject bankAngleArrowAnchor;
     [SerializeField] private Transform drone;
@@ -48,6 +58,10 @@ public class NewHUD : MonoBehaviour
             fwController=null;
             droneVariables=null;
         }
+
+        failsafeText.gameObject.SetActive(false);
+        armedDisarmedText.gameObject.SetActive(false);
+        readyToArmText.gameObject.SetActive(false);
         
     }
 
@@ -56,10 +70,11 @@ public class NewHUD : MonoBehaviour
     {
         ArtificialHorizon();
         CompassBar();
-        GpsText();
         GpsTime();
         AltitudeMeter();
         AirspeedMeter();
+        FlightModeText();
+        DeadReckoningText();
     }
 
     private void ArtificialHorizon()
@@ -97,22 +112,7 @@ public class NewHUD : MonoBehaviour
 
     private void GpsText()
     {
-        try
-        {
-
-            if (fwController.autoPilot == true)
-            {
-                UpdateTextAndColor(gpsStatusText, "GPS: Fixed", Color.white);
-            }
-            else
-            {
-                UpdateTextAndColor(gpsStatusText, "GPS: No Fix", costumRed);
-            }
-        }
-        catch
-        {
-            fwController=null;
-        }
+        UpdateTextAndColor(gpsStatusText, "GPS: No Fix", costumRed);
     }
 
     private void GpsTime()
@@ -122,7 +122,7 @@ public class NewHUD : MonoBehaviour
 
     private void AltitudeMeter()
     {
-        float desiredYpos = drone.position.y * 18.5f; //18.5 is 92.5 divided by 5, because the altitudeNumbers are in intervals of 5 and the distance between them in the panel is 92.5 on the y-axis
+        float desiredYpos = drone.position.y * 18.5f; //18.5 is 92.5 divided by 5, because the altitudeNumbers are in intervals of 5 and the distance between them in the panel is 92.5 on the y-axis. This means that 1 unit for the drone corresponds to 18.5 in the panel.
 
         altitudeNumbersContainer.transform.localPosition = new Vector2(0, Mathf.Clamp(-desiredYpos, -1850, 185)); //-desiredYpos because the altitudeNumber's y-pos should be inverted of the drones in order for the altitudeNumbers to rise
 
@@ -140,12 +140,47 @@ public class NewHUD : MonoBehaviour
 
             airspeedMeterText.text = Mathf.RoundToInt(droneVariables._droneVelocity).ToString() + " m/s";
         
-            ASText.text = "AS " + droneVariables._droneVelocity.ToString();
+            ASText.text = "AS " + droneVariables._droneVelocity.ToString("0.00") + " m/s";
         }
         catch
         {
             droneVariables = null;
         }
-        
     }
+
+    private void FlightModeText()
+    {
+        if(fwController.autoPilot == true)
+        {
+            UpdateTextAndColor(flightModeText, "Auto", Color.white);
+        }
+        else if(fwController.rtlActive == true)
+        {
+            UpdateTextAndColor(flightModeText, "RTL", costumRed);
+        }
+        else if(fwController.grabbedController == true && fwController.manualControl == true)
+        {
+            UpdateTextAndColor(flightModeText, "Stabilize", Color.white);
+        } 
+    }
+
+    public void DeadReckoningText() //To be called in the GPSJam emergency
+    {
+        if(fwController.manualControl != true && fwController.autoPilot == false && fwController.rtlActive == false)
+        {
+            deadReckoningText.gameObject.SetActive(true);
+            //UpdateTextAndColor(deadReckoningText, "Dead Reckoning started", costumRed);
+        }
+        else
+        {
+            deadReckoningText.gameObject.SetActive(false);
+        }
+    }
+
+    public void FailsafeText()
+    {
+        failsafeText.gameObject.SetActive(true);
+    }
+
+
 }
