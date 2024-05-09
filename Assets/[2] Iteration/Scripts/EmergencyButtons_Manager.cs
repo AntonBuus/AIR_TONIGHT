@@ -48,7 +48,7 @@ public class EmergencyButtons_Manager : MonoBehaviour
             brokenOnTakeOff.SetActive(true);
         }
 
-        if (PlayerPrefs.GetInt("BrokenOnTakeoffEmergency done") == 0 && PlayerPrefs.GetInt("BrokenOnTakeoffEmergency done") == 0 && PlayerPrefs.GetInt("GPSjam done") == 0)
+        if (PlayerPrefs.GetInt("BrokenOnTakeoffEmergency done") == 0 && PlayerPrefs.GetInt("TabletConnLoss done") == 0 && PlayerPrefs.GetInt("GPSjam done") == 0)
         {
             reset.SetActive(false);
         }
