@@ -18,6 +18,7 @@ public class Menu_Manager : MonoBehaviour
     [SerializeField] private float _fadeDuration = 1;
     [SerializeField] private int sceneIndex;
     [SerializeField] private bool sceneChange = false;
+    public bool disarmNotAllowed = true;
 
     public GameObject _menu;
 
@@ -177,19 +178,22 @@ public class Menu_Manager : MonoBehaviour
             CrashLandingDetection _crashLandingDetection = FindObjectOfType<CrashLandingDetection>();
             bool _droneCrashed = _crashLandingDetection.droneCrashed;
 
-            if (_droneCrashed == true)
+            if (_droneCrashed == true && disarmNotAllowed == true)
             {
-                reportStatusText.text = "Scenario failed!";
+                reportStatusText.text = "Fail!";
             }
             else
             {
-                reportStatusText.text = "Scenario successful!";
+                reportStatusText.text = "Success!";
             }
 
             reportStatusGO.SetActive(true);
 
             switch (_activeEmergency)
             {
+                case 0:
+                    break;
+                    //free flight endscreencanvas
                 case 1:
                     gpsJamCanvas.SetActive(gpsJamCanvas);
                     gpsJamCanvas.transform.position = _mainCamera.position + new Vector3(_mainCamera.forward.x, 0, _mainCamera.forward.z).normalized * _spawnDistance;

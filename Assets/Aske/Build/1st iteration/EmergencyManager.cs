@@ -35,7 +35,7 @@ using UnityEngine.Events;
             {
                 BrokenOnTakeoffEmergency();
             }
-            else
+            else if (currentEmergency != 0)
             {
                 float _totalChance = 0f;
                 foreach (EmergencyEvents _events in _emergencyEvents)
