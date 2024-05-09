@@ -240,10 +240,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drone: {fileID: 8792282484883369493}
-  waypoint1: {fileID: 2224105591040992541}
-  waypoint2: {fileID: 2290259809806510887}
-  waypoint3: {fileID: 4554819715107270169}
+  tablet: {fileID: 0}
+  _lostConnectionText: {fileID: 0}
+  autoPilotToggle: {fileID: 0}
+  rtlButton: {fileID: 0}
+  landButton: {fileID: 0}
+  disarmButton: {fileID: 0}
+  MiniMapGraphic_Drone: {fileID: 0}
+  gpsJamInitWaypoint: {fileID: 0}
+  tabletConnLossInitWaypoint: {fileID: 0}
+  brokenOnTakeoffInitWaypoint: {fileID: 0}
   _threshold: 50
+  brokenDroneSoundWoosh: {fileID: 0}
   emergencyBegun: 0
 --- !u!4 &248332142
 Transform:
@@ -1975,16 +1983,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1253683388}
   m_SourcePrefab: {fileID: 100100000, guid: c5ae385ef6ddf4943a31b015b8c14134, type: 3}
---- !u!4 &2224105591040992541 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4972147141034351923, guid: c5ae385ef6ddf4943a31b015b8c14134, type: 3}
-  m_PrefabInstance: {fileID: 2224105591040992540}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2290259809806510887 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1327710139783475291, guid: c5ae385ef6ddf4943a31b015b8c14134, type: 3}
-  m_PrefabInstance: {fileID: 2224105591040992540}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2313839318577695039
 GameObject:
   m_ObjectHideFlags: 0
@@ -2488,11 +2486,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!4 &4554819715107270169 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6269441790424957444, guid: c5ae385ef6ddf4943a31b015b8c14134, type: 3}
-  m_PrefabInstance: {fileID: 2224105591040992540}
-  m_PrefabAsset: {fileID: 0}
 --- !u!23 &4571091022364076424
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3336,7 +3329,9 @@ MonoBehaviour:
   propellerSpeed: 500
   maxPitch: 5
   thrustPercent: 0
+  _toggleButton: {fileID: 0}
   grabbedController: 0
+  rtlActive: 0
 --- !u!114 &7342749905360938669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3755,6 +3750,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4783993664206206910}
     m_Modifications:
+    - target: {fileID: 344439222340129192, guid: 34945d20e3fb26f48ac35a7b1671faa9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1550464799662439518, guid: 34945d20e3fb26f48ac35a7b1671faa9, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
