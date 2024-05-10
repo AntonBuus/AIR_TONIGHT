@@ -25,8 +25,11 @@ public class CrashLandingDetection : MonoBehaviour
         _emergencyController = FindObjectOfType<EmergencyController>();
         _droneVariables = FindAnyObjectByType<DroneVariables>();
     }
+
+    //Checks for crash
     private void OnTriggerEnter(Collider other) //Check if the trigger colliders collides with anything.
     {
+        Instantiate(crashExplosion, transform.position, Quaternion.identity);
         try
         {
             menuManager.MissionEndScreen();
@@ -38,17 +41,20 @@ public class CrashLandingDetection : MonoBehaviour
         
         droneCrashed = true;
         droneLanded = false;
-        Instantiate(crashExplosion, transform.position, Quaternion.identity);
+
         this.gameObject.SetActive(false);
     }
 
+    //Checks for landing 
     private void OnCollisionStay(Collision collision) //Checks if the colliders on the drone's wheels are touching the ground
     {
+        print("drone landed: " + droneLanded.ToString());
         if (!droneCrashed && _emergencyController.emergencyBegun > 0 && _droneVariables._droneVelocity < 1)
         {
-            droneLanded = true;
+            print("End Screen");
             menuManager.MissionEndScreen();
         }
+        droneLanded = true;
     }
 
     private void OnCollisionExit(Collision collision) //Checks if the colliders on the drone's wheels aren't touching the ground

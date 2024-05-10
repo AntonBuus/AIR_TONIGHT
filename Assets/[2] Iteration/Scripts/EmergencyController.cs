@@ -15,6 +15,7 @@ public class EmergencyController : MonoBehaviour
     private Menu_Manager _menu_Manager;
     private NewHUD _newHUD;
     private DroneVariables _droneVariables;
+    private CrashLandingDetection _crashLandingDetection;
 
     [SerializeField] private Button autoPilotToggle;
     [SerializeField] private Button rtlButton;
@@ -30,7 +31,7 @@ public class EmergencyController : MonoBehaviour
 
     bool fwcEnabled = false;
     bool autopilotToggled = false;
-    bool throttleToggled = false;
+    bool brokenOnTakeoffToggle = false;
 
     private int _activeEmergency;
     public int emergencyBegun = 0;
@@ -44,6 +45,7 @@ public class EmergencyController : MonoBehaviour
         _droneVariables = FindObjectOfType<DroneVariables>();
         _menu_Manager = FindObjectOfType<Menu_Manager>();
         _newHUD = FindObjectOfType<NewHUD>();
+        _crashLandingDetection = FindAnyObjectByType<CrashLandingDetection>();
     }
 
     private void Update()
@@ -141,17 +143,22 @@ public class EmergencyController : MonoBehaviour
     // disable throttle to imitate engine or propeller issue.
     private void BrokenOnTakeoff()
     {
-        //broken sound
-        //Should prevent ToggleThrottle button from working
-        if (throttleToggled == false)
+        if (!brokenOnTakeoffToggle)
         {
-            emergencyBegun = 3;
-            throttleToggled = true;
+            brokenOnTakeoffToggle = true;
+
+            //Should trigger when drone is in the air
+            if (_droneVariables._droneVelocity > 2) //If the velocity of the drone is larger than 2 (Because landing is detected when velocity is smaller than 1 in CrashLandingDetection.cs)
+            {
+                emergencyBegun = 3;
+            }
             //_fixedWing_Controller.ToggleThrottle();
             drone.GetComponent<AudioSource>().clip = brokenDroneSoundWoosh; // Tell the AudioSource to become that sound
             _menu_Manager.disarmNotAllowed = false;
+        }
 
-        }/*
+
+        /*
         if (Vector3.Distance(drone.transform.position, waypoint3.position) < _threshold)
         {
             _menu_Manager.MissionEndScreen();

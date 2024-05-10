@@ -1025,10 +1025,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Menu_Manager, Assembly-CSharp
-        m_MethodName: LoadScene
-        m_Mode: 3
+      - m_Target: {fileID: 7894765523143595909}
+        m_TargetAssemblyTypeName: PreFlightChecklist, Assembly-CSharp
+        m_MethodName: ReadyForTakeoffButtonInactive
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2698,6 +2698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa04f2cefa393444ea178910ecf3b901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  readyForTakeoffButton: {fileID: 0}
   allPointsChecked: 0
 --- !u!65 &4017354818960998042
 BoxCollider:

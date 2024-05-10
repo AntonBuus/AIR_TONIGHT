@@ -189,7 +189,8 @@ public class FixedWing_Controller : MonoBehaviour
     {
         SetControlSurfacesAngles(0, 0, 0, 0);
 
-        if (crashLandingDetection.droneLanded == true)
+        //If drone is in the air, set thrust percent
+        if (transform.position.y > 2) 
         {
             thrustPercent = ThrustPercent(0.5f);
         }       
@@ -289,18 +290,18 @@ public class FixedWing_Controller : MonoBehaviour
         }
     }
 
-    public void ToggleThrottle() //To be assigned to a button in the inspector
+/*    public void ToggleThrottle() //To be assigned to a button in the inspector
     {
         thrustPercent = thrustPercent > 0 ? 0 : 1f;
-    }
+    }*/
 
     public void ToggleAutoPilot()
     {
-        //SHould only set throttle to 0.5f if the drone is in the air, and not on the ground
+/*        //SHould only set throttle to 0.5f if the drone is in the air, and not on the ground
         if(thrustPercent < 0)
         {
             thrustPercent = ThrustPercent(0.5f);
-        }
+        }*/
 
         rtlActive = false;
         manualControl = false;
