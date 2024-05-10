@@ -9,6 +9,7 @@ using System;
 using TMPro;
 using UnityEngine.XR.Interaction.Toolkit.Filtering;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.UI;
 
 public class Menu_Manager : MonoBehaviour
 {
@@ -28,11 +29,15 @@ public class Menu_Manager : MonoBehaviour
     [SerializeField] private GameObject reportStatusGO;
     [SerializeField] private TMP_Text reportStatusText;
 
+    [SerializeField] private Button gpsJamButton;
+    [SerializeField] private Button brokenOnTakeoffEmergencyButton;
+    [SerializeField] private Button tabletConnLossButton;
+    //[SerializeField] private Button randomEmergencyButton;
+
     [SerializeField] private GameObject _leftRayInteractor;
     [SerializeField] private GameObject _rightRayInteractor;
 
     private EmergencyManager _emergencyManager;
-    private int _activeEmergency;
 
     public Transform _mainCamera;
     public float _spawnDistance = 1;
@@ -43,7 +48,16 @@ public class Menu_Manager : MonoBehaviour
         try
         {
             _emergencyManager = FindObjectOfType<EmergencyManager>();
-            _activeEmergency = _emergencyManager.currentEmergency;
+
+            //This assigns the corresponding methods from EmergencyManager to their respective buttons in the main menu
+            if(SceneManager.GetActiveScene().buildIndex == 0)
+            {   
+                gpsJamButton.onClick.AddListener(delegate { _emergencyManager.GPSjam(); });
+                tabletConnLossButton.onClick.AddListener(delegate { _emergencyManager.TabletConnLoss(); });
+                brokenOnTakeoffEmergencyButton.onClick.AddListener(delegate { _emergencyManager.BrokenOnTakeoffEmergency(); });
+                //randomEmergencyButton.onClick.AddListener(delegate { _emergencyManager.RandomEmergency(); });
+            }
+
         }
         catch
         {
@@ -189,7 +203,7 @@ public class Menu_Manager : MonoBehaviour
 
             reportStatusGO.SetActive(true);
 
-            switch (_activeEmergency)
+            switch (_emergencyManager.currentEmergency)
             {
                 case 0:
                     break;

@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class PreFlightChecklist : MonoBehaviour
 {
-    [SerializeField] GameObject readyForTakeoffButton;
     private Toggle[] checklistPoints; //Array that should contain all Toggle components
     private List<Toggle> uncheckedPoints = new List<Toggle>(); //List to contain all unchecked points. POTENTIALLY NOT USED.
 
@@ -13,12 +12,13 @@ public class PreFlightChecklist : MonoBehaviour
 
     public bool allPointsChecked = false; //Bool that states whether all points have been checked. CAN BE REFERENCED IN OTHER SCRIPTS.
 
+    [SerializeField] private Button readyForTakeoffButton;
+
     private void Start()
     {
-        DontDestroyOnLoad(this);
-
         checklistPoints = GetComponentsInChildren<Toggle>(); //Gets all childcomponents of type Toggle and assigns to array
 
+        
         foreach (Toggle t in checklistPoints)
         {
             t.onValueChanged.AddListener(delegate { CheckOffPoint(); }); //Adds to CheckOffPoint method to the OnValueChanged event on each CheckOffPoint so we don't have to do it in the inspector.
@@ -56,10 +56,5 @@ public class PreFlightChecklist : MonoBehaviour
                 uncheckedPoints.Add(t);
             }
         }
-    }
-
-    public void ReadyForTakeoffButtonInactive()
-    {
-        readyForTakeoffButton.SetActive(false);
     }
 }

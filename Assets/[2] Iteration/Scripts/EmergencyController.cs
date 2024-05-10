@@ -33,24 +33,31 @@ public class EmergencyController : MonoBehaviour
     bool autopilotToggled = false;
     bool brokenOnTakeoffToggle = false;
 
-    private int _activeEmergency;
-    public int emergencyBegun = 0;
+    public int activeEmergency;
+
+    public int emergencyBegun;
+
+    private void Awake()
+    {
+        //activeEmergency = EmergencyManager.emInstance.currentEmergency;    
+    }
 
     void Start()
     {
         _lostConnectionText.gameObject.SetActive(false);
 
-        _emergencyManager = FindObjectOfType<EmergencyManager>();
+        //_emergencyManager = FindObjectOfType<EmergencyManager>();
         _fixedWing_Controller = FindObjectOfType<FixedWing_Controller>();
         _droneVariables = FindObjectOfType<DroneVariables>();
         _menu_Manager = FindObjectOfType<Menu_Manager>();
         _newHUD = FindObjectOfType<NewHUD>();
         _crashLandingDetection = FindAnyObjectByType<CrashLandingDetection>();
+        //print(_emergencyManager.currentEmergency);
     }
 
     private void Update()
     {
-        switch (_emergencyManager.currentEmergency)
+        switch (EmergencyManager.emInstance.currentEmergency)
         {
             case 1:
                 GpsJam();
@@ -62,6 +69,9 @@ public class EmergencyController : MonoBehaviour
                 BrokenOnTakeoff();
                 break;
         }
+
+        print("This is from the EmergencyController.cs: "+EmergencyManager.emInstance.currentEmergency.ToString());
+        
     }
 
     // disable autopilot to imitate no gps signal.
@@ -100,9 +110,11 @@ public class EmergencyController : MonoBehaviour
     // disable autopilot and manualControl to imitate GPS and controller connection loss.
     private void TabletConnLoss()
     {
+        print("TabletConnLoss(); running - EmergencyController.cs");
         //Should prevent ToggleThrottle button from working
         if (Vector3.Distance(drone.transform.position, tabletConnLossInitWaypoint.position) < _threshold)
         {
+            print("Reached waypoint");
             emergencyBegun = 2;
             if (autopilotToggled == false)
             {
@@ -143,15 +155,17 @@ public class EmergencyController : MonoBehaviour
     // disable throttle to imitate engine or propeller issue.
     private void BrokenOnTakeoff()
     {
+        if (_droneVariables._droneVelocity > 2 && emergencyBegun != 3) //If the velocity of the drone is larger than 2 (Because landing is detected when velocity is smaller than 1 in CrashLandingDetection.cs)
+        {
+            emergencyBegun = 3;
+        }
+
         if (!brokenOnTakeoffToggle)
         {
             brokenOnTakeoffToggle = true;
 
             //Should trigger when drone is in the air
-            if (_droneVariables._droneVelocity > 2) //If the velocity of the drone is larger than 2 (Because landing is detected when velocity is smaller than 1 in CrashLandingDetection.cs)
-            {
-                emergencyBegun = 3;
-            }
+           
             //_fixedWing_Controller.ToggleThrottle();
             drone.GetComponent<AudioSource>().clip = brokenDroneSoundWoosh; // Tell the AudioSource to become that sound
             _menu_Manager.disarmNotAllowed = false;

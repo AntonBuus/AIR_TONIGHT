@@ -7,114 +7,135 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-    [System.Serializable]
-    public class EmergencyManager : MonoBehaviour
+[System.Serializable]
+public class  EmergencyManager : MonoBehaviour
+{
+    public int currentEmergency = 0;
+    public bool takeOffPlayedBefore = false;
+    [Header("Emergency events")]
+    // Array containing emergency events defined in the class "EmergencyEvents".
+    [SerializeField] public EmergencyEvents[] _emergencyEvents;
+    private PreFlightChecklist _preFlightChecklist;
+
+    public static EmergencyManager emInstance;
+
+    private void Awake()
     {
-        public int currentEmergency = 0;
-        public bool takeOffPlayedBefore;
-        [Header("Emergency events")]
-        // Array containing emergency events defined in the class "EmergencyEvents".
-        [SerializeField] public EmergencyEvents[] _emergencyEvents;
-        private PreFlightChecklist _preFlightChecklist;
-
-        private void Start()
+        if (emInstance == null)
         {
-            DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad(gameObject);
+            emInstance = this;
         }
-
-        // Method where the emergency is caused.
-        public void RandomEmergency()
+        else if (emInstance != this)
         {
-            _preFlightChecklist = FindObjectOfType<PreFlightChecklist>();
-
-            if (_preFlightChecklist.allPointsChecked == false && takeOffPlayedBefore == false)
-            {
-                BrokenOnTakeoffEmergency();
-            }
-            else if (_emergencyEvents[0]._emergencyChance == 0 && _emergencyEvents[1]._emergencyChance == 0)
-            {
-                BrokenOnTakeoffEmergency();
-            }
-            else if (currentEmergency != 0)
-            {
-                float _totalChance = 0f;
-                foreach (EmergencyEvents _events in _emergencyEvents)
-                {
-                    _totalChance += _events._emergencyChance;
-                }
-
-                // Picks a random number between 0 and the value of _totalChance.
-                float random = Random.Range(0f, _totalChance);
-                float cumulativeEmergencyChance = 0f;
-
-                // Goes through each event.
-                foreach (EmergencyEvents _events in _emergencyEvents)
-                {
-                    cumulativeEmergencyChance += _events._emergencyChance;
-
-                    if (random <= cumulativeEmergencyChance)
-                    {
-                        _events._emergencyEvent.Invoke();
-                        return;
-                    }
-                }
-            }
+            Destroy(gameObject);
         }
-    #region Emergency event methods
-        public void GPSjam()
-        {
-            Debug.Log("GPS jam");
-            _emergencyEvents[0]._emergencyChance = 0f;
-            PlayerPrefs.SetInt("GPSjam done", 1);
-            PlayerPrefs.Save();
-            currentEmergency = 1;
-        }
+    }
 
-        public void TabletConnLoss()
+    private void Update()
+    {
+/*        if (Input.GetKey(KeyCode.L))
         {
-            Debug.Log("Tablet connection loss");
-            _emergencyEvents[1]._emergencyChance = 0f;
-            PlayerPrefs.SetInt("TabletConnLoss done", 1);
-            PlayerPrefs.Save();
             currentEmergency = 2;
-        }
+        }*/
+        print("This is from EmergencyManager: " + currentEmergency.ToString());
+    }
 
-        public void BrokenOnTakeoffEmergency()
-        {
-            Debug.Log("Broken on takeoff");
-            PlayerPrefs.SetInt("BrokenOnTakeoffEmergency done", 1);
-            PlayerPrefs.Save();
-            ResetEmergenciesSession();
-            currentEmergency = 3;
-            // Audio of broken drone, crash when hit waypoint.
-        }
-        #endregion
+    // Method where the emergency is caused.
+    public void RandomEmergency()
+    {
+        _preFlightChecklist = FindObjectOfType<PreFlightChecklist>();
 
-        public void NoEmergency()
+        if (_preFlightChecklist.allPointsChecked == false && takeOffPlayedBefore == false)
         {
-            currentEmergency = 0;
+            BrokenOnTakeoffEmergency();
         }
-
-        public void ResetEmergenciesSession()
+        else if (_emergencyEvents[0]._emergencyChance == 0 && _emergencyEvents[1]._emergencyChance == 0)
         {
-            currentEmergency = 0;
-            Debug.Log("Reset");
-            takeOffPlayedBefore = false;
+            BrokenOnTakeoffEmergency();
+        }
+        else
+        {
+            float _totalChance = 0f;
             foreach (EmergencyEvents _events in _emergencyEvents)
             {
-                _events._emergencyChance = _events._originalEmergencyChance;
+                _totalChance += _events._emergencyChance;
+            }
+
+            // Picks a random number between 0 and the value of _totalChance.
+            float random = Random.Range(0f, _totalChance);
+            float cumulativeEmergencyChance = 0f;
+
+            // Goes through each event.
+            foreach (EmergencyEvents _events in _emergencyEvents)
+            {
+                cumulativeEmergencyChance += _events._emergencyChance;
+
+                if (random <= cumulativeEmergencyChance)
+                {
+                    _events._emergencyEvent.Invoke();
+                    return;
+                }
             }
         }
     }
-
-    // Class defining the array "_emergencyEvents".
-    [System.Serializable]
-    public class EmergencyEvents
+    #region Emergency event methods
+    public void GPSjam()
     {
-        [SerializeField] private string _emergencyName;
-        [Space]
-        [Space]
-        [SerializeField] [Range(0f, 1f)] public float _originalEmergencyChance;
-        [SerializeField] [Range(0f, 1f)] public float _emergencyChance;
-        [SerializeField] public UnityEvent _emergencyEvent;
+        currentEmergency = 1;
+        Debug.Log("GPS jam");
+        _emergencyEvents[0]._emergencyChance = 0f;
+        PlayerPrefs.SetInt("GPSjam done", 1);
+        PlayerPrefs.Save();
+
     }
+
+    public void TabletConnLoss()
+    {
+        currentEmergency = 2;
+        Debug.Log("Tablet connection loss");
+        _emergencyEvents[1]._emergencyChance = 0f;
+        PlayerPrefs.SetInt("TabletConnLoss done", 1);
+        PlayerPrefs.Save();
+    }
+
+    public void BrokenOnTakeoffEmergency()
+    {
+        Debug.Log("Broken on takeoff");
+        PlayerPrefs.SetInt("BrokenOnTakeoffEmergency done", 1);
+        PlayerPrefs.Save();
+        ResetEmergenciesSession();
+        currentEmergency = 3;
+        takeOffPlayedBefore = true;
+        // Audio of broken drone, crash when hit waypoint.
+    }
+    #endregion
+
+    public void NoEmergency()
+    {
+        currentEmergency = 0;
+    }
+
+    public void ResetEmergenciesSession()
+    {
+        //currentEmergency = 0;
+        Debug.Log("Reset");
+        takeOffPlayedBefore = false;
+        foreach (EmergencyEvents _events in _emergencyEvents)
+        {
+            _events._emergencyChance = _events._originalEmergencyChance;
+        }
+    }
+}
+
+// Class defining the array "_emergencyEvents".
+[System.Serializable]
+public class EmergencyEvents
+{
+    [SerializeField] private string _emergencyName;
+    [Space]
+    [Space]
+    [SerializeField][Range(0f, 1f)] public float _originalEmergencyChance;
+    [SerializeField][Range(0f, 1f)] public float _emergencyChance;
+    [SerializeField] public UnityEvent _emergencyEvent;
+}

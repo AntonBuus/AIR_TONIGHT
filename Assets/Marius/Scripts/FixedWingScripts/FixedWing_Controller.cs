@@ -118,9 +118,11 @@ public class FixedWing_Controller : MonoBehaviour
                 AutoPilot();
             }
 
+            if (grabbedController)
+            {
                 ManualControl();
+            }
             
-
             if(rtlActive == true)
             {
                 RTL();
@@ -170,7 +172,7 @@ public class FixedWing_Controller : MonoBehaviour
 
     private void ManualControl()
     {
-        if (!manualControl && grabbedController == true && autoPilot == false && rtlActive == false)
+        if (grabbedController == true && autoPilot == false && rtlActive == false)
         {
             manualControl = true;
             autoPilot = false;
