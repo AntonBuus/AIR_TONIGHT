@@ -26,7 +26,7 @@ public class Menu_Manager : MonoBehaviour
     [SerializeField] private GameObject gpsJamCanvas;
     [SerializeField] private GameObject tabletConnLossCanvas;
     [SerializeField] private GameObject brokenOnTakeoffEmergencyCanvas;
-    [SerializeField] private GameObject reportStatusGO;
+    [SerializeField] private GameObject endScreenCanvas;
     [SerializeField] private TMP_Text reportStatusText;
 
     [SerializeField] private Button gpsJamButton;
@@ -190,9 +190,8 @@ public class Menu_Manager : MonoBehaviour
         {
             endSreenCanvasActivated = false;
             CrashLandingDetection _crashLandingDetection = FindObjectOfType<CrashLandingDetection>();
-            bool _droneCrashed = _crashLandingDetection.droneCrashed;
 
-            if (_droneCrashed == true && disarmNotAllowed == true)
+            if (_crashLandingDetection.droneCrashed == true && disarmNotAllowed == true)
             {
                 reportStatusText.text = "Fail!";
             }
@@ -201,7 +200,7 @@ public class Menu_Manager : MonoBehaviour
                 reportStatusText.text = "Success!";
             }
 
-            reportStatusGO.SetActive(true);
+            endScreenCanvas.SetActive(true);
 
             switch (_emergencyManager.currentEmergency)
             {

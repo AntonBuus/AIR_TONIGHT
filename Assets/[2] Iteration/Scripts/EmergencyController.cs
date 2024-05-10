@@ -15,7 +15,6 @@ public class EmergencyController : MonoBehaviour
     private Menu_Manager _menu_Manager;
     private NewHUD _newHUD;
     private DroneVariables _droneVariables;
-    private CrashLandingDetection _crashLandingDetection;
 
     [SerializeField] private Button autoPilotToggle;
     [SerializeField] private Button rtlButton;
@@ -51,7 +50,7 @@ public class EmergencyController : MonoBehaviour
         _droneVariables = FindObjectOfType<DroneVariables>();
         _menu_Manager = FindObjectOfType<Menu_Manager>();
         _newHUD = FindObjectOfType<NewHUD>();
-        _crashLandingDetection = FindAnyObjectByType<CrashLandingDetection>();
+
         //print(_emergencyManager.currentEmergency);
     }
 
@@ -68,10 +67,7 @@ public class EmergencyController : MonoBehaviour
             case 3:
                 BrokenOnTakeoff();
                 break;
-        }
-
-        print("This is from the EmergencyController.cs: "+EmergencyManager.emInstance.currentEmergency.ToString());
-        
+        }        
     }
 
     // disable autopilot to imitate no gps signal.
@@ -110,11 +106,10 @@ public class EmergencyController : MonoBehaviour
     // disable autopilot and manualControl to imitate GPS and controller connection loss.
     private void TabletConnLoss()
     {
-        print("TabletConnLoss(); running - EmergencyController.cs");
         //Should prevent ToggleThrottle button from working
         if (Vector3.Distance(drone.transform.position, tabletConnLossInitWaypoint.position) < _threshold)
         {
-            print("Reached waypoint");
+
             emergencyBegun = 2;
             if (autopilotToggled == false)
             {
@@ -138,7 +133,6 @@ public class EmergencyController : MonoBehaviour
                     toggle.enabled = false;
                 }
 
-                tablet.GetComponentInChildren<Toggle>().enabled = false;
                 _newHUD.enabled = false;
                 _droneVariables.enabled = false;
                 _newHUD.FailsafeText();
@@ -169,6 +163,7 @@ public class EmergencyController : MonoBehaviour
             //_fixedWing_Controller.ToggleThrottle();
             drone.GetComponent<AudioSource>().clip = brokenDroneSoundWoosh; // Tell the AudioSource to become that sound
             _menu_Manager.disarmNotAllowed = false;
+
         }
 
 

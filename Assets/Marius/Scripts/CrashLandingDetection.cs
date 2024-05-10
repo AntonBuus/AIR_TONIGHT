@@ -19,26 +19,23 @@ public class CrashLandingDetection : MonoBehaviour
     private DroneVariables _droneVariables;
     private int _emergencyBegun;
 
+    private Rigidbody rigidbody;
+
     private void Start()
     {
         menuManager = FindObjectOfType<Menu_Manager>();
         _emergencyController = FindObjectOfType<EmergencyController>();
         _droneVariables = FindAnyObjectByType<DroneVariables>();
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     //Checks for crash
     private void OnTriggerEnter(Collider other) //Check if the trigger colliders collides with anything.
     {
         Instantiate(crashExplosion, transform.position, Quaternion.identity);
-        try
-        {
-            menuManager.MissionEndScreen();
-        }
-        catch
-        {
-            print("Menu_Manager object not found in scene");
-        }
-        
+
+        menuManager.MissionEndScreen();
+
         droneCrashed = true;
         droneLanded = false;
 
@@ -48,8 +45,7 @@ public class CrashLandingDetection : MonoBehaviour
     //Checks for landing 
     private void OnCollisionStay(Collision collision) //Checks if the colliders on the drone's wheels are touching the ground
     {
-
-        if (!droneCrashed && _emergencyController.emergencyBegun > 0 && _droneVariables._droneVelocity < 1)
+        if (!droneCrashed && _emergencyController.emergencyBegun > 0 && rigidbody.velocity.magnitude < 2) //if the drone is not crashed, emergency begun is more than 0, and the drones speed is less than 2.
         {
             print("End Screen");
             menuManager.MissionEndScreen();

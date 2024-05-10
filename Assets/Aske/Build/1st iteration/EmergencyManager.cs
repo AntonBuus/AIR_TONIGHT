@@ -32,15 +32,6 @@ public class  EmergencyManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-/*        if (Input.GetKey(KeyCode.L))
-        {
-            currentEmergency = 2;
-        }*/
-        print("This is from EmergencyManager: " + currentEmergency.ToString());
-    }
-
     // Method where the emergency is caused.
     public void RandomEmergency()
     {

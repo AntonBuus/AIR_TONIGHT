@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RcController : MonoBehaviour
 {
@@ -25,4 +26,9 @@ public class RcController : MonoBehaviour
             autoPilotOnOverlay.SetActive(false);
         }
     }
+
+/*    public void AutoPilotOnOffButton(bool onOff)
+    {
+        autoPilotOnOff.GetComponent<Button>().enabled = onOff;
+    }*/
 }

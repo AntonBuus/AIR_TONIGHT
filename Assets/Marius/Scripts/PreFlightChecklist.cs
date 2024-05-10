@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PreFlightChecklist : MonoBehaviour
 {
@@ -18,7 +19,11 @@ public class PreFlightChecklist : MonoBehaviour
     {
         checklistPoints = GetComponentsInChildren<Toggle>(); //Gets all childcomponents of type Toggle and assigns to array
 
-        
+        if(SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            readyForTakeoffButton.onClick.AddListener(delegate { EmergencyManager.emInstance.RandomEmergency(); });
+        }
+
         foreach (Toggle t in checklistPoints)
         {
             t.onValueChanged.AddListener(delegate { CheckOffPoint(); }); //Adds to CheckOffPoint method to the OnValueChanged event on each CheckOffPoint so we don't have to do it in the inspector.

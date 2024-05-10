@@ -101,6 +101,17 @@ public class FixedWing_Controller : MonoBehaviour
         propellerL.transform.Rotate(0f, -1 * thrustPercent * propellerSpeed * Time.fixedDeltaTime, 0f); //Rotates the left propeller clockwise
         
         propellerSound.pitch = Mathf.Clamp(thrustPercent * 5, 0f, 5f);
+
+
+        if (grabbedController == true && autoPilot == false && rtlActive == false)
+        {
+            manualControl = true;
+        }
+        else
+        {
+            SetControlSurfacesAngles(0, 0, 0, 0);
+            manualControl = false;
+        }
     }
 
     public void BoolGrabbedController(bool isGrabbed)
@@ -110,6 +121,8 @@ public class FixedWing_Controller : MonoBehaviour
 
     public void FixedUpdate()
     {
+
+
         WheelBrakes();
         if (controlFailure == false)
         {
@@ -118,12 +131,12 @@ public class FixedWing_Controller : MonoBehaviour
                 AutoPilot();
             }
 
-            if (grabbedController)
+            if(manualControl)
             {
                 ManualControl();
             }
             
-            if(rtlActive == true)
+            if(rtlActive)
             {
                 RTL();
             }
@@ -172,17 +185,6 @@ public class FixedWing_Controller : MonoBehaviour
 
     private void ManualControl()
     {
-        if (grabbedController == true && autoPilot == false && rtlActive == false)
-        {
-            manualControl = true;
-            autoPilot = false;
-            rtlActive = false;
-        }
-        else if(grabbedController == false)
-        {
-            manualControl = false;
-        }
-        
         thrustPercent = Mathf.Clamp(thrustPercent + FWInputs.Throttle, 0, ThrustPercent(1f)); //This line sets thrustPercent according to the value of the Throttle input, limited to a value between 0 and 1.
         SetControlSurfacesAngles(FWInputs.Pitch, FWInputs.Roll, -FWInputs.Yaw, Flap);
     }
@@ -192,10 +194,10 @@ public class FixedWing_Controller : MonoBehaviour
         SetControlSurfacesAngles(0, 0, 0, 0);
 
         //If drone is in the air, set thrust percent
-        if (transform.position.y > 2) 
+        if (transform.position.y > 2)
         {
             thrustPercent = ThrustPercent(0.5f);
-        }       
+        }
 
         Vector3 tempWaypoint = (activeWaypoint.position - transform.position).normalized; //Calculates and stores the direction of the next waypoint 
 
@@ -222,6 +224,12 @@ public class FixedWing_Controller : MonoBehaviour
 
     public void RTL()
     {
+        //If drone is in the air, set thrust percent
+        if (transform.position.y > 2)
+        {
+            thrustPercent = ThrustPercent(0.75f);
+        }
+
         Vector3 tempWaypoint = (activeRTLWaypoint.position - transform.position).normalized; //Calculates and stores the direction of the next waypoint 
 
         Quaternion lookRotation = Quaternion.LookRotation(tempWaypoint); //Calculates and stores the rotation towards the next waypoint
@@ -299,20 +307,17 @@ public class FixedWing_Controller : MonoBehaviour
 
     public void ToggleAutoPilot()
     {
-/*        //SHould only set throttle to 0.5f if the drone is in the air, and not on the ground
-        if(thrustPercent < 0)
-        {
-            thrustPercent = ThrustPercent(0.5f);
-        }*/
-
         rtlActive = false;
-        manualControl = false;
 
         if (autoPilot == true)
         {
             autoPilot = false;
         }
-        else if(autoPilot == false && emergencyController.emergencyBegun == 2) //OG emergencybegun ikke er tabconnloss (int = 2)
+        else if(autoPilot == false && emergencyController.emergencyBegun == 2)
+        {
+            autoPilot = false;
+        }
+        else
         {
             autoPilot = true;
         }
