@@ -15,6 +15,8 @@ public class CrashLandingDetection : MonoBehaviour
     public bool droneCrashed = false;
     public bool droneLanded;
 
+    private bool toggleSwitch = false;
+
     private EmergencyController _emergencyController;
     private DroneVariables _droneVariables;
     private int _emergencyBegun;
@@ -34,10 +36,10 @@ public class CrashLandingDetection : MonoBehaviour
     {
         Instantiate(crashExplosion, transform.position, Quaternion.identity);
 
-        menuManager.MissionEndScreen();
-
         droneCrashed = true;
         droneLanded = false;
+
+        menuManager.MissionEndScreen();
 
         this.gameObject.SetActive(false);
     }
@@ -47,14 +49,18 @@ public class CrashLandingDetection : MonoBehaviour
     {
         if (!droneCrashed && _emergencyController.emergencyBegun > 0 && rigidbody.velocity.magnitude < 2) //if the drone is not crashed, emergency begun is more than 0, and the drones speed is less than 2.
         {
-            print("End Screen");
-            menuManager.MissionEndScreen();
+            if(toggleSwitch == false)
+            {
+                toggleSwitch = true;
+                menuManager.MissionEndScreen();
+            }
         }
-        droneLanded = true;
+
     }
 
     private void OnCollisionExit(Collision collision) //Checks if the colliders on the drone's wheels aren't touching the ground
     {
         droneLanded = false;
+        toggleSwitch = false;
     }
 }

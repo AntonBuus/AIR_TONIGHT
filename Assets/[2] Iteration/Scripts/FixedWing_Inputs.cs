@@ -16,7 +16,7 @@ public class FixedWing_Inputs : MonoBehaviour
     private float _yaw; //Corresponds to the yaw action in our action map, is a float value because our pedals value goes from -1 to 1.
     private float _throttle; //Correspond to the throttle action in our action map, is a float value because our pedals value goes from -1 to 1.
 
-    //Below lines are encapsulating properties. Not entirely sure of that concept yet... Search "Encapsulating property" to find out
+    //Below lines are encapsulating properties that essentially just assigns the values of the input to the variables.
     public float Pitch { get => _pitch; }
     public float Roll { get => _roll; }
     public float Yaw { get => _yaw; }

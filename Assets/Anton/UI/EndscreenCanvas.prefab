@@ -2940,7 +2940,7 @@ GameObject:
   - component: {fileID: 4378623348497374994}
   - component: {fileID: 6752675090251986292}
   m_Layer: 5
-  m_Name: EndscreenCanvas
+  m_Name: EndScreenCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3141,7 +3141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5486681184972559845
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3191,13 +3191,13 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Emergency cause:
 
-    Drone damaged during transport.
+    Engine failure. Drone damaged during transport.
 
 
-    Correct procedure:
+    Correct
+    procedure:
 
-    Land
-    manually or disarm.'
+    Land manually or disarm. Remember to check the checklist.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc7cb0ef02f6ef54ab686f16bb49e580, type: 2}
   m_sharedMaterial: {fileID: 6691473918514908931, guid: dc7cb0ef02f6ef54ab686f16bb49e580, type: 2}

@@ -253,7 +253,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 97, y: -277}
+  m_AnchoredPosition: {x: 97, y: -259.6}
   m_SizeDelta: {x: 160, y: 45}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &2104276124
@@ -13859,7 +13859,7 @@ MonoBehaviour:
   gpsJamCanvas: {fileID: 0}
   tabletConnLossCanvas: {fileID: 0}
   brokenOnTakeoffEmergencyCanvas: {fileID: 0}
-  reportStatusGO: {fileID: 0}
+  endScreenCanvas: {fileID: 0}
   reportStatusText: {fileID: 0}
   gpsJamButton: {fileID: 4093666180199807953}
   brokenOnTakeoffEmergencyButton: {fileID: 7048869594768868415}

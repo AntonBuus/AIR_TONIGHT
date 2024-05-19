@@ -185,48 +185,39 @@ public class Menu_Manager : MonoBehaviour
 
     public void MissionEndScreen()
     {
-        bool endSreenCanvasActivated = true;
-        if (endSreenCanvasActivated == true)
+        endScreenCanvas.SetActive(true);
+
+        CrashLandingDetection _crashLandingDetection = FindObjectOfType<CrashLandingDetection>();
+
+        if (_crashLandingDetection.droneCrashed == true /*&& disarmNotAllowed == true*/)
         {
-            endSreenCanvasActivated = false;
-            CrashLandingDetection _crashLandingDetection = FindObjectOfType<CrashLandingDetection>();
-
-            if (_crashLandingDetection.droneCrashed == true && disarmNotAllowed == true)
-            {
-                reportStatusText.text = "Fail!";
-            }
-            else
-            {
-                reportStatusText.text = "Success!";
-            }
-
-            endScreenCanvas.SetActive(true);
-
-            switch (_emergencyManager.currentEmergency)
-            {
-                case 0:
-                    break;
-                    //free flight endscreencanvas
-                case 1:
-                    gpsJamCanvas.SetActive(gpsJamCanvas);
-                    gpsJamCanvas.transform.position = _mainCamera.position + new Vector3(_mainCamera.forward.x, 0, _mainCamera.forward.z).normalized * _spawnDistance;
-                    gpsJamCanvas.transform.LookAt(new Vector3(_mainCamera.position.x, _menu.transform.position.y, _mainCamera.position.z));
-                    gpsJamCanvas.transform.forward *= -1;
-                    break;
-                case 2:
-                    tabletConnLossCanvas.SetActive(tabletConnLossCanvas);
-                    tabletConnLossCanvas.transform.position = _mainCamera.position + new Vector3(_mainCamera.forward.x, 0, _mainCamera.forward.z).normalized * _spawnDistance;
-                    tabletConnLossCanvas.transform.LookAt(new Vector3(_mainCamera.position.x, _menu.transform.position.y, _mainCamera.position.z));
-                    tabletConnLossCanvas.transform.forward *= -1;
-                    break;
-                case 3:
-                    brokenOnTakeoffEmergencyCanvas.SetActive(brokenOnTakeoffEmergencyCanvas);
-                    brokenOnTakeoffEmergencyCanvas.transform.position = _mainCamera.position + new Vector3(_mainCamera.forward.x, 0, _mainCamera.forward.z).normalized * _spawnDistance;
-                    brokenOnTakeoffEmergencyCanvas.transform.LookAt(new Vector3(_mainCamera.position.x, _menu.transform.position.y, _mainCamera.position.z));
-                    brokenOnTakeoffEmergencyCanvas.transform.forward *= -1;
-                    break;
-            }
+            reportStatusText.text = "Fail!";
         }
+        else
+        {
+            reportStatusText.text = "Success!";
+        }
+
+        switch (_emergencyManager.currentEmergency)
+        {
+            case 0:
+                break;
+            //free flight endscreencanvas
+            case 1:
+                gpsJamCanvas.SetActive(gpsJamCanvas);
+
+                break;
+            case 2:
+                tabletConnLossCanvas.SetActive(tabletConnLossCanvas);
+                break;
+            case 3:
+                brokenOnTakeoffEmergencyCanvas.SetActive(brokenOnTakeoffEmergencyCanvas);
+                break;
+        }
+        endScreenCanvas.transform.position = _mainCamera.position + new Vector3(_mainCamera.forward.x, 0, _mainCamera.forward.z).normalized * _spawnDistance;
+        endScreenCanvas.transform.LookAt(new Vector3(_mainCamera.position.x, _menu.transform.position.y, _mainCamera.position.z));
+        endScreenCanvas.transform.forward *= -1;
+
 
     }
 }
