@@ -7,7 +7,7 @@ public class PsController : MonoBehaviour
 {
     DroneControls controls;
 
-    int acenddecendVariable = 1;
+    //int acenddecendVariable = 1;
 
     Vector2 move;
 
